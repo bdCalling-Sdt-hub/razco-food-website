@@ -4,6 +4,7 @@ import img1 from "@/assets/fruit1.png";
 import img2 from "@/assets/fruit2.png";
 import img3 from "@/assets/offer.png";
 import { CloseOutlined } from "@ant-design/icons";
+import Link from "next/link";
 const products = [
   {
     key: 1,
@@ -111,10 +112,12 @@ const Summary = () => {
       </p>
 
       <div className="  text-center my-6 ">
-        <button className=" bg-[#7CC84E] text-white w-1/2  p-2 rounded ">
-          {" "}
-          Check Out
-        </button>
+        <Link href="/paymentDetails">
+          <button className=" bg-[#7CC84E] text-white w-1/2  p-2 rounded ">
+            {" "}
+            Check Out
+          </button>
+        </Link>
       </div>
     </div>
   );
