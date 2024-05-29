@@ -178,11 +178,16 @@ const Navbar = () => {
         {/* cart btn   */}
         <div className="flex gap-3 ">
           <button className="text-3xl ">
-            <ShoppingCartOutlined />{" "}
+            <Link href="/addCart">
+              <ShoppingCartOutlined />{" "}
+            </Link>
           </button>
+
           <button className="text-3xl">
-            {" "}
-            <HeartOutlined />{" "}
+            <Link href="/favorite">
+              {" "}
+              <HeartOutlined />{" "}
+            </Link>
           </button>
         </div>
       </div>
