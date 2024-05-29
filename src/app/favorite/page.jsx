@@ -8,6 +8,7 @@ import img3 from "@/assets/fruit2.png";
 import { Pagination } from "antd";
 import Link from "next/link";
 import Login from "@/Components/Authentication/Login/Login";
+import ForgetPassword from "@/Components/Authentication/ForgetPassword/ForgetPassword";
 
 const itemRender = (_, type, originalElement) => {
   if (type === "prev") {
@@ -79,7 +80,7 @@ const page = () => {
         <Pagination total={50} itemRender={itemRender} />
       </div>
 
-      <Login />
+      <ForgetPassword />
     </div>
   );
 };
