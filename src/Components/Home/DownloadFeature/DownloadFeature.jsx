@@ -5,10 +5,10 @@ import bgImg from "@/assets/bgImg.png";
 import mobile from "@/assets/mobile.png";
 const DownloadFeature = () => {
   return (
-    <div className=" bg-[#F2FAED] ">
-      <div className=" grid lg:grid-cols-2 grid-cols-1 gap-3 lg:ps-[270px] lg:pe-[250px] pt-5 pb-5 lg:pt-20 lg:pb-24 justify-items-center">
+    <div className=" bg-[#F2FAED]">
+      <div className="container grid grid-cols-12 gap-20 py-10">
         {/* 1 st side  */}
-        <div className="p-3 lg:pe-4">
+        <div className="col-span-6">
           <h1 className="text-5xl font-semibold mb-3  leading-relaxed ">
             Download Our Grocery Mobile App And Save Time, Mony
           </h1>
@@ -43,14 +43,15 @@ const DownloadFeature = () => {
             </div>
           </div>
         </div>
+
         {/* 2nd side  */}
-        <div className="relative">
+        <div className="col-span-6 relative">
           <Image
             src={bgImg}
             sizes="100vw"
             width={800} // Set an appropriate width valu
             height={500}
-            style={{ width: "100%", height: "500px" }}
+            style={{ width: "100%", height: "100%", margin: "auto" }}
             alt=" "
           />
           <div className="absolute top-3 left-1/3 translate-x-[-8%]">

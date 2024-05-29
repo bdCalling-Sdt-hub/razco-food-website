@@ -36,13 +36,13 @@ const products = [...Array(8).keys()].map((index) => ({
 
 const page = () => {
   return (
-    <div className=" lg:mt-10 lg:ps-[270px] lg:pe-[250px] lg:mb-20 ">
-      <div className=" grid lg:grid-cols-4 grid-cols-1 relative">
+    <div className="container mb-16 mt-10 relative">
+      <div className=" grid lg:grid-cols-4 grid-cols-1 gap-6 relative">
         {products.map((product) => (
           <Link href="./productDetails" key={product.key}>
             {" "}
-            <div className=" mx-auto mt-16">
-              <div className="bg-gray-100 shadow-sm rounded  lg:w-72 w-full py-3 relative ">
+            <div className=" mx-auto">
+              <div className="bg-gray-100 shadow-sm rounded w-full py-3 relative ">
                 <p className="px-3"> {product.imgURL}</p>
                 <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
                   {" "}
@@ -76,11 +76,21 @@ const page = () => {
         ))}
       </div>
 
-      <div className=" absolute right-3 lg:right-[270px] mt-7 me-3">
-        <Pagination total={50} itemRender={itemRender} />
+      <div className="flex items-start justify-start mt-10 relative">
+        <Pagination 
+          total={50}
+          showTotal={(total, range) => 
+            <span className="text-[#929394] font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
+                {`Showing ${range[0]}-${range[1]} of ${total} items`}
+            </span>
+          }
+        />
       </div>
+<<<<<<< HEAD
 
       <ForgetPassword />
+=======
+>>>>>>> ed2c4ef23aed08157b516c749bdfb89a066c5316
     </div>
   );
 };
