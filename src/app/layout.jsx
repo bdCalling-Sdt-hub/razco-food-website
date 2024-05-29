@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body className={poppins.className} suppressHydrationWarning={true}>
         <AntdRegistry>
           <Navbar />
-          <div className="  mx-auto ms-5 me-5 custom-class">{children}</div>
+          <div className="custom-class">{children}</div>
           <Footer />
         </AntdRegistry>
       </body>

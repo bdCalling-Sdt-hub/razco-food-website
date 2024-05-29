@@ -23,7 +23,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="lg:ms-[270px] lg:me-[270px] lg:mt-10 bg-gray-200 ">
+    <div className="container my-10">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
