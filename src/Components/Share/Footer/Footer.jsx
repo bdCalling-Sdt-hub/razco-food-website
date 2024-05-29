@@ -27,16 +27,16 @@ const Footer = () => {
                 Information
               </h6>
               <p className="mb-4">
-                <a href="#!">About Us</a>
+                <a href="/about">About Us</a>
               </p>
               <p className="mb-4">
-                <a href="#!">FAQ</a>
+                <a href="/faq">FAQ</a>
               </p>
               <p className="mb-4">
-                <a href="#!">Privacy Policy</a>
+                <a href="/privacy">Privacy Policy</a>
               </p>
               <p>
-                <a href="#!">Terms & Condition</a>
+                <a href="/terms">Terms & Condition</a>
               </p>
           </div>
 

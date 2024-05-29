@@ -29,7 +29,7 @@ const Imagebar = () => {
         }}
         loop={true}
         spaceBetween={10}
-        navigation={true}
+        // navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2 "

@@ -8,10 +8,12 @@ import {
   AppstoreAddOutlined,
   DownOutlined
 } from "@ant-design/icons";
-import { Dropdown, Input, Space, Typography } from "antd";
+import { Dropdown, Input, Space, Typography, Select } from "antd";
 import fruit from "@/assets/fruit1.png";
 import fruit1 from "@/assets/fruit2.png";
 import Link from "next/link";
+const { Option } = Select;
+
 
 const items = [
   {
@@ -86,7 +88,9 @@ const Navbar = () => {
 
       {/* 1st navbar  */}
       <div className="container flex items-center  justify-between w-full py-2">
-          <Image src={title} style={{height: 60}} width={160} alt="Photo" />
+          <Link href={`/`}>
+            <Image src={title} style={{height: 60}} width={160} alt="Photo" />
+          </Link>
           <Input
             onChange={(e)=>setkeyword(e.target.value)}
             value={keyword}
@@ -111,25 +115,24 @@ const Navbar = () => {
       {/* 2nd navbar  */}
       <div className="w-full bg-[#EFEEF6]">
         <div className="container  flex items-center  justify-between ">
-        {/* dropdown  */}
-        <Dropdown
-          className=" bg-[#7CC84E] py-3 px-9 rounded text-lg "
-          menu={{
-            items,
-            selectable: true,
-            style: {
-              padding: "10px",
-            },
-          }}
-        >
-          <Typography.Link>
-            <Space>
-              <AppstoreAddOutlined />
-              Browse All Categories
-              <DownOutlined />
-            </Space>
-          </Typography.Link>
-        </Dropdown>
+          <div className="bg-primary w-[321px] rounded-lg navbar">
+            <Select
+                  placeholder="Select Category"
+                  style={{
+                    background: "#7CC84E",
+                    width: "100%",
+                    height: 48,
+                    outline: "none",
+                    borderRadius: "5px",
+                    color: "white"
+                  }}
+                >
+                  <Option value="200">Fresh Fruits</Option>
+                  <Option value="100">Organic</Option>
+                  <Option value="300">Fish</Option>
+                  <Option value="400">Meat</Option>
+            </Select>
+          </div>
 
         {/* menu  */}
 
