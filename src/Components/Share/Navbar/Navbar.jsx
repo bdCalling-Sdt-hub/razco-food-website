@@ -148,8 +148,12 @@ const Navbar = () => {
 
           {/* cart btn   */}
           <div className="flex items-center gap-6">
-            <RiShoppingCartLine color="#555656" size={24}/>
-            <IoHeartOutline color="#555656" size={24}/>
+            <Link  href={`/addCart`}>
+              <RiShoppingCartLine  className="cursor-pointer" color="#555656" size={24}/>
+            </Link>
+            <Link  href={`/favorite`}>
+              <IoHeartOutline  className="cursor-pointer" color="#555656" size={24}/>
+            </Link>
           </div>
         </div>
 
