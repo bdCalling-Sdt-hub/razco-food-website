@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Checkbox } from "antd";
 import { DatePicker, TimePicker, Select, Space } from "antd";
 import Link from "next/link";
+import EditAddressModal from "@/Components/PaymentDetails/EditAddressModal";
 
 const { Option } = Select;
 const PickerWithType = ({ type, onChange }) => {
@@ -13,6 +14,10 @@ const PickerWithType = ({ type, onChange }) => {
 
 const page = () => {
   const [type, setType] = useState("time");
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+    setOpen(true);
+  };
 
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
@@ -30,7 +35,10 @@ const page = () => {
             {" "}
             Delivery Address{" "}
           </p>
-          <button className=" text-white rounded p-2 bg-[#5B52A3] px-2">
+          <button
+            className=" text-white rounded p-2 bg-[#5B52A3] px-2"
+            onClick={showModal}
+          >
             {" "}
             Edit Address
           </button>
@@ -121,6 +129,8 @@ const page = () => {
             </button>
           </Link>
         </div>
+
+        <EditAddressModal open={open} setOpen={setOpen} />
       </div>
     </div>
   );

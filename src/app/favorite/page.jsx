@@ -7,6 +7,7 @@ import img2 from "@/assets/fruit1.png";
 import img3 from "@/assets/fruit2.png";
 import { Pagination } from "antd";
 import Link from "next/link";
+import Login from "@/Components/Authentication/Login/Login";
 
 const itemRender = (_, type, originalElement) => {
   if (type === "prev") {
@@ -77,6 +78,8 @@ const page = () => {
       <div className=" absolute right-3 lg:right-[270px] mt-7 me-3">
         <Pagination total={50} itemRender={itemRender} />
       </div>
+
+      <Login />
     </div>
   );
 };
