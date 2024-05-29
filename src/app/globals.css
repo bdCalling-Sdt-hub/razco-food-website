@@ -14,3 +14,11 @@
 .ant-space-gap-col-small {
   column-gap: 25px;
 }
+
+body{
+  font-family: 'Poppins', sans-serif;
+}
+
+.custom-class {
+  font-family: 'Poppins', sans-serif;
+}
