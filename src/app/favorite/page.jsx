@@ -25,7 +25,7 @@ const products = [...Array(8).keys()].map((index) => ({
 const page = () => {
   return (
     <div className="container mb-16 mt-10 relative">
-      <div className=" grid lg:grid-cols-4 grid-cols-1 gap-6 relative">
+      <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 relative">
         {products.map((product) => (
           <Link href="./productDetails" key={product.key}>
             {" "}
@@ -38,7 +38,7 @@ const page = () => {
                 </p>
                 <div className="px-5 pb-5">
                   <div className="flex justify-between px-1 pt-3">
-                    <h3 className="text-[555656] font-medium text-xl tracking-tight ">
+                    <h3 className="text-[555656] font-medium text-[16px] md:text-xl tracking-tight ">
                       {product.title}
                     </h3>
                     <p className="text-[#929394] text-sm "> 1 pc</p>
@@ -64,14 +64,14 @@ const page = () => {
         ))}
       </div>
 
-      <div className="flex items-start justify-start mt-10 relative">
-        <Pagination
+      <div className="flex items-center sm:items-start justify-center md:justify-start mt-10 relative">
+        <Pagination 
           total={50}
-          showTotal={(total, range) => (
-            <span className="text-[#929394] font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
-              {`Showing ${range[0]}-${range[1]} of ${total} items`}
+          showTotal={(total, range) => 
+            <span className="text-[#929394] hidden sm:block font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
+                {`Showing ${range[0]}-${range[1]} of ${total} items`}
             </span>
-          )}
+          }
         />
       </div>
     </div>
