@@ -7,7 +7,7 @@
   font-size: 18px;
 }
 
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -21,56 +21,58 @@
   column-gap: 25px;
 }
 
-body{
-  font-family: 'Poppins', sans-serif;
+body {
+  font-family: "Poppins", sans-serif;
 }
 
 .custom-class {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-
 /* this is the react slick slider custom navigation button css start here */
-.prev, .next{
+.prev,
+.next {
   top: -55px;
   height: 35px;
   width: 35px;
-  background-color: #F4F5F7;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  background-color: #f4f5f7;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   border-radius: 4px;
   font-size: 20px;
   position: absolute;
   transition: all 0.1s ease;
   z-index: 2;
 }
-.prev{
+.prev {
   right: 55px;
 }
 
-.next{
+.next {
   right: 0;
 }
 
 /* this is the react slick slider custom navigation button css end here */
 
 /* ant design custom  css */
-.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector{
-  border: 1px solid #7CC84E !important;
+.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  border: 1px solid #7cc84e !important;
 }
 
-.ant-pagination .ant-pagination-item-active{
+.ant-pagination .ant-pagination-item-active {
   font-weight: 600;
-  background-color: #5B52A3 !important;
+  background-color: #5b52a3 !important;
   border: none !important;
   border-color: none !important;
 }
 
-
-.ant-pagination .ant-pagination-item-active a{
-  color: #FFFFFF !important;
+.ant-pagination .ant-pagination-item-active a {
+  color: #ffffff !important;
 }
 
-.navbar .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+.navbar
+  .ant-select-outlined:not(.ant-select-customize-input)
+  .ant-select-selector {
   background: transparent !important;
 }
 
