@@ -4,12 +4,14 @@ import { Form, Input } from "antd";
 
 const Settings = () => {
   return (
-    <div>
+    <div className="p-5 lg:mt-2  mt-8">
       <CommonHeading title={"Change Password "} />
       <Form layout="vertical">
         <Form.Item
           name="password"
-          label={<p className="text-[#6A6D7C] text-lg">Current Password</p>}
+          label={
+            <p className="text-[#6A6D7C] text-lg lg:mt-6">Current Password</p>
+          }
         >
           <Input.Password
             placeholder="Enter Your Password"
@@ -44,7 +46,7 @@ const Settings = () => {
         </Form.Item>
 
         <Form.Item className="">
-          <button className="bg-[#7CC84E] h-12 text-white text-lg w-1/4 mt-6  rounded  ">
+          <button className="bg-[#7CC84E] h-12 text-white lg:text-lg text-sm w-1/3 lg:w-1/4 mt-6  rounded  ">
             Save Changes
           </button>
         </Form.Item>

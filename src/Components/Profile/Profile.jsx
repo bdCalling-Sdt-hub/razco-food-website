@@ -65,15 +65,14 @@ const Profile = () => {
   ];
   return (
     <div
-      className="container mb-16 mt-10 grid grid-cols-12 gap-10 p-[50px] rounded "
+      className="container mb-16 mt-10 grid grid-cols-12 lg:gap-10 lg:p-[50px] p-1 gap-[2px] rounded "
       style={{
         boxShadow:
           "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
-        
       }}
     >
       <aside className="col-span-12  md:col-span-3 order-1 md:order-1">
-        <div className="w-fit relative mb-3 mx-auto">
+        <div className="w-fit relative mb-3 mx-auto  lg:pt-1 pt-5">
           <Image
             src={imgUrl ? imgUrl : profileImage}
             width={95}
@@ -117,10 +116,10 @@ const Profile = () => {
                                             ? "bg-[#EFEEF6]"
                                             : null
                                         }
-                                        flex p-[10px] hover:bg-[#EFEEF6] 
+                                        flex p-3 lg:p-[10px] hover:bg-[#EFEEF6] 
                                         transition-all duration-300 cursor-pointer 
                                         items-center gap-[10px]
-                                        rounded-lg
+                                        rounded-lg  w-1/2  lg:w-full lg:ms-1 ms-5
                                     `}
                 key={index}
               >
@@ -131,7 +130,7 @@ const Profile = () => {
 
           <p
             onClick={handleLogout}
-            className="flex p-[10px] mt-10 hover:bg-[#EFEEF6] transition-all duration-300 cursor-pointer items-center gap-[10px]"
+            className="flex p-[10px] mt-3 lg:mt-10 hover:bg-[#EFEEF6] transition-all duration-300 cursor-pointer items-center gap-[10px] ms-5 lg:ms-[2px]"
           >
             <LuLogOut size={24} color="#555656" /> Log out
           </p>

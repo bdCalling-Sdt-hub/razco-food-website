@@ -48,7 +48,7 @@ const MyPoints = () => {
     setIsModalOpen(true);
   };
   return (
-    <div className="border border-[#DCDDDE4D] lg:p-6">
+    <div className="border border-[#DCDDDE4D] lg:p-6 p-2">
       <CommonHeading title={"My Points"} />
       <div>
         <div className=" flex items-center gap-5 bg-[#5B52A3] p-4 ps-6  rounded mt-5 ">

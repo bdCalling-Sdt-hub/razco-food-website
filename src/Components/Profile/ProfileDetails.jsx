@@ -4,13 +4,13 @@ import { Form, Input } from "antd";
 
 const ProfileDetails = () => {
   return (
-    <div>
+    <div className=" p-5 lg:mt-2  mt-8 ">
       <CommonHeading title={"Personal Information :"} />
       <Form layout="vertical">
-        <div className=" flex gap-4  w-full mt-5 ">
+        <div className=" lg:flex lg:gap-4  w-full mt-5 ">
           <Form.Item
             name="name"
-            className=" w-1/2 "
+            className="lg:w-1/2 w-full "
             label={<p className="text-[#6A6D7C] text-lg">Name:</p>}
           >
             <Input
@@ -22,7 +22,7 @@ const ProfileDetails = () => {
 
           <Form.Item
             name="phone"
-            className=" w-1/2 "
+            className=" lg:w-1/2 w-full "
             label={<p className="text-[#6A6D7C] text-lg">Phone Number:</p>}
           >
             <Input
@@ -34,10 +34,10 @@ const ProfileDetails = () => {
           </Form.Item>
         </div>
 
-        <div className=" flex gap-4  w-full  ">
+        <div className=" lg:flex lg:gap-4  w-full  ">
           <Form.Item
             name="email"
-            className=" w-1/2 "
+            className=" lg:w-1/2 w-full "
             label={<p className="text-[#6A6D7C] text-lg">Email:</p>}
           >
             <Input
@@ -49,7 +49,7 @@ const ProfileDetails = () => {
 
           <Form.Item
             name="gander"
-            className=" w-1/2 "
+            className=" lg:w-1/2 w-full  "
             label={<p className="text-[#6A6D7C] text-lg">Gander:</p>}
           >
             <Input
@@ -63,6 +63,7 @@ const ProfileDetails = () => {
 
         <Form.Item
           name="address"
+          className=" w-full "
           label={<p className="text-[#6A6D7C] text-lg">Address:</p>}
         >
           <Input
@@ -74,7 +75,7 @@ const ProfileDetails = () => {
         </Form.Item>
 
         <Form.Item className=" text-center ">
-          <button className="bg-[#7CC84E] h-12 text-white text-lg w-1/4 mt-6  rounded  ">
+          <button className="bg-[#7CC84E] h-12 text-white text-sm lg:text-lg lg:w-1/4 w-1/3 mt-6  rounded   ">
             Save Changes
           </button>
         </Form.Item>
