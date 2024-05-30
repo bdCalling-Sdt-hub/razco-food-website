@@ -4,55 +4,11 @@ import React, { useState } from "react";
 import title from "@/assets/title.png";
 import { IoClose, IoSearch, IoHeartOutline  } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
-import {
-  AppstoreAddOutlined,
-  DownOutlined
-} from "@ant-design/icons";
-import { Dropdown, Input, Space, Typography, Select } from "antd";
-import fruit from "@/assets/fruit1.png";
-import fruit1 from "@/assets/fruit2.png";
+import { Input, Select } from "antd";
 import Link from "next/link";
+import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
 const { Option } = Select;
-
-
-const items = [
-  {
-    key: "1",
-    label: (
-      <div className=" flex gap-1  hover:bg-[#7CC84E] hover:text-white bg-white text-black  p-3 rounded text-sm items-center">
-        <Image src={fruit} width={30} height={10} alt="" />
-        <p> Fresh Fruits</p>
-      </div>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <div className=" flex gap-1  hover:bg-[#7CC84E] hover:text-white bg-white text-black  p-3 rounded text-sm items-center">
-        <Image src={fruit1} width={30} height={10} alt="" />
-        <p> Fresh Fruits</p>
-      </div>
-    ),
-  },
-  {
-    key: "3",
-    label: (
-      <div className=" flex gap-1  hover:bg-[#7CC84E] hover:text-white bg-white text-black  p-3 rounded text-sm items-center">
-        <Image src={fruit} width={30} height={10} alt="" />
-        <p> Fresh Fruits</p>
-      </div>
-    ),
-  },
-  {
-    key: "4",
-    label: (
-      <div className=" flex gap-1  hover:bg-[#7CC84E] hover:text-white bg-white text-black  p-3 rounded text-sm items-center">
-        <Image src={fruit1} width={30} height={10} alt="" />
-        <p> Fresh Fruits</p>
-      </div>
-    ),
-  },
-];
 
 
 
@@ -83,6 +39,9 @@ const item = [
 
 const Navbar = () => {
   const [keyword, setkeyword] = useState("")
+  const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+  const user = false;
   return (
     <div>
 
@@ -107,8 +66,8 @@ const Navbar = () => {
           />
 
           <div className=" flex gap-3">
-            <button className=" bg-[#F4F5F7] text-[#555656] w-[133px] py-2 rounded  ">Sign Up</button>
-            <button className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+            <button onClick={registerModal.onOpen} className=" bg-[#F4F5F7] text-[#555656] w-[133px] py-2 rounded  ">Sign Up</button>
+            <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
           </div>
         </div>
 
@@ -148,12 +107,22 @@ const Navbar = () => {
 
           {/* cart btn   */}
           <div className="flex items-center gap-6">
-            <Link  href={`/addCart`}>
+            <Link  href={`/addCart`} >
               <RiShoppingCartLine  className="cursor-pointer" color="#555656" size={24}/>
             </Link>
-            <Link  href={`/favorite`}>
-              <IoHeartOutline  className="cursor-pointer" color="#555656" size={24}/>
-            </Link>
+
+            <IoHeartOutline 
+              onClick={()=>{
+                if(!user){
+                  loginModal.onOpen()
+                }else{
+                  window.location.replace("/favorite")
+                }
+
+              }} 
+              className="cursor-pointer" color="#555656" size={24}
+            />
+
           </div>
         </div>
 
