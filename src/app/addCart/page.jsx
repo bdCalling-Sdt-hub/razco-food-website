@@ -1,5 +1,5 @@
-import AddCarts from "@/Components/AddCart/AddCarts/AddCarts";
-import Summary from "@/Components/AddCart/Summary/Summary";
+import AddCarts from "@/Components/AddCart/AddCarts";
+import Summary from "@/Components/AddCart/Summary";
 import React from "react";
 
 const page = () => {

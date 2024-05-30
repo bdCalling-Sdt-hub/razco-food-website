@@ -1,8 +1,8 @@
 import { Poppins } from "@next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import Navbar from "@/Components/Share/Navbar/Navbar";
-import Footer from "@/Components/Share/Footer/Footer";
+import Navbar from "@/Components/Share/Navbar";
+import Footer from "@/Components/Share/Footer";
 
 const poppins = Poppins({ 
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
