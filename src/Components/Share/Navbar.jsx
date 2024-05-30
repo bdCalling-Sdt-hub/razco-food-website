@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import title from "@/assets/title.png";
 import { IoClose, IoSearch, IoHeartOutline  } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { Input, Select } from "antd";
+import { Drawer, Input, Select } from "antd";
 import Link from "next/link";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 const { Option } = Select;
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import Drawers from "../Drawers";
 
 
 
@@ -42,6 +43,7 @@ const Navbar = () => {
   const [keyword, setkeyword] = useState("")
   const loginModal = useLoginModal();
   const user = true;
+  const [open, setOpen] = useState(false)
   return (
     <div>
 
@@ -50,7 +52,7 @@ const Navbar = () => {
           <Link href={`/`} className=" md:hidden flex items-center justify-center mb-6">
               <Image src={title} style={{height: 60}} width={160} alt="Photo" />
             </Link>
-          <div className="flex items-center gap-8 md:gap-0  justify-between w-full mb-2 md:mb-2">
+          <div className="flex items-center gap-8 lg:gap-0  justify-between w-full mb-2 md:mb-2">
             <Link href={`/`} className="hidden md:block">
               <Image src={title} style={{height: 60}} width={160} alt="Photo" />
             </Link>
@@ -100,7 +102,7 @@ const Navbar = () => {
 
         {/* menu  */}
 
-        <div className="hidden  md:flex items-center gap-10">
+        <div className="hidden  lg:flex items-center gap-10">
           {
             item.map((menu, index) => {
               return(
@@ -127,8 +129,8 @@ const Navbar = () => {
               className="cursor-pointer" color="#555656" size={24}
             />
 
-            <div className="md:hidden">
-              <HiOutlineMenuAlt1 className="cursor-pointer" color="#555656" size={24}/>
+            <div className="lg:hidden">
+              <HiOutlineMenuAlt1 onClick={()=>setOpen(true)}  className="cursor-pointer" color="#555656" size={24}/>
             </div>
 
           </div>
@@ -136,6 +138,22 @@ const Navbar = () => {
 
 
       </div>
+
+
+
+      <Drawer
+        title={false}
+        placement={"left"}
+        closable={false}
+        onClose={()=>setOpen(false)}
+        open={open}
+        size={350}
+        key={"left"}
+      >
+        <div>
+          <Drawers/>
+        </div>
+      </Drawer>
     </div>
   );
 };

@@ -72,7 +72,7 @@ const Profile = () => {
         
       }}
     >
-      <aside className="col-span-12  md:col-span-3 order-1 md:order-1">
+      <aside className="col-span-12  md:col-span-4 lg:col-span-3 order-1 md:order-1">
         <div className="w-fit relative mb-3 mx-auto">
           <Image
             src={imgUrl ? imgUrl : profileImage}
@@ -128,22 +128,15 @@ const Profile = () => {
               </p>
             );
           })}
-
-          <p
-            onClick={handleLogout}
-            className="flex p-[10px] mt-10 hover:bg-[#EFEEF6] transition-all duration-300 cursor-pointer items-center gap-[10px]"
-          >
-            <LuLogOut size={24} color="#555656" /> Log out
-          </p>
         </div>
       </aside>
 
-      <main className="col-span-12 md:col-span-9  order-2 md:order-2">
+      <main className="col-span-12 md:col-span-8 lg:col-span-9  order-2 md:order-2">
         {tab === "Profile Details" && <ProfileDetails />}
         {tab === "Change Password" && <Settings />}
         {tab === "Feedback" && <FeedBack />}
         {tab === "Order History" && <OrderHistory />}
-        {tab === "My Points" && <MyPoints2 />}
+        {tab === "My Points" && <MyPoints />}
       </main>
     </div>
   );
