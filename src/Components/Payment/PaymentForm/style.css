@@ -1,0 +1,13 @@
+/* Add this to your CSS file */
+.custom-input-password {
+  border: none; /* Remove all borders */
+  border-bottom: 1px solid #949494; /* Add bottom border */
+}
+.custom-input-password::placeholder {
+  color: rgb(196, 190, 190); /* Placeholder text color */
+}
+
+.custom-input-password:hover,
+.custom-input-password:focus {
+  background-color: transparent; /* Background color on hover/focus */
+}
