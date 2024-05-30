@@ -32,7 +32,7 @@ const page = () => {
   return (
     <div className=" container mb-20 mt-10 ">
 
-      <div className="flex items-end justify-end gap-6">
+      <div className="flex flex-col sm:flex-row items-end justify-end gap-6">
 
         <Select
               placeholder="Select Price"
@@ -85,7 +85,7 @@ const page = () => {
 
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 relative mt-12">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6 relative mt-12">
         {
           products.map((product) => (
             <Link href="./productDetails" key={product.key}>
@@ -126,11 +126,11 @@ const page = () => {
         }
       </div>
 
-      <div className="flex items-start justify-start mt-10 relative">
+      <div className="flex items-center sm:items-start justify-center md:justify-start mt-10 relative">
         <Pagination 
           total={50}
           showTotal={(total, range) => 
-            <span className="text-[#929394] font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
+            <span className="text-[#929394] hidden sm:block font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
                 {`Showing ${range[0]}-${range[1]} of ${total} items`}
             </span>
           }

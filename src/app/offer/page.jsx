@@ -105,10 +105,10 @@ const page = () => {
         </Select>
       </div>
 
-      <div className=" mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 relative">
+      <div className=" mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 relative">
         {
           products.map((product) => (
-            <div key={product.key} className=" mx-auto w-[300px] sm:w-full ">
+            <div key={product.key} className=" mx-auto w-full lg:w-[300px] sm:w-full ">
               <div className="bg-gray-100 shadow-sm rounded w-full py-3 relative ">
                 <p className="px-3"> {product.imgURL}</p>
 
@@ -147,11 +147,11 @@ const page = () => {
         }
       </div>
 
-      <div className="flex items-start justify-start mt-10 relative">
+      <div className="flex items-center sm:items-start justify-center md:justify-start mt-10 relative">
         <Pagination 
           total={50}
           showTotal={(total, range) => 
-            <span className="text-[#929394] font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
+            <span className="text-[#929394] hidden sm:block font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
                 {`Showing ${range[0]}-${range[1]} of ${total} items`}
             </span>
           }

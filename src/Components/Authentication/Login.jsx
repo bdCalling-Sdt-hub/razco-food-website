@@ -1,7 +1,9 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import ForgetPassword from "./ForgetPassword";
+import OtpVerify from "./OtpVerify";
+import ResetPassword from "./ResetPassword";
 
 const Login = ({onToggle}) => {
   const [tab, setTab] = useState("login")
@@ -82,9 +84,9 @@ const Login = ({onToggle}) => {
                   <Checkbox className="text-[#6A6D7C]">Remember me</Checkbox>
                 </Form.Item>
 
-                <Link className="login-form-forgot" href="/">
+                <p className="text-[#6A6D7C]" onClick={()=>setTab("forgot")}>
                   Forgot password
-                </Link>
+                </p>
               </div>
             </Form.Item>
 
@@ -123,8 +125,8 @@ const Login = ({onToggle}) => {
       }
 
       { tab === "forgot" && <ForgetPassword setTab={setTab} /> }
-      { tab === "otp" }
-      { tab === "reset" }
+      { tab === "otp" && <OtpVerify setTab={setTab}  /> }
+      { tab === "reset" && <ResetPassword setTab={setTab}  /> }
     </div>
   );
 };

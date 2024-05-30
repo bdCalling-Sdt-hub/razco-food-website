@@ -192,8 +192,8 @@ const BestDeals = () => {
         <div>
           <Slider {...settings}>
             {products.map((product) => (
-              <div key={product.key} className=" mx-auto">
-                <div className="bg-gray-100 shadow-sm rounded  lg:w-[310px] w-full py-3 relative ">
+              <div key={product.key} className=" mx-auto pl-3">
+                <div className="bg-gray-100 shadow-sm rounded w-[250px] sm:w-[280px]  md:w-[310px]  py-3 relative ">
                   <p className="px-3"> {product.imgURL}</p>
                   <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
                     {" "}

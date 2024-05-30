@@ -65,13 +65,13 @@ const page = () => {
       </div>
 
       <div className="flex items-start justify-start mt-10 relative">
-        <Pagination 
+        <Pagination
           total={50}
-          showTotal={(total, range) => 
+          showTotal={(total, range) => (
             <span className="text-[#929394] font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
-                {`Showing ${range[0]}-${range[1]} of ${total} items`}
+              {`Showing ${range[0]}-${range[1]} of ${total} items`}
             </span>
-          }
+          )}
         />
       </div>
     </div>

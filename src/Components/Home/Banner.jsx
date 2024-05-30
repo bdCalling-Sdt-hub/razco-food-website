@@ -23,7 +23,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="container my-10">
+    <div className="container my-6 md:my-10">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -41,9 +41,8 @@ const Banner = () => {
         <SwiperSlide>
           <Image
             src={banner1}
-            sizes="100vw"
             height={600}
-            style={{ height: "600px", width: "100%" }}
+            width={1320}
             alt=" "
           />
         </SwiperSlide>
@@ -51,9 +50,8 @@ const Banner = () => {
         <SwiperSlide>
           <Image
             src={banner2}
-            sizes="100vw"
+            width={1320}
             height={600}
-            style={{ width: "100%", height: "600px" }}
             alt=" "
           />
         </SwiperSlide>
@@ -61,9 +59,8 @@ const Banner = () => {
         <SwiperSlide>
           <Image
             src={banner3}
-            sizes="100vw"
+            width={1320}
             height={600}
-            style={{ width: "100%", height: "600px" }}
             alt=" "
           />
         </SwiperSlide>

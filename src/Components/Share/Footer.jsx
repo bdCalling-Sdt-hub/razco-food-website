@@ -11,8 +11,8 @@ import {
 const Footer = () => {
   return (
     <div className="bg-[#70B446]">
-      <div className="container grid grid-cols-12 gap-16 py-20 text-white">
-          <div className=" col-span-3">
+      <div className="container grid grid-cols-12 gap-6 sm:gap-8 md:gap-12 lg:gap-16 py-20 text-white">
+          <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 ">
               <Image src={footerTitle} height={8} width={150} alt="Photo" />
               <p className=" pt-3 text-justify">
                 It is a long established fact that a reader will be distracted
@@ -22,8 +22,8 @@ const Footer = () => {
               </p>
           </div>
 
-          <div className="col-span-3 mt-12">
-              <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-lg">
+          <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
+              <h6 className="mb-4 font-semibold uppercase  text-lg md:mb-12">
                 Information
               </h6>
               <p className="mb-4">
@@ -40,8 +40,8 @@ const Footer = () => {
               </p>
           </div>
 
-          <div className="col-span-3 mt-12">
-              <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+          <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 ">
+              <h6 className="mb-4  font-semibold uppercase md:mb-12">
                 DOWNLOAD APP
               </h6>
               {/* <!-- component -->  */}
@@ -65,7 +65,7 @@ const Footer = () => {
               </div>
               {/* <!-- https://play.google.com/intl/en_us/badges/ -->  */}
               <div className="flex mt-3 w-48 h-14 bg-black text-white rounded-lg items-center justify-center">
-                <div className="mr-3">
+                <div className="">
                   <svg viewBox="30 336.7 120.9 129.2" width="30">
                     <path
                       fill="#FFD400"
@@ -94,11 +94,11 @@ const Footer = () => {
               </div>
             </div>
 
-          <div className="col-span-3 mt-12">
-              <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+          <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
+              <h6 className="mb-4  font-semibold uppercase md:mb-12">
                 HELP && SUPPORT
               </h6>
-              <p className="mb-4 flex items-center justify-center md:justify-start">
+              <p className="mb-4 flex items-center">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,7 @@ const Footer = () => {
                 </span>
                 New York, NY 10012, US
               </p>
-              <p className="mb-4 flex items-center justify-center md:justify-start">
+              <p className="mb-4 flex items-center">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,7 @@ const Footer = () => {
                 </span>
                 info@example.com
               </p>
-              <p className="mb-4 flex items-center justify-center md:justify-start">
+              <p className="mb-4 flex items-center">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ const Footer = () => {
                 </span>
                 + 01 234 567 88
               </p>
-              <p className="flex items-center justify-center md:justify-start">
+              <p className="flex items-center">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -162,9 +162,9 @@ const Footer = () => {
       </div>
 
       <div className="bg-black ">
-        <div className=" py-3 container text-white flex justify-between items-center">
-          <p>©2024 Spaktech. Agency | All Right Reserved</p>
-          <p className=" lg:flex lg:gap-4 lg:text-3xl text-xl">
+        <div className=" py-3 container text-white flex flex-col md:flex-row gap:10 md:gap-0 justify-between items-center">
+          <p className="text-[14px] md:text-[16px]">©2024 Spaktech. Agency | All Right Reserved</p>
+          <p className="flex items-center  gap-4  text-xl mt-3 md:mt-0">
               <FacebookOutlined />
               <InstagramOutlined />
               <WhatsAppOutlined />

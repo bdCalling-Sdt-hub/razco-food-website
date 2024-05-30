@@ -122,7 +122,7 @@ const page = () => {
         </p>
 
         <div className="  text-center my-6 ">
-          <Link href="/">
+          <Link href="/payment">
             <button className=" bg-[#7CC84E] text-white w-full  p-2 rounded ">
               {" "}
               Payment

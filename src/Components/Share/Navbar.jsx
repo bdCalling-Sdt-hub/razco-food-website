@@ -9,6 +9,7 @@ import Link from "next/link";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 const { Option } = Select;
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
 
 
 
@@ -40,41 +41,45 @@ const item = [
 const Navbar = () => {
   const [keyword, setkeyword] = useState("")
   const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
-  const user = false;
+  const user = true;
   return (
     <div>
 
       {/* 1st navbar  */}
-      <div className="container flex items-center  justify-between w-full py-2">
-          <Link href={`/`}>
-            <Image src={title} style={{height: 60}} width={160} alt="Photo" />
-          </Link>
-          <Input
-            onChange={(e)=>setkeyword(e.target.value)}
-            value={keyword}
-            style={{
-              width: 600,
-              height: 42,
-              border: "1px solid #C3C4C6",
-              outline: "none",
-              borderRadius: 8
-            }}
-            prefix={<IoSearch  size={20} color="#AAA6B9" />}
-            suffix={<IoClose color="#AAA6B9" size={20} onClick={()=>setkeyword("")} className="cursor-pointer" style={{display:keyword ? "block" : "none" }} />}
-            placeholder="Search something.."
-          />
+      <div className="container py-2">
+          <Link href={`/`} className=" md:hidden flex items-center justify-center mb-6">
+              <Image src={title} style={{height: 60}} width={160} alt="Photo" />
+            </Link>
+          <div className="flex items-center gap-8 md:gap-0  justify-between w-full mb-2 md:mb-2">
+            <Link href={`/`} className="hidden md:block">
+              <Image src={title} style={{height: 60}} width={160} alt="Photo" />
+            </Link>
+            <Input
+              onChange={(e)=>setkeyword(e.target.value)}
+              value={keyword}
+              style={{
+                maxWidth: 600,
+                height: 42,
+                border: "1px solid #C3C4C6",
+                outline: "none",
+                borderRadius: 8
+              }}
+              // className="w-full md:w-[600px]"
+              prefix={<IoSearch  size={20} color="#AAA6B9" />}
+              suffix={<IoClose color="#AAA6B9" size={20} onClick={()=>setkeyword("")} className="cursor-pointer" style={{display:keyword ? "block" : "none" }} />}
+              placeholder="Search something.."
+            />
 
-          <div className=" flex gap-3">
-            <button onClick={registerModal.onOpen} className=" bg-[#F4F5F7] text-[#555656] w-[133px] py-2 rounded  ">Sign Up</button>
-            <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+            <div className=" flex gap-3">
+              <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+            </div>
           </div>
         </div>
 
       {/* 2nd navbar  */}
       <div className="w-full bg-[#EFEEF6]">
         <div className="container  flex items-center  justify-between ">
-          <div className="bg-primary w-[321px] rounded-lg navbar">
+          <div className="bg-primary w-[180px] md:w-[321px] rounded-lg navbar">
             <Select
                   placeholder="Select Category"
                   style={{
@@ -95,7 +100,7 @@ const Navbar = () => {
 
         {/* menu  */}
 
-        <div className="flex items-center gap-10">
+        <div className="hidden  md:flex items-center gap-10">
           {
             item.map((menu, index) => {
               return(
@@ -118,10 +123,13 @@ const Navbar = () => {
                 }else{
                   window.location.replace("/favorite")
                 }
-
               }} 
               className="cursor-pointer" color="#555656" size={24}
             />
+
+            <div className="md:hidden">
+              <HiOutlineMenuAlt1 className="cursor-pointer" color="#555656" size={24}/>
+            </div>
 
           </div>
         </div>

@@ -85,3 +85,10 @@ body{
 .navbar .ant-select .ant-select-arrow{
   color: #FFFFFF !important;
 }
+
+
+.ant-otp-input{
+  height: 50px !important;
+  width: 50px !important;
+  background: #F1F4F9 !important;
+}

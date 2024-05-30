@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 
-const ForgetPassword = () => {
+const ForgetPassword = ({setTab}) => {
   return (
     <div className=" ">
       <div className="text-center mb-12">
@@ -22,7 +22,7 @@ const ForgetPassword = () => {
         </Form.Item>
 
         <Form.Item>
-          <button className="bg-[#7CC84E] h-12 text-white text-lg w-full mt-6  rounded  ">
+          <button onClick={()=>setTab("otp")} className="bg-[#7CC84E] h-12 text-white text-lg w-full mt-6  rounded  ">
             Send
           </button>
         </Form.Item>

@@ -118,7 +118,7 @@ const Profile = () => {
                 {tab === "Profile Details" && <ProfileDetails/>}
                 {tab === "Settings" && <Settings/>}
                 {tab === "Feedback" && <FeedBack/>}
-                {tab === "Order History" && <OrderHistory/>}
+                {tab === "Order History" && <OrderHistory setTab={setTab} />}
                 {tab === "My Points" && <MyPoints/>}
             </main>
         </div>
