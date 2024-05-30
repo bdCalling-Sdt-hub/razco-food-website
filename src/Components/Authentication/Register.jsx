@@ -1,8 +1,12 @@
-import { Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import React from "react";
 
-const Register = () => {
+const Register = ({onToggle}) => {
+
+  const handleSubmit=(values)=>{
+    console.log("Received Values", values)
+  }
   return (
     <div>
       <div className="text-center mb-12  mx-auto text-[#6A6D7C]">
@@ -13,57 +17,124 @@ const Register = () => {
           Please enter your information to create account
         </p>
       </div>
-      <Form layout="vertical">
+
+
+      <Form layout="vertical" onFinish={handleSubmit}>
         <Form.Item
           name="name"
           label={<p className="text-[#6A6D7C] text-lg">User name</p>}
+          rules={[
+            {
+              required: true,
+              message: "Please Enter User Name!"
+            }
+          ]}
         >
           <Input
             placeholder="write your name"
-            className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent"
-            size="large"
+            style={{
+              background: "#F1F4F9",
+              height: 48,
+              border: "none",
+              outline: "none"
+            }}   
           />
         </Form.Item>
 
         <Form.Item
           name="email"
-          label={<p className="text-[#6A6D7C] text-lg">Email Address</p>}
+          label={<p className="text-[#6A6D7C] text-lg">Email</p>}
+          rules={[
+            {
+              required: true,
+              message: "Please Enter Your Email!"
+            }
+          ]}
         >
           <Input
             placeholder="esteban_schiller@gmail.com"
-            className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent"
-            size="large"
+            style={{
+              background: "#F1F4F9",
+              height: 48,
+              border: "none",
+              outline: "none"
+            }}
           />
         </Form.Item>
 
         <Form.Item
           name="email"
           label={<p className="text-[#6A6D7C] text-lg">Contact no</p>}
+          rules={[
+            {
+              required: true,
+              message: "Please Enter Your Contact Number"
+            }
+          ]}
         >
           <Input
             placeholder="+8800000"
-            className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent"
-            size="large"
+            style={{
+              background: "#F1F4F9",
+              height: 48,
+              border: "none",
+              outline: "none"
+            }}
           />
         </Form.Item>
         <Form.Item
           name="password"
           label={<p className="text-[#6A6D7C] text-lg">Password</p>}
+          rules={[
+            {
+              required: true,
+              message: "Please Enter Password"
+            }
+          ]}
         >
           <Input.Password
             placeholder="Enter Your Password"
-            className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent"
-            size="large"
-            name="password"
+            style={{
+              background: "#F1F4F9",
+              height: 48,
+              border: "none",
+              outline: "none"
+            }}
           />
         </Form.Item>
-        <Form.Item></Form.Item>
+
         <Form.Item>
-          <button className="bg-[#7CC84E] h-12 text-white text-lg w-5/6 mt-6  rounded  ms-7 ">
+          <Button 
+            htmlType="submit"
+            style={{
+              width: "100%",
+              background: "#7CC84E",
+              color: "white",
+              height: 48,
+              border: "none",
+              outline: "none"
+            }}
+          >
             Sign Up
-          </button>
+          </Button>
         </Form.Item>
+
+        <Button
+          onClick={onToggle}
+            style={{
+              width: "100%",
+              background: "white",
+              height: 48,
+              border: "1px solid #7CC84E",
+              outline: "none",
+              color: "#7CC84E"
+            }}
+          >
+            Log In
+          </Button>
       </Form>
+
+
     </div>
   );
 };
