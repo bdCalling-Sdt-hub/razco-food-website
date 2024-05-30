@@ -7,18 +7,6 @@ import img2 from "@/assets/fruit1.png";
 import img3 from "@/assets/fruit2.png";
 import { Pagination } from "antd";
 import Link from "next/link";
-import Login from "@/Components/Authentication/Login/Login";
-import ForgetPassword from "@/Components/Authentication/ForgetPassword/ForgetPassword";
-
-const itemRender = (_, type, originalElement) => {
-  if (type === "prev") {
-    return <a>Previous</a>;
-  }
-  if (type === "next") {
-    return <a>Next</a>;
-  }
-  return originalElement;
-};
 
 const products = [...Array(8).keys()].map((index) => ({
   key: `${index + 1}`,
@@ -86,11 +74,6 @@ const page = () => {
           }
         />
       </div>
-<<<<<<< HEAD
-
-      <ForgetPassword />
-=======
->>>>>>> ed2c4ef23aed08157b516c749bdfb89a066c5316
     </div>
   );
 };

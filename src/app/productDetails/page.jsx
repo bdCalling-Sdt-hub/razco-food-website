@@ -1,4 +1,4 @@
-import TopCategory from "@/Components/Home/TopCategory/TopCategory";
+import TopCategory from "@/Components/Home/TopCategory";
 import Imagebar from "@/Components/ProductDetails/Imagebar/Imagebar";
 import SideDetails from "@/Components/ProductDetails/SideDetails/SideDetails";
 
