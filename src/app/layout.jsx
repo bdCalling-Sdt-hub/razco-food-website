@@ -7,21 +7,22 @@ import RegisterModal from "@/Modal/RegisterModal";
 import LoginModal from "@/Modal/loginModal";
 
 const poppins = Poppins({ 
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-poppins'
 });
 
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={poppins.className} suppressHydrationWarning={true}>
+      <body className={poppins.variable} suppressHydrationWarning={true}>
 
         <AntdRegistry>
           <Navbar />
           <LoginModal/>
           <RegisterModal/>
-          <div className="custom-class">{children}</div>
+          <div>{children}</div>
           <Footer />
         </AntdRegistry>
       </body>

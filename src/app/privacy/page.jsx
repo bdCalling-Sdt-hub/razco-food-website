@@ -3,8 +3,8 @@ import React from 'react'
 const page = () => {
     return (
         <div className="container mb-16 mt-10">
-            <h1 className=" text-4xl font-semibold text-[#575757] pb-5">Privacy Policy</h1>
-            <p className="text-[16px] leading-[30px] font-normal text-secondary pb-4">
+            <h1 className=" text-4xl leading-[42px] font-semibold text-[#575757] pb-5 poppins">Privacy Policy</h1>
+            <p className="font-normal text-[#555555] text-[16px] leading-[30px] poppins pb-4">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever
                 since the 1500s, when an unknown printer took a galley of type and
@@ -15,33 +15,30 @@ const page = () => {
                 with desktop publishing software like Aldus PageMaker including versions
                 of Lorem Ipsum.
             </p>
-            <p className=" text-lg font-medium pb-4">
-                {" "}
+            <p className=" font-normal text-[#555555] text-[24px] leading-[36px] poppins">
                 What personal information do we collect from the people that visit our
                 website or blog?
             </p>
-            <p className="text-[16px] leading-[30px] font-normal text-secondary pb-4">
+            <p className="font-normal text-[#555555] text-[16px] leading-[30px] poppins pb-4">
                 When ordering or registering on our site, as appropriate, you may be
                 asked to enter your name, email address, mailing address, phone number
                 or other details to help you with your experience.
             </p>
 
-            <p className=" text-lg font-medium pb-4">
-                {" "}
+            <p className=" font-normal text-[#555555] text-[24px] leading-[36px] poppins">
                 What personal information do we collect from the people that visit our
                 website or blog?
             </p>
-            <p className="text-[16px] leading-[30px] font-normal text-secondary pb-4">
+            <p className="font-normal text-[#555555] text-[16px] leading-[30px] poppins pb-4">
                 When ordering or registering on our site, as appropriate, you may be
                 asked to enter your name, email address, mailing address, phone number
                 or other details to help you with your experience.
             </p>
 
-            <p className=" text-lg font-medium pb-4">
-                {" "}
+            <p className="font-normal text-[#555555] text-[24px] leading-[36px] poppins">
                 How do we use your information?
             </p>
-            <p className="text-[16px] leading-[30px] font-normal text-secondary pb-4">
+            <p className="font-normal text-[#555555] text-[16px] leading-[30px] poppins pb-4">
                 We may use the information we collect from you when you register, make a
                 purchase, sign up for our newsletter, respond to a survey or marketing
                 communication, surf the website, or use certain other site features in

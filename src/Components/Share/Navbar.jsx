@@ -48,7 +48,7 @@ const Navbar = () => {
     <div>
 
       {/* 1st navbar  */}
-      <div className="container py-2">
+      <div className="container py-2 poppins">
           <Link href={`/`} className=" md:hidden flex items-center justify-center mb-6">
               <Image src={title} style={{height: 60}} width={160} alt="Photo" />
             </Link>
@@ -90,8 +90,9 @@ const Navbar = () => {
                     height: 48,
                     outline: "none",
                     borderRadius: "5px",
-                    color: "white"
+                    color: "white",
                   }}
+                  className="poppins"
                 >
                   <Option value="200">Fresh Fruits</Option>
                   <Option value="100">Organic</Option>
@@ -106,7 +107,7 @@ const Navbar = () => {
           {
             item.map((menu, index) => {
               return(
-                <Link key={index} className="font-normal text-[16px] leading-6 text-[#555656]" href={`${menu.path}`}>{menu.label}</Link>
+                <Link key={index} className="font-normal poppins text-[16px] leading-6 text-[#555656]" href={`${menu.path}`}>{menu.label}</Link>
               )
             } )
           }

@@ -5,67 +5,96 @@ import "./style.css";
 import PaymentModal from "../PaymentModal/PaymentModal";
 const PaymentForm = () => {
   const [open, setOpen] = useState(false);
-  const showModal = () => {
-    setOpen(true);
-  };
+  
+  const handleSubmit=(values)=>{
+    setOpen(true)
+  }
+
   return (
-    <div className="w-2/3 mx-auto lg:mb-20 mb-5">
-      <Form layout="vertical" className="  ">
-        <div className="">
-          <input
-            type="text"
-            placeholder=" Cardholder Name "
-            className="custom-input-password w-full p-2  lg:mb-10 mb-4 placeholder:text-[#555555] placeholder:text-lg placeholder:font-medium "
-          />
-        </div>
+    <div className="w-2/3 mx-auto lg:mb-20 mb-5 payment">
+      <Form 
+        layout="vertical" 
+        className="grid grid-cols-12 gap-4"
+        onFinish={handleSubmit}
+      >
 
-        <div className="">
-          <input
-            type="text"
-            placeholder=" Card Number "
-            className="custom-input-password w-full p-2  lg:mb-10 mb-4 placeholder:text-[#555555] placeholder:text-lg placeholder:font-medium  "
-          />
-        </div>
+        <Form.Item
+          name="card_number"
+          style={{marginBottom: 0}}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal pb-0">Card Number</p>}
+          className="col-span-12"
+          rules={[
+            {
+              required: true,
+              message: "Please Choose Your Pickup Time"
+            }
+          ]}
+        >
+          <input type="text" className="border-b-[1px] poppins pb-1 border-[#949494] border-opacity-[24%]  w-full outline-none" />
+        </Form.Item>
 
-        <div className=" flex gap-3 items-center w-full">
-          <div className=" w-1/2">
-            <input
-              type="text"
-              placeholder=" MM/YY "
-              className="custom-input-password w-full p-2  lg:mb-10 mb-4   placeholder:text-[#555555] placeholder:text-lg placeholder:font-medium   "
-            />
-          </div>
+        <Form.Item
+          name="validity_date"
+          style={{marginBottom: 0}}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Validity Date</p>}
+          className="col-span-6"
+          rules={[
+            {
+              required: true,
+              message: "Please Choose Your Pickup Time"
+            }
+          ]}
+        >
+          <input type="text" className="border-b-[1px] poppins pb-1 border-[#949494] border-opacity-[24%]  w-full outline-none" />
+        </Form.Item>
 
-          <div className="w-1/2">
-            <input
-              type="text"
-              placeholder=" CVC "
-              className="custom-input-password w-full p-2 lg:mb-10 mb-4   placeholder:text-[#555555] placeholder:text-lg placeholder:font-medium  "
-            />
-          </div>
-        </div>
+        <Form.Item
+          name="cvc"
+          style={{marginBottom: 0}}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">CVC</p>}
+          className="col-span-6"
+          rules={[
+            {
+              required: true,
+              message: "Please Choose Your Pickup Time"
+            }
+          ]}
+        >
+          <input type="text" className="border-b-[1px] poppins pb-1 border-[#949494] border-opacity-[24%]  w-full outline-none" />
+        </Form.Item>
 
-        <div className="mb-3">
-          <input
-            type="text"
-            placeholder=" mstkhushiakter333@gmail.com "
-            className="custom-input-password w-full p-2 lg:mb-10 mb-4   placeholder:text-[#555555] placeholder:text-lg placeholder:font-medium  "
-          />
-        </div>
+        <Form.Item
+          name="name"
+          style={{marginBottom: 0}}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Cardholder Name</p>}
+          className="col-span-12"
+          rules={[
+            {
+              required: true,
+              message: "Please Choose Your Pickup Time"
+            }
+          ]}
+        >
+          <input type="text"className="border-b-[1px] poppins pb-1 border-[#949494] border-opacity-[24%]  w-full outline-none" />
+        </Form.Item>
 
-        <div className="mb-3">
-          <input
-            type="text"
-            placeholder=" Total Amount  "
-            className="custom-input-password w-full p-2    placeholder:text-[#555555] placeholder:text-lg placeholder:font-medium  "
-          />
-        </div>
+        <Form.Item
+          name="email"
+          style={{marginBottom: 0}}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Cardholder Email</p>}
+          className="col-span-12"
+          rules={[
+            {
+              required: true,
+              message: "Please Choose Your Pickup Time"
+            }
+          ]}
+        >
+          <input type="text" className="border-b-[1px] poppins pb-1 border-[#949494] border-opacity-[24%]  w-full outline-none" />
+        </Form.Item>
 
-        <Form.Item>
-          <button
-            className="bg-[#7CC84E] h-12 text-white text-lg w-full   rounded-lg  mt-10  mx-4 "
-            onClick={showModal}
-          >
+        <Form.Item className="col-span-12" style={{marginTop: 10}}>
+          <button type="submit" className="bg-[#7CC84E] h-12 text-white text-lg w-full   rounded-lg">
             Confirm Pay
           </button>
         </Form.Item>

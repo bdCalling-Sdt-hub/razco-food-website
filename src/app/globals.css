@@ -21,12 +21,8 @@
   column-gap: 25px;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-}
-
-.custom-class {
-  font-family: "Poppins", sans-serif;
+.poppins {
+  font-family: var(--font-poppins);
 }
 
 /* this is the react slick slider custom navigation button css start here */
@@ -93,4 +89,9 @@ body {
   height: 50px !important;
   width: 50px !important;
   background: #F1F4F9 !important;
+}
+
+
+.payment .ant-form-vertical .ant-form-item-label{
+  padding: 0 !important;
 }

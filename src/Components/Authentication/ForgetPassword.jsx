@@ -5,14 +5,14 @@ const ForgetPassword = ({setTab}) => {
   return (
     <div className=" ">
       <div className="text-center mb-12">
-        <p className="mt-8 mb-6 text-xl font-semibold text-[#6A6D7C] ">
+        <p className="mt-8 mb-6 poppins text-[32px] leading-[48px] font-medium text-[#6E6E6F]">
           Forget Password
         </p>
       </div>
       <Form layout="vertical">
         <Form.Item
           name="email"
-          label={<p className="text-[#929394] text-lg">Email Address</p>}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Email Address</p>}
         >
           <Input
             placeholder="esteban_schiller@gmail.com"

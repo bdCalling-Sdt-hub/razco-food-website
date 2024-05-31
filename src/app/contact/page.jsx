@@ -13,52 +13,26 @@ const page = () => {
 
       <div className="col-span-12 md:col-span-4 h-fit grid grid-cols-1 gap-6  order-2 md:order-1">
         <div className="">
-          <div className=" flex items-center gap-2 ">
-            {" "}
+          <div className=" flex items-center gap-2 mb-6">
             <Image src={phone} height={14} width={38} alt="" />{" "}
-            <span className=" text-2xl font-medium text-[#575757] ">
+            <span className=" font-medium text-[16px] leading-6 text-[#575757] ">
               Call To Us
             </span>
           </div>
-          <p className=" text-lg text-[#575757] py-4"> Phone: +9999999999 </p>
-          <p className=" text-lg text-[#575757] pb-4">Phone: +9999999999 </p>
+          <p className="font-normal text-[14px] leading-[21px] text-[#707070] mb-2"> Phone: +9999999999 </p>
+          <p className=" font-normal text-[14px] leading-[21px] text-[#707070]">Phone: +9999999999 </p>
         </div>
 
         <div className=" ">
-          <div className=" flex items-center gap-2 ">
-            {" "}
+          <div className=" flex items-center gap-2 mb-6">
             <Image src={mail} height={14} width={38} alt="" />{" "}
-            <span className=" text-2xl font-medium text-[#575757] ">
+            <span className=" font-medium text-[16px] leading-6 text-[#575757] ">
               Write To Us
             </span>
-          </div>
-          <p className=" text-lg text-[#575757] py-4">
-            {" "}
-            Emails: xxxxxxx@gmail.com{" "}
-          </p>
-          <p className=" text-lg text-[#575757] pb-4">
-            Emails: xxxxxxx@gmail.com{" "}
-          </p>
+          </div> 
+          <p className="font-normal text-[14px] leading-[21px] text-[#707070] mb-2">Emails: xxxxxxx@gmail.com</p>
+          <p className="font-normal text-[14px] leading-[21px] text-[#707070]">Emails: xxxxxxx@gmail.com</p>
         </div>
-
-        {/* <div className="">
-          <div className=" flex items-center gap-2 ">
-            {" "}
-            <Image src={location} height={14} width={38} alt="" />{" "}
-            <span className=" text-2xl font-medium text-[#575757] ">
-              Visit Our Location
-            </span>
-          </div>
-          <p className=" text-lg text-[#575757] py-4">
-            Head Office : AAA/7 ,Area R/A
-          </p>
-          <p className=" text-lg text-[#575757] pb-4">
-            Branch 1 : 23/A , Area, City{" "}
-          </p>
-          <p className=" text-lg text-[#575757] pb-4">
-            Branch 1 : 23/A , Area, City{" "}
-          </p>
-        </div> */}
       </div>
 
       <div className="col-span-12 md:col-span-8 order-1 md:order-2">
@@ -72,7 +46,7 @@ const page = () => {
                 message: "Please Enter Name",
               },
             ]}
-            label="Full Name"
+            label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Full Name</p>}
             style={{marginBottom: 0}}
           >
             <Input
@@ -96,7 +70,7 @@ const page = () => {
                 message: "Please Enter Email",
               },
             ]}
-            label="Email"
+            label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Email</p>}
           >
             <Input
                 placeholder="Please Enter Email"
@@ -119,7 +93,7 @@ const page = () => {
                 message: "Please Enter Mobile Number",
               },
             ]}
-            label="Phone"
+            label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Phone</p>}
           >
             <Input
               placeholder="Please Enter Mobile Number"
@@ -143,7 +117,7 @@ const page = () => {
               },
             ]}
             style={{marginBottom: 0}}
-            label="Message"
+            label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Message</p>}
           >
             <Input.TextArea
               placeholder="Message..."

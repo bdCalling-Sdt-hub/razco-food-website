@@ -14,7 +14,7 @@ const Footer = () => {
       <div className="container grid grid-cols-12 gap-6 sm:gap-8 md:gap-12 lg:gap-16 py-20 text-white">
           <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 ">
               <Image src={footerTitle} height={8} width={150} alt="Photo" />
-              <p className=" pt-3 text-justify">
+              <p className=" pt-3 text-balance font-normal text-[18px] leading-[34px] poppins">
                 It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.
                 The point of using Lorem Ipsum is that it has a more-or-less
@@ -26,16 +26,16 @@ const Footer = () => {
               <h6 className="mb-4 font-semibold uppercase  text-lg md:mb-12">
                 Information
               </h6>
-              <p className="mb-4">
+              <p className="mb-4  font-normal text-[16px] leading-[22px] poppins">
                 <a href="/about">About Us</a>
               </p>
-              <p className="mb-4">
+              <p className="mb-4 font-normal text-[16px] leading-[22px] poppins">
                 <a href="/faq">FAQ</a>
               </p>
-              <p className="mb-4">
+              <p className="mb-4 font-normal text-[16px] leading-[22px] poppins">
                 <a href="/privacy">Privacy Policy</a>
               </p>
-              <p>
+              <p className="font-normal text-[16px] leading-[22px] poppins">
                 <a href="/terms">Terms & Condition</a>
               </p>
           </div>
@@ -98,7 +98,7 @@ const Footer = () => {
               <h6 className="mb-4  font-semibold uppercase md:mb-12">
                 HELP && SUPPORT
               </h6>
-              <p className="mb-4 flex items-center">
+              <p className="mb-4 flex items-center font-normal text-[16px] leading-[30px] poppins">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,7 @@ const Footer = () => {
                 </span>
                 New York, NY 10012, US
               </p>
-              <p className="mb-4 flex items-center">
+              <p className="mb-4 flex items-center font-normal text-[16px] leading-[30px] poppins">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,7 @@ const Footer = () => {
                 </span>
                 info@example.com
               </p>
-              <p className="mb-4 flex items-center">
+              <p className="mb-4 flex items-center font-normal text-[16px] leading-[30px] poppins">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ const Footer = () => {
                 </span>
                 + 01 234 567 88
               </p>
-              <p className="flex items-center">
+              <p className="flex items-center font-normal text-[16px] leading-[30px] poppins">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +163,7 @@ const Footer = () => {
 
       <div className="bg-black ">
         <div className=" py-3 container text-white flex flex-col md:flex-row gap:10 md:gap-0 justify-between items-center">
-          <p className="text-[14px] md:text-[16px]">©2024 Spaktech. Agency | All Right Reserved</p>
+          <p className="text-[14px] md:text-[16px] font-normal leading-[30px] poppins">©2024 Spaktech. Agency | All Right Reserved</p>
           <p className="flex items-center  gap-4  text-xl mt-3 md:mt-0">
               <FacebookOutlined />
               <InstagramOutlined />
