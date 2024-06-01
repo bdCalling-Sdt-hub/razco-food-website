@@ -12,6 +12,7 @@ const { Option } = Select;
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Drawers from "../Drawers";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 
 
@@ -130,8 +131,11 @@ const Navbar = () => {
               placeholder="Search something.."
             />
 
-            <div className=" flex gap-3">
+            <div className=" flex items-center gap-3">
               <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+              <Link href={"/profile"}>
+                <FaRegCircleUser size={26} />
+              </Link>
             </div>
           </div>
         </div>
@@ -141,7 +145,7 @@ const Navbar = () => {
         <div className="container  flex items-center  justify-between ">
           <div className="bg-primary w-[180px] md:w-[321px] rounded-lg navbar">
             <Select
-                  placeholder="Select Category"
+                  placeholder={<p className="poppins flex items-center justify-between">Select Category <MdKeyboardArrowRight color="white"  size={20} /></p>}
                   style={{
                     background: "#7CC84E",
                     width: "100%",

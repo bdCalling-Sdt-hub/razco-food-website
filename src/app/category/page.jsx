@@ -3,9 +3,9 @@ import Categories from "./Categories";
 
 const page = () => {
   return (
-    <div>
+    <React.Fragment>
       <Categories />
-    </div>
+    </React.Fragment>
   );
 };
 

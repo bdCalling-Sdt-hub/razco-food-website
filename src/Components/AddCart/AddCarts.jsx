@@ -76,7 +76,7 @@ const AddCarts = () => {
 
   const handleIncrese=(key)=>{
     const updatedProducts = filterProducts.map((item) => {
-      if (item.key === key && item.quantity > 0) {
+      if (item.key === key) {
         return { ...item, quantity: item.quantity + 1}
       }
       return item;

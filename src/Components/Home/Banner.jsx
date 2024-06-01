@@ -32,7 +32,11 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
         pagination={{
-          dynamicBullets: false,
+          el: "#containerForBullets",
+          type: "bullets",
+          bulletClass: "swiper-custom-bullet",
+          bulletActiveClass: "swiper-custom-bullet-active",
+          clickable: true,
         }}
         modules={[Autoplay, Pagination]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
