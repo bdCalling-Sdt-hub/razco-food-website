@@ -9,6 +9,7 @@ import { BiChevronRight, BiChevronLeft } from "react-icons/bi";
 import Image from "next/image";
 import { HeartOutlined, ShoppingCartOutlined,} from "@ant-design/icons";
 import Title from "@/Components/Share/Title";
+import Link from "next/link";
 
 const products = [
   {
@@ -185,14 +186,17 @@ const BestDeals = () => {
     <div className="container bg-white">
       <div className="flex items-center justify-between  border-b-2  border-[#EDEDED]  ">
         <Title className="border-b-[3px] border-[#7CC84E]"> Best Deals </Title>
-        <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline"> View All </p>
+        <Link href={"/shop"}>
+          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline"> View All </p>
+        </Link>
       </div>
 
       <div className="mt-16 relative">
         <div>
           <Slider {...settings}>
             {products.map((product) => (
-              <div key={product.key} className=" mx-auto pl-3">
+              <Link key={product.key} href={"/productDetails"}>
+              <div className=" mx-auto pl-3">
                 <div className="bg-gray-100 shadow-sm rounded w-[250px] sm:w-[280px]  md:w-[310px]  py-3 relative ">
                   <p className="px-3"> {product.imgURL}</p>
                   <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
@@ -223,6 +227,7 @@ const BestDeals = () => {
                   </div>
                 </div>
               </div>
+              </Link>
             ))}
           </Slider>
         </div>

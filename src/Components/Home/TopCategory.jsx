@@ -11,6 +11,7 @@ import img6 from "@/assets/ctgry6.png";
 import Image from "next/image";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi";
 import Title from "@/Components/Share/Title";
+import Link from "next/link";
 
 const products = [
   {
@@ -137,17 +138,21 @@ const TopCategory = () => {
     <div className="container pb-20">
       <div className="flex items-center justify-between  border-b-2  border-[#EDEDED]  ">
         <Title className="border-b-[3px] border-[#7CC84E]">Top Categories</Title>
-        <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline"> View All </p>
+        <Link href={"/shop"}>
+          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline"> View All </p>
+        </Link>
       </div>
 
       <div className="mt-16 relative">
         <div >
           <Slider {...settings}>
             {products.map((product) => (
-              <div key={product.key} className=" mx-auto">
+              <Link key={product.key} href={"/productDetails"}>
+              <div className=" mx-auto">
                 <p> {product.imgURL}</p>
                 <h4 className=" text-center text-lg  mt-2 ">{product.title}</h4>
               </div>
+              </Link>
             ))}
           </Slider>
         </div>
