@@ -34,7 +34,7 @@ const Banner = () => {
         pagination={{
           dynamicBullets: true,
         }}
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >

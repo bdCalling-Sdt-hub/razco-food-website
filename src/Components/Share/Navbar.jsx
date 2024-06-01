@@ -54,7 +54,7 @@ const Navbar = () => {
             </Link>
           <div className="flex items-center gap-8 lg:gap-0  justify-between w-full mb-2 md:mb-2">
             <Link href={`/`} className="hidden md:block">
-              <Image src={title} style={{height: 60}} width={160} alt="Photo" />
+              <Image src={title} width={160} height={80} alt="Photo" />
             </Link>
             <Input
               onChange={(e)=>setkeyword(e.target.value)}

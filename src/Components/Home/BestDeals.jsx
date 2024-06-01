@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import Title from "@/Components/Share/Title";
 import Link from "next/link";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const products = [
   {
@@ -172,6 +173,24 @@ const BestDeals = () => {
     ],
   };
 
+  const [hasFavorited, setHasFavorited] = useState(Array(12).fill(false));
+  
+  const handleWish = (e, index) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const newFavoriteStatuses = [...hasFavorited];
+    newFavoriteStatuses[index] = !newFavoriteStatuses[index];
+    setHasFavorited(newFavoriteStatuses);
+};
+
+
+const handleCart=(e)=>{
+    console.log("clicked")
+    e.stopPropagation();
+    e.preventDefault();
+    window.location.replace("/addCart")
+}
+
   return (
     <div className="container bg-white">
       <div className="flex items-center justify-between  border-b-2  border-[#EDEDED]  ">
@@ -192,10 +211,37 @@ const BestDeals = () => {
                 <div className=" mx-auto pl-3">
                   <div className="bg-gray-100 shadow-sm rounded w-[250px] sm:w-[280px]  md:w-[310px]  py-3 relative ">
                     <p className="px-3"> {product.imgURL}</p>
-                    <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
-                      {" "}
-                      <HeartOutlined />{" "}
-                    </p>
+
+
+
+                    <div
+                                        className="
+                                            absolute  top-4 right-4
+                                            hover:opacity-80
+                                            transition
+                                            cursor-pointer
+                                        "
+                                        onClick={(e) => handleWish(e, product.key)}
+                                    >
+                                        <AiOutlineHeart
+                                            size={28}
+                                            className="
+                                                fill-white
+                                                absolute
+                                                -top-[2px]
+                                                -right-[2px]
+                                            "
+                                        />
+                                        <AiFillHeart
+                                            size={24}
+                                            className={
+                                                `${ hasFavorited[product.key] ? "fill-rose-500 " : "fill-neutral-500/70" }`
+                                            }
+                                        />
+                    </div>
+
+
+
                     <div className="px-5 pb-5">
                       <div className="flex justify-between px-1 pt-3">
                         <h3 className="text-[555656] font-medium text-xl tracking-tight ">
@@ -213,7 +259,7 @@ const BestDeals = () => {
                           </span>
                         </p>
 
-                        <p className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
+                        <p onClick={handleCart} className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
                           <ShoppingCartOutlined />
                         </p>
                       </div>
