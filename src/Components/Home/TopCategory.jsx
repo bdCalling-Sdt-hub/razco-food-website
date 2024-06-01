@@ -77,23 +77,17 @@ const products = [
 ];
 
 const TopCategory = () => {
-
   const ArrowLeft = ({ currentSlide, slideCount, ...props }) => (
-    <button
-        {...props}
-        className="prev">
-        <BiChevronLeft size={24} color="#B7B8B9" style={{margin: "0 auto"}} />
+    <button {...props} className="prev">
+      <BiChevronLeft size={24} color="#B7B8B9" style={{ margin: "0 auto" }} />
     </button>
   );
 
   const ArrowRight = ({ currentSlide, slideCount, ...props }) => (
-    <button
-      {...props}
-      className="next">
-        <BiChevronRight size={24} color="#B7B8B9" style={{margin: "0 auto"}}/>
+    <button {...props} className="next">
+      <BiChevronRight size={24} color="#B7B8B9" style={{ margin: "0 auto" }} />
     </button>
   );
- 
 
   const settings = {
     dots: false,
@@ -132,33 +126,36 @@ const TopCategory = () => {
     ],
   };
 
-  
-
   return (
     <div className="container pb-20">
       <div className="flex items-center justify-between  border-b-2  border-[#EDEDED]  ">
-        <Title className="border-b-[3px] border-[#7CC84E]">Top Categories</Title>
+        <Title className="border-b-[3px] border-[#7CC84E]">
+          Top Categories
+        </Title>
         <Link href={"/shop"}>
-          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline"> View All </p>
+          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline">
+            {" "}
+            View All{" "}
+          </p>
         </Link>
       </div>
 
       <div className="mt-16 relative">
-        <div >
+        <div>
           <Slider {...settings}>
             {products.map((product) => (
               <Link key={product.key} href={"/productDetails"}>
-              <div className=" mx-auto">
-                <p> {product.imgURL}</p>
-                <h4 className=" text-center text-lg  mt-2 ">{product.title}</h4>
-              </div>
+                <div className=" mx-auto">
+                  <p> {product.imgURL}</p>
+                  <h4 className=" text-center text-lg  mt-2 ">
+                    {product.title}
+                  </h4>
+                </div>
               </Link>
             ))}
           </Slider>
         </div>
       </div>
-
-
     </div>
   );
 };

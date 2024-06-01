@@ -7,10 +7,7 @@ import img2 from "@/assets/fruit1.png";
 import img3 from "@/assets/fruit2.png";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi";
 import Image from "next/image";
-import {
-  HeartOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
+import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import Title from "@/Components/Share/Title";
 import Link from "next/link";
 
@@ -127,18 +124,14 @@ const products = [
 
 const NewArrival = () => {
   const ArrowLeft = ({ currentSlide, slideCount, ...props }) => (
-    <button
-        {...props}
-        className="prev">
-        <BiChevronLeft size={24} color="#B7B8B9" style={{margin: "0 auto"}} />
+    <button {...props} className="prev">
+      <BiChevronLeft size={24} color="#B7B8B9" style={{ margin: "0 auto" }} />
     </button>
   );
 
   const ArrowRight = ({ currentSlide, slideCount, ...props }) => (
-    <button
-      {...props}
-      className="next">
-        <BiChevronRight size={24} color="#B7B8B9" style={{margin: "0 auto"}}/>
+    <button {...props} className="next">
+      <BiChevronRight size={24} color="#B7B8B9" style={{ margin: "0 auto" }} />
     </button>
   );
 
@@ -179,23 +172,21 @@ const NewArrival = () => {
     ],
   };
 
-
-  
-
-
   return (
     <div className="container my-20">
-
       <div className="flex items-center justify-between  border-b-2  border-[#EDEDED]  ">
-        <Title className="border-b-[3px] border-[#7CC84E]"> New Arrival  </Title>
+        <Title className="border-b-[3px] border-[#7CC84E]"> New Arrival </Title>
         <Link href={"/shop"}>
-          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline"> View All </p>
+          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline">
+            {" "}
+            View All{" "}
+          </p>
         </Link>
       </div>
 
       <div className="mt-16 relative">
         <div>
-          <Slider {...settings} >
+          <Slider {...settings}>
             {products.map((product) => (
               <Link key={product.key} href={"/productDetails"}>
                 <div className=" mx-auto">
