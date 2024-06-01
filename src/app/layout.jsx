@@ -1,4 +1,4 @@
-import { Poppins } from "@next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Navbar from "@/Components/Share/Navbar";
