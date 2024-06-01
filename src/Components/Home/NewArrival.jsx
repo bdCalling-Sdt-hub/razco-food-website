@@ -176,17 +176,20 @@ const NewArrival = () => {
     <div className="container my-20">
       <div className="flex items-center justify-between  border-b-2  border-[#EDEDED]  ">
         <Title className="border-b-[3px] border-[#7CC84E]"> New Arrival </Title>
-        <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline">
-          <Link href="/shop">View All </Link>{" "}
-        </p>
+        <Link href={"/shop"}>
+          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline">
+            {" "}
+            View All{" "}
+          </p>
+        </Link>
       </div>
 
       <div className="mt-16 relative">
         <div>
           <Slider {...settings}>
             {products.map((product) => (
-              <Link key={product.key} href="/productDetails">
-                <div className=" mx-auto font-[poppins]">
+              <Link key={product.key} href={"/productDetails"}>
+                <div className=" mx-auto">
                   <div className="bg-gray-100 shadow-sm rounded w-full md:w-[310px]  py-3 relative ">
                     <p className="px-3"> {product.imgURL}</p>
                     <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
@@ -194,14 +197,14 @@ const NewArrival = () => {
                       <HeartOutlined />{" "}
                     </p>
                     <div className="px-5 pb-5">
-                      <div className="flex justify-between px-1 mt-1 items-center py-2 ">
+                      <div className="flex justify-between px-1 pt-3">
                         <h3 className="text-[555656] font-medium text-xl tracking-tight ">
                           {product.title}
                         </h3>
                         <p className="text-[#929394] text-sm "> 1 pc</p>
                       </div>
 
-                      <div className="flex items-center justify-between  py-2">
+                      <div className="flex items-center justify-between mt-3">
                         <p className="text-xl font-semibold text-[#7CC84E] ">
                           $5{" "}
                           <span className="text-sm font-medium text-red-600 ps-2 line-through">

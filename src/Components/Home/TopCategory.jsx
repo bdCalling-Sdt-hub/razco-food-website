@@ -132,16 +132,19 @@ const TopCategory = () => {
         <Title className="border-b-[3px] border-[#7CC84E]">
           Top Categories
         </Title>
-        <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline">
-          <Link href="/shop">View All </Link>{" "}
-        </p>
+        <Link href={"/shop"}>
+          <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline">
+            {" "}
+            View All{" "}
+          </p>
+        </Link>
       </div>
 
       <div className="mt-16 relative">
         <div>
           <Slider {...settings}>
             {products.map((product) => (
-              <Link href="/productDetails" key={product.key}>
+              <Link key={product.key} href={"/productDetails"}>
                 <div className=" mx-auto">
                   <p> {product.imgURL}</p>
                   <h4 className=" text-center text-lg  mt-2 ">
