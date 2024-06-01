@@ -1,11 +1,11 @@
 import React from "react";
-import ShopClient from "../shop/ShopClient";
+import OfferClient from "./OfferClient";
 
 
 const page = () => {
   return (
     <React.Fragment>
-      <ShopClient/>
+      <OfferClient/>
     </React.Fragment>
   );
 };

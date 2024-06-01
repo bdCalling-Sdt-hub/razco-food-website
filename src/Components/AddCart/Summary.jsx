@@ -37,7 +37,7 @@ const products = [
     price: "$15",
   },
 ];
-const Summary = () => {
+const Summary = ({total}) => {
   return (
     <div className=" bg-[#F8F8FC] p-4 ">
       <h4 className=" text-[#555656]  text-lg  font-semibold"> Summary </h4>
@@ -93,7 +93,7 @@ const Summary = () => {
           {" "}
           Subtotal Amount{" "}
         </span>
-        <span className=" text-xl font-medium text-[#555656]"> $545.00 </span>
+        <span className=" text-xl font-medium text-[#555656]"> ${total}</span>
       </p>
 
       <p className=" flex justify-between px-3 mt-4 mb-3">
@@ -110,7 +110,7 @@ const Summary = () => {
           {" "}
           Total Amount{" "}
         </span>
-        <span className=" text-xl font-medium text-[#555656]"> $600.00 </span>
+        <span className=" text-xl font-medium text-[#555656]"> $ {total + 55}</span>
       </p>
       <p className="text-sm text-[#6E6E6F] px-3 mt-3 ">
         You will earn 160 Points
