@@ -96,7 +96,7 @@ const Categories = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
         {products.map((product) => (
-          <Link key={product.key} href={"/productDetails"}>
+          <Link key={product.key} href={"/subCategory"}>
             <div className=" mx-auto font-[poppins]">
               <p> {product.imgURL}</p>
               <h4 className=" text-center text-lg  mt-2 ">{product.title}</h4>

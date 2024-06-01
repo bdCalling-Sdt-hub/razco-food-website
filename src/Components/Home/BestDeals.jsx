@@ -209,7 +209,7 @@ const handleCart=(e)=>{
             {products.map((product) => (
               <Link key={product.key} href={"/productDetails"}>
                 <div className=" mx-auto pl-3">
-                  <div className="bg-gray-100 shadow-sm rounded w-[250px] sm:w-[280px]  md:w-[310px]  py-3 relative ">
+                  <div className="bg-gray-100 shadow-sm rounded  py-3 relative ">
                     <p className="px-3"> {product.imgURL}</p>
 
 

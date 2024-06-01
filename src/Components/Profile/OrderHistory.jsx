@@ -1,5 +1,6 @@
 import React from "react";
 import CommonHeading from "./CommonHeading";
+import { LuPhoneCall } from "react-icons/lu";
 
 const items = [
   {
@@ -76,6 +77,7 @@ const items = [
   },
 ];
 const OrderHistory = () => {
+
   return (
     <div className="border border-[#DCDDDE4D] lg:p-10 p-3">
       <CommonHeading title={"Order History"} />
@@ -103,6 +105,7 @@ const OrderHistory = () => {
               Date: {item.date}
             </p>
             <button> {item.btn}</button>
+            <a href="tel:1-855-396-2838" target="_blank"><LuPhoneCall size={24} /></a>
           </div>
         ))}
       </div>

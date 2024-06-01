@@ -124,6 +124,7 @@ const Profile = () => {
         {tab === "Change Password" && <Settings />}
         {tab === "Feedback" && <FeedBack />}
         {tab === "Order History" && <OrderHistory />}
+        {tab === "Order Details" && <OrderHistory />}
         {tab === "My Points" && <MyPoints />}
       </main>
     </div>

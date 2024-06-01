@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import {
   DownOutlined,
@@ -29,8 +29,8 @@ const products = [...Array(16).keys()].map((index) => ({
   title: "Dairy & Breakfast", // You can adjust the title as needed
 }));
 
-const ShopClient = () => {
-    const [hasFavorited, setHasFavorited] = useState(Array(12).fill(false));
+const Categories = () => {
+  const [hasFavorited, setHasFavorited] = useState(Array(12).fill(false));
 
     const handleWish = (e, index) => {
         e.stopPropagation();
@@ -47,67 +47,13 @@ const ShopClient = () => {
         e.preventDefault();
         window.location.replace("/addCart")
     }
-    return (
-        <div className=" container mb-20 mt-10 ">
+  return (
+    <div className="container mb-16 mt-10">
+      <h1 className=" text-[#7CC84E] underline underline-offset-8 text-xl md:text-2xl font-semibold ">
+        Sub Category Product
+      </h1>
 
-
-            <div className="flex flex-col sm:flex-row  gap-6">
-                <Select
-                placeholder="Select Price"
-                style={{
-                    background: "transparent",
-                    width: 150,
-                    height: 48,
-                    outline: "none",
-                    borderRadius: "5px",
-                    color: "#555656",
-                }}
-                >
-                <Option value="200">2000</Option>
-                <Option value="100">1000</Option>
-                <Option value="300">3000</Option>
-                <Option value="400">4000</Option>
-                </Select>
-        
-                <Select
-                placeholder="Select  Category"
-                style={{
-                    background: "transparent",
-                    width: 250,
-                    height: 48,
-                    outline: "none",
-                    borderRadius: "5px",
-                }}
-                >
-                <Option value="200">Fruits</Option>
-                <Option value="100">Mango</Option>
-                <Option value="300">Fish</Option>
-                <Option value="400">Meat</Option>
-                </Select>
-        
-                <Select
-                placeholder="Select  Sub Category"
-                style={{
-                    background: "transparent",
-                    width: 250,
-                    height: 48,
-                    outline: "none",
-                    borderRadius: "5px",
-                }}
-                >
-                <Option value="200">Fruits</Option>
-                <Option value="100">Mango</Option>
-                <Option value="300">Fish</Option>
-                <Option value="400">Meat</Option>
-                </Select>
-        
-                <button className=" bg-[#7CC84E] text-white p-2 lg:w-[96px] w-1/2 mx-1 rounded">
-                {" "}
-                Apply
-                </button>
-            </div>
-    
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
                 {
                     products.map((product) => (
                         <Link href="./productDetails" key={product.key}>
@@ -178,8 +124,8 @@ const ShopClient = () => {
                 )}
                 />
             </div>
-        </div>
-    );
-}
+    </div>
+  );
+};
 
-export default ShopClient
+export default Categories;

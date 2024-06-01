@@ -144,7 +144,7 @@ const TopCategory = () => {
         <div>
           <Slider {...settings}>
             {products.map((product) => (
-              <Link key={product.key} href={"/productDetails"}>
+              <Link key={product.key} href={"/subCategory"}>
                 <div className=" mx-auto font-[poppins]">
                   <p> {product.imgURL}</p>
                   <h4 className=" text-center text-lg  mt-2 ">

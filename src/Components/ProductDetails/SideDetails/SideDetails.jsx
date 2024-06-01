@@ -1,8 +1,11 @@
+"use client"
 import { LuMinus, LuPlus } from "react-icons/lu";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import PaymentModal from "@/Components/PaymentModal";
 
 const SideDetails = () => {
+  const [open, setOpen] = useState(false)
   return (
     <div className=" ">
       <h1 className=" text-3xl font-semibold  poppins text-secondary pb-6 ">Red Tomato</h1>
@@ -25,7 +28,7 @@ const SideDetails = () => {
         </Link>
 
         <br />
-        <button className="poppins bg-[#7CC84E] text-white w-full  p-2 rounded ">
+        <button onClick={()=>setOpen(true)} className="poppins bg-[#7CC84E] text-white w-full  p-2 rounded ">
           Buy Now
         </button>
       </div>
@@ -38,6 +41,11 @@ const SideDetails = () => {
         flavor and juicy texture. They belong to the genus Fragaria and are
         widely <span className=" text-[#5B52A3]"> more... </span>
       </p>
+
+
+      <PaymentModal open={open} setOpen={setOpen} />
+
+
     </div>
   );
 };

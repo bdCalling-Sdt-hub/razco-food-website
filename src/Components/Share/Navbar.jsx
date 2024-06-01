@@ -131,11 +131,9 @@ const Navbar = () => {
               placeholder="Search something.."
             />
 
-            <div className=" flex items-center gap-3">
+            <div className=" flex gap-3">
               <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
-              <Link href={"/profile"}>
-                <FaRegCircleUser size={26} />
-              </Link>
+              
             </div>
           </div>
         </div>
@@ -212,6 +210,9 @@ const Navbar = () => {
               }} 
               className="cursor-pointer" color="#555656" size={24}
             />
+            <Link href={"/profile"}>
+                <FaRegCircleUser size={26} />
+            </Link>
 
             <div className="lg:hidden">
               <HiOutlineMenuAlt1 onClick={()=>setOpen(true)}  className="cursor-pointer" color="#555656" size={24}/>

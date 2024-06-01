@@ -210,9 +210,11 @@ const handleCart=(e)=>{
           <Slider {...settings}>
             {products.map((product) => (
               <Link key={product.key} href={"/productDetails"}>
-                <div className=" mx-auto font-[poppins]">
-                  <div className="bg-gray-100 shadow-sm rounded w-full md:w-[310px]  py-3 relative ">
+                <div className=" mx-auto pl-3">
+                  <div className="bg-gray-100 shadow-sm rounded  py-3 relative ">
                     <p className="px-3"> {product.imgURL}</p>
+
+
 
                     <div
                                         className="
@@ -241,6 +243,7 @@ const handleCart=(e)=>{
                     </div>
 
 
+
                     <div className="px-5 pb-5">
                       <div className="flex justify-between px-1 pt-3">
                         <h3 className="text-[555656] font-medium text-xl tracking-tight ">
@@ -249,7 +252,7 @@ const handleCart=(e)=>{
                         <p className="text-[#929394] text-sm "> 1 pc</p>
                       </div>
 
-                      <div className="flex items-center justify-between mt-3">
+                      <div className="flex items-center justify-between  py-2">
                         <p className="text-xl font-semibold text-[#7CC84E] ">
                           $5{" "}
                           <span className="text-sm font-medium text-red-600 ps-2 line-through">

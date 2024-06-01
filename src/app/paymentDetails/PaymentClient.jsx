@@ -87,7 +87,7 @@ const PaymentClient = () => {
                             message: "Please Choose Payment Type"
                         }
                     ]}
-                    style={{ margin: "0 0 32px 0"}}
+                    style={{ margin: "0 0 12px 0"}}
                 >
 
                     <Checkbox.Group style={{width: "100%", backgroundColor: "#dbdbdd", padding: 12, borderRadius: 8, }}>
@@ -99,6 +99,12 @@ const PaymentClient = () => {
                             <span className="text-[16px] text-[#6E6E6F] poppins leading-6 font-medium">Cash On Delivary</span> <Checkbox  value="cash"/>
                         </div>
                     </Checkbox.Group>
+                </Form.Item>
+
+                <Form.Item
+                    name="pickup"
+                >
+                    <Checkbox value={"curb"} /> <span className="poppins text-[16px] leading-6 text-secondary ml-3">Request Curbside Pickup</span>
                 </Form.Item>
 
                 <p className="flex items-center text-secondary poppins justify-between text-[24px] leading-6 font-medium mb-4">
