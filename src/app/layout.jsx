@@ -3,8 +3,8 @@ import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Navbar from "@/Components/Share/Navbar";
 import Footer from "@/Components/Share/Footer";
-import RegisterModal from "@/Modal/RegisterModal";
-import LoginModal from "@/Modal/loginModal";
+import RegisterModal from "../Modal/RegisterModal";
+import LoginModal from "../Modal/loginModal";
 
 const poppins = Poppins({ 
   subsets: ['latin'],
