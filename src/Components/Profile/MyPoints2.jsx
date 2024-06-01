@@ -45,12 +45,16 @@ const MyPoints2 = () => {
   return (
     <div className=" border border-[#DCDDDE4D] lg:p-10 ">
       <CommonHeading title={"My Points"} />
-      <h2 className="bg-[#7CC84E] p-2 text-white text-lg w-full mt-6  rounded  mb-6 ">
+      <h2 className="bg-[#7CC84E] p-2 text-white text-lg w-full mt-6  rounded  mb-6 font-[poppins] ">
         Coupon Store
       </h2>
 
       <div>
-        <Table columns={columns} dataSource={data} className="border-b-0" />
+        <Table
+          columns={columns}
+          dataSource={data}
+          className="border-b-0 font-[poppins]"
+        />
       </div>
     </div>
   );

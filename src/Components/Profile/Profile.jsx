@@ -54,7 +54,7 @@ const Profile = () => {
   ];
   return (
     <div
-      className="container mb-16 mt-10 grid grid-cols-12 lg:gap-10 lg:p-[50px] p-1 gap-[2px] rounded "
+      className="container mb-16 mt-10 grid grid-cols-12 lg:gap-10 lg:p-[50px] p-1 gap-[2px] rounded font-[poppins] "
       style={{
         boxShadow:
           "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
@@ -100,11 +100,7 @@ const Profile = () => {
               <p
                 onClick={() => handlePageChange(item.name)}
                 className={`
-                  ${
-                    tab === item.name
-                    ? "bg-[#EFEEF6]"
-                    : null
-                  }
+                  ${tab === item.name ? "bg-[#EFEEF6]" : null}
                   flex p-3 lg:p-[10px] hover:bg-[#EFEEF6] 
                   transition-all duration-300 cursor-pointer 
                   items-center gap-[10px]
