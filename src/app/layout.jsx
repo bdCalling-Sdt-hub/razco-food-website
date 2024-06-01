@@ -4,7 +4,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Navbar from "@/Components/Share/Navbar";
 import Footer from "@/Components/Share/Footer";
 import RegisterModal from "../Modal/RegisterModal";
-import LoginModal from "../Modal/loginModal";
+import dynamic from "next/dynamic";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,12 +21,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const DynamicLogin = dynamic(()=> import("../Modal/loginModal"),{ssr: false})
   return (
     <html lang="en">
       <body className={poppins.variable} suppressHydrationWarning={true}>
         <AntdRegistry>
           <Navbar />
-          <LoginModal />
+          <DynamicLogin />
           <RegisterModal />
           <div>{children}</div>
           <Footer />
