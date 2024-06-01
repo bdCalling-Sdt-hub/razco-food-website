@@ -82,6 +82,7 @@
 
 .navbar .ant-select .ant-select-arrow{
   color: #FFFFFF !important;
+  display: none;
 }
 
 
@@ -115,4 +116,17 @@
 
 .mySwiper .swiper-slide{
   opacity: 1 !important;
+}
+
+
+.swiper-custom-bullet {
+  height: 20px;
+  width: 20px;
+  background-color: white;
+}
+
+.swiper-custom-bullet.swiper-custom-bullet-active {
+  height: 20px;
+  width: 20px;
+  background-color: orange;
 }
