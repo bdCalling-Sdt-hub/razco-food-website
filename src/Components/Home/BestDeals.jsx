@@ -184,7 +184,7 @@ const BestDeals = () => {
         </Link>
       </div>
 
-      <div className="mt-16 relative">
+      <div className="mt-16 relative font-[poppins]">
         <div>
           <Slider {...settings}>
             {products.map((product) => (

@@ -189,7 +189,7 @@ const NewArrival = () => {
           <Slider {...settings}>
             {products.map((product) => (
               <Link key={product.key} href={"/productDetails"}>
-                <div className=" mx-auto">
+                <div className=" mx-auto font-[poppins]">
                   <div className="bg-gray-100 shadow-sm rounded w-full md:w-[310px]  py-3 relative ">
                     <p className="px-3"> {product.imgURL}</p>
                     <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">

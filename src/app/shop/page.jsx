@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import {
   DownOutlined,
+  HeartFilled,
   HeartOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
@@ -28,9 +29,14 @@ const products = [...Array(16).keys()].map((index) => ({
 }));
 
 const page = () => {
+  const [favorite, setFavorite] = useState(false);
+
+  const handleFavBtn = () => {
+    setFavorite(true);
+  };
   return (
     <div className=" container mb-20 mt-10 ">
-      <div className="flex flex-col sm:flex-row items-end justify-end gap-6">
+      <div className="flex flex-col sm:flex-row  gap-6">
         <Select
           placeholder="Select Price"
           style={{
@@ -79,21 +85,27 @@ const page = () => {
           <Option value="300">Fish</Option>
           <Option value="400">Meat</Option>
         </Select>
+
+        <button className=" bg-[#7CC84E] text-white p-2 lg:w-[96px] w-1/2 mx-1 rounded">
+          {" "}
+          Apply
+        </button>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6 relative mt-12 font-[poppins]">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
         {products.map((product) => (
-          <Link href="./productDetails" key={product.key}>
-            {" "}
-            <div className=" mx-auto">
+          <div className=" mx-auto relative " key={product.key}>
+            <Link href="./productDetails">
               <div className="bg-gray-100 shadow-sm rounded  w-full py-3 relative ">
                 <p className="px-3"> {product.imgURL}</p>
-                <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
+
+                <button className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
                   {" "}
-                  <HeartOutlined />{" "}
-                </p>
+                  <HeartOutlined />
+                  {/* {favorite ? <HeartFilled /> : <HeartOutlined />}{" "} */}
+                </button>
                 <div className="px-5 pb-5">
-                  <div className="flex justify-between px-1 pt-3 items-center">
+                  <div className="flex justify-between px-1 pt-3 items-center relative">
                     <h3 className="text-[555656] font-medium text-xl tracking-tight ">
                       {product.title}
                     </h3>
@@ -101,22 +113,22 @@ const page = () => {
                   </div>
 
                   <div className="flex items-center justify-between mt-3">
-                    <p className="text-xl font-semibold text-[#7CC84E] ">
-                      $5{" "}
+                    <p className="text-xl font-semibold text-[#7CC84E]">
+                      $5
                       <span className="text-sm font-medium text-red-600 ps-2 line-through">
-                        {" "}
                         $7
                       </span>
-                    </p>
-
-                    <p className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
-                      <ShoppingCartOutlined />
                     </p>
                   </div>
                 </div>
               </div>
-            </div>{" "}
-          </Link>
+            </Link>
+            <span className="text-[#7CC84E] bg-white font-semibold rounded-lg text-2xl px-4 py-2 text-center absolute right-3 bottom-5">
+              <Link href="/addCart">
+                <ShoppingCartOutlined />
+              </Link>
+            </span>
+          </div>
         ))}
       </div>
 
