@@ -58,7 +58,7 @@ const items = [
     btn: (
       <button className="bg-[#C3C4C6] p-2 text-red-500 lg:text-lg text-sm w-full   rounded ">
         {" "}
-        cancled
+        Cancled
       </button>
     ),
   },
@@ -70,7 +70,7 @@ const items = [
     btn: (
       <button className="bg-[#C3C4C6] p-2 text-red-500 lg:text-lg text-sm  w-full   rounded ">
         {" "}
-        cancled
+        Cancled
       </button>
     ),
   },

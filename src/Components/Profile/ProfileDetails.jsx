@@ -4,18 +4,20 @@ import { Form, Input } from "antd";
 
 const ProfileDetails = () => {
   return (
-    <div className=" p-5 lg:mt-2  mt-8 ">
+    <div className=" p-5 lg:mt-2  mt-8  border border-[#DCDDDE4D] lg:p-10  ">
       <CommonHeading title={"Personal Information :"} />
       <Form layout="vertical">
         <div className=" lg:flex lg:gap-4  w-full mt-5 ">
           <Form.Item
             name="name"
             className="lg:w-1/2 w-full "
-            label={<p className="text-[#6A6D7C] text-lg">Name:</p>}
+            label={
+              <p className="text-[#6A6D7C] text-lg font-[poppins] ">Name:</p>
+            }
           >
             <Input
               placeholder="Naziya Sultana Mithila"
-              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent "
+              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent font-[poppins]  "
               size="large"
             />
           </Form.Item>
@@ -27,7 +29,7 @@ const ProfileDetails = () => {
           >
             <Input
               placeholder="+8809979237849"
-              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent "
+              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent font-[poppins] "
               size="large"
               name="phone"
             />
@@ -42,7 +44,7 @@ const ProfileDetails = () => {
           >
             <Input
               placeholder="esteban_schiller@gmail.com"
-              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent "
+              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent font-[poppins] "
               size="large"
             />
           </Form.Item>
@@ -54,7 +56,7 @@ const ProfileDetails = () => {
           >
             <Input
               placeholder="Female"
-              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent "
+              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent font-[poppins] "
               size="large"
               name="password"
             />
@@ -68,14 +70,14 @@ const ProfileDetails = () => {
         >
           <Input
             placeholder="Dhaka , Bangladesh"
-            className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent "
+            className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent font-[poppins] "
             size="large"
             name="address"
           />
         </Form.Item>
 
         <Form.Item className=" text-center ">
-          <button className="bg-[#7CC84E] h-12 text-white text-sm lg:text-lg lg:w-1/4 w-1/3 mt-6  rounded   ">
+          <button className="bg-[#7CC84E] h-12 text-white text-sm lg:text-lg lg:w-1/4 w-1/3 mt-6  rounded  font-[poppins] ">
             Save Changes
           </button>
         </Form.Item>
