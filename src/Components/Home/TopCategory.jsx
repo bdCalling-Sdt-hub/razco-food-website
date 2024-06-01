@@ -132,7 +132,7 @@ const TopCategory = () => {
         <Title className="border-b-[3px] border-[#7CC84E]">
           Top Categories
         </Title>
-        <Link href={"/shop"}>
+        <Link href={"/category"}>
           <p className="text-[12px] leading-[18px] font-medium text-[#5B52A3] underline">
             {" "}
             View All{" "}
