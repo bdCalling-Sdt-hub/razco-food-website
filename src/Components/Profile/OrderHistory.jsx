@@ -105,7 +105,7 @@ const OrderHistory = () => {
               Date: {item.date}
             </p>
             <button> {item.btn}</button>
-            <a href="tel:1-855-396-2838" target="_blank"><LuPhoneCall size={24} /></a>
+            <a href="tel:1-855-396-2838"><LuPhoneCall size={24} /></a>
           </div>
         ))}
       </div>
