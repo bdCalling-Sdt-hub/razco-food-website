@@ -142,7 +142,7 @@ const AddCarts = () => {
         </div>
 
         <div className="col-span-12 md:col-span-6 order-1 lg:order-1">
-        <Summary total={total} />
+        <Summary filterProducts={filterProducts} total={total} />
         </div>
 
       </div>

@@ -95,3 +95,20 @@
 .payment .ant-form-vertical .ant-form-item-label{
   padding: 0 !important;
 }
+
+
+.custom-option {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #f0f0f0; /* Customize as needed */
+  padding: 8px 12px; /* Customize as needed */
+  color: #333; /* Customize as needed */
+}
+
+.custom-select .ant-select-selector {
+  background: #7CC84E !important;
+  color: white !important;
+  height: 48px !important;
+  border-radius: 5px !important;
+}

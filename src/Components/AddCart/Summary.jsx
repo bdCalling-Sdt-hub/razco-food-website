@@ -1,65 +1,29 @@
-import Image from "next/image";
 import React from "react";
-import img1 from "@/assets/fruit1.png";
-import img2 from "@/assets/fruit2.png";
-import img3 from "@/assets/offer.png";
-import { CloseOutlined } from "@ant-design/icons";
 import Link from "next/link";
-const products = [
-  {
-    key: 1,
-    img: <Image src={img1} height={40} width={70} alt=" " />,
-    title: " Tamato",
-    price: "$12",
-  },
-  {
-    key: 2,
-    img: <Image src={img2} height={40} width={70} alt=" " />,
-    title: " Orange",
-    price: "$15",
-  },
-  {
-    key: 3,
-    img: <Image src={img3} height={40} width={70} alt=" " />,
-    title: " Apple",
-    price: "$18",
-  },
-  {
-    key: 4,
-    img: <Image src={img1} height={40} width={70} alt=" " />,
-    title: " Tamato",
-    price: "$12",
-  },
-  {
-    key: 5,
-    img: <Image src={img2} height={40} width={70} alt=" " />,
-    title: " Orange",
-    price: "$15",
-  },
-];
-const Summary = ({total}) => {
+
+
+const Summary = ({ filterProducts ,total}) => {
   return (
     <div className=" bg-[#F8F8FC] p-4 ">
       <h4 className=" text-[#555656]  text-lg  font-semibold"> Summary </h4>
 
 
       {
-        products.map((product) => (
+        filterProducts?.map((product) => (
           <div
             key={product.key}
             className=" flex items-center justify-between px-4 border-b-2 py-2"
           >
-            <p> {product.img}</p>
+            <p className="w-14 h-14"> {product.img}</p>
             <div>
               <p className="text-[#555656] text-lg font-medium ">
                 {" "}
                 {product.title}{" "}
               </p>
-              <p className="text-[#524A93]"> 12 * 5 Quantity</p>
+              <p className="text-[#524A93]">Price {product.price} * {product.quantity} Quantity</p>
             </div>
             <p className="text-[#70B446] text-2xl font-semibold">
-              {" "}
-              {"$60"}
+              $ {product.price * product.quantity} 
             </p>
 
 
