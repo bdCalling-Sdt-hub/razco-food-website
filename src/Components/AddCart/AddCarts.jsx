@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import img1 from "@/assets/fruit1.png";
 import img2 from "@/assets/fruit2.png";
 import img3 from "@/assets/offer.png";
-import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { LuTrash2 } from "react-icons/lu";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import Summary from "./Summary";
 
 
 const products = [
@@ -94,44 +94,58 @@ const AddCarts = () => {
     setfilterProducts([...updatedProducts]);
   }
 
+  const total = filterProducts.reduce((accumulator, currentItem) => {
+    return accumulator + (currentItem.quantity * currentItem.price);
+  }, 0);
+
 
   return (
-    <div>
-      {filterProducts.map((product) => (
-        <div
-          key={product.key}
-          className=" flex items-center justify-between p-3 bg-[#F8F8FC] mb-4 rounded"
-        >
-          <p> {product.img}</p>
-          <div>
-            <h3 className="text-[#555656] text-xl font-medium">
-              {" "}
-              {product.title}
-            </h3>
-            <p className=" text-sm text-[#929394]"> {product.weight}</p>
+    <div className="container mb-5 mt-5">
+      <div className=" grid grid-cols-12 gap-6 lg:gap-10">
 
-            <div className=" flex gap-3   mt-2  mb-3  ">
-              <button onClick={()=>handleDecrese(product?.key)} className=" w-8 h-8 flex items-center justify-center  bg-[#e4e6e9] rounded  text-center">
-                <FaMinus size={18} color="#6E6E6F" />
-              </button>
+        <div className="col-span-12 md:col-span-6 order-2 lg:order-1">
+          {filterProducts.map((product) => (
+            <div
+              key={product.key}
+              className=" flex items-center justify-between p-3 bg-[#F8F8FC] mb-4 rounded"
+            >
+              <p> {product.img}</p>
+              <div>
+                <h3 className="text-[#555656] text-xl font-medium">
+                  {" "}
+                  {product.title}
+                </h3>
+                <p className=" text-sm text-[#929394]"> {product.weight}</p>
 
-              <button className=" w-8 h-8  flex items-center justify-center bg-[#e4e6e9] rounded  text-center">
-                {product?.quantity}
-              </button>
+                <div className=" flex gap-3   mt-2  mb-3  ">
+                  <button onClick={()=>handleDecrese(product?.key)} className=" w-8 h-8 flex items-center justify-center  bg-[#e4e6e9] rounded  text-center">
+                    <FaMinus size={18} color="#6E6E6F" />
+                  </button>
 
-              <button onClick={()=>handleIncrese(product?.key)} className=" w-8 h-8  flex items-center justify-center bg-[#e4e6e9] rounded  text-center">
-                <FaPlus size={18} color="#6E6E6F" />
-              </button>
+                  <button className=" w-8 h-8  flex items-center justify-center bg-[#e4e6e9] rounded  text-center">
+                    {product?.quantity}
+                  </button>
+
+                  <button onClick={()=>handleIncrese(product?.key)} className=" w-8 h-8  flex items-center justify-center bg-[#e4e6e9] rounded  text-center">
+                    <FaPlus size={18} color="#6E6E6F" />
+                  </button>
+                </div>
+              </div>
+
+              <p className=" text-[#70B446] text-2xl font-semibold">
+                ${product.price}
+              </p>
+
+                <LuTrash2 onClick={()=>handleDelete(product.key)} className="cursor-pointer" size={24} color="#C11415" />
             </div>
-          </div>
-
-          <p className=" text-[#70B446] text-2xl font-semibold">
-            ${product.price}
-          </p>
-
-            <LuTrash2 onClick={()=>handleDelete(product.key)} className="cursor-pointer" size={24} color="#C11415" />
+          ))}
         </div>
-      ))}
+
+        <div className="col-span-12 md:col-span-6 order-1 lg:order-1">
+        <Summary filterProducts={filterProducts} total={total} />
+        </div>
+
+      </div>
     </div>
   );
 };

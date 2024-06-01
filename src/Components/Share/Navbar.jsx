@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import title from "@/assets/title.png";
 import { IoClose, IoSearch, IoHeartOutline  } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { Drawer, Input, Select } from "antd";
+import { Drawer, Dropdown, Input, Menu, Select } from "antd";
 import Link from "next/link";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 const { Option } = Select;
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Drawers from "../Drawers";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 
 
@@ -37,7 +38,64 @@ const item = [
   },
 ]
 
-
+const options = [
+  {
+    value: '200',
+    label: 'Fresh Fruits',
+    children: [
+      {
+        value: '201',
+        label: 'Apples',
+      },
+      {
+        value: '202',
+        label: 'Bananas',
+      },
+    ],
+  },
+  {
+    value: '100',
+    label: 'Organic',
+    children: [
+      {
+        value: '301',
+        label: 'Salmon',
+      },
+      {
+        value: '302',
+        label: 'Tuna',
+      },
+    ],
+  },
+  {
+    value: '300',
+    label: 'Fish',
+    children: [
+      {
+        value: '301',
+        label: 'Salmon',
+      },
+      {
+        value: '302',
+        label: 'Tuna',
+      },
+    ],
+  },
+  {
+    value: '400',
+    label: 'Meat',
+    children: [
+      {
+        value: '301',
+        label: 'Salmon',
+      },
+      {
+        value: '302',
+        label: 'Tuna',
+      },
+    ],
+  },
+];
 
 const Navbar = () => {
   const [keyword, setkeyword] = useState("")
@@ -92,12 +150,33 @@ const Navbar = () => {
                     borderRadius: "5px",
                     color: "white",
                   }}
-                  className="poppins"
+                  className="poppins custom-select"
                 >
-                  <Option value="200">Fresh Fruits</Option>
-                  <Option value="100">Organic</Option>
-                  <Option value="300">Fish</Option>
-                  <Option value="400">Meat</Option>
+                  {
+                    options.map((option) => (
+                      <Option value={option.value} key={option.value}>
+                        {option.label}
+                        {option.children && (
+                          <Dropdown
+                            overlayStyle={{
+                              marginLeft: 60
+                            }}
+                            overlay={
+                              <Menu>
+                                {option.children.map((child) => (
+                                  <Menu.Item key={child.value}>{child.label}</Menu.Item>
+                                ))}
+                              </Menu>
+                            }
+                            trigger={['hover']}
+                          >
+                            <MdKeyboardArrowRight color="#6E6E6F" className="block absolute top-[21%] right-0" size={20} />
+                          </Dropdown>
+                        )}
+                      </Option>
+                    ))
+                  }
+
             </Select>
           </div>
 

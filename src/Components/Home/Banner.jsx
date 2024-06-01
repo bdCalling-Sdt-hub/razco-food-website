@@ -32,7 +32,7 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
         pagination={{
-          dynamicBullets: true,
+          dynamicBullets: false,
         }}
         modules={[Autoplay, Pagination]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
