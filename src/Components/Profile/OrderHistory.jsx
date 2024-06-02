@@ -1,6 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import CommonHeading from "./CommonHeading";
 import { LuPhoneCall } from "react-icons/lu";
+import { FaEye } from "react-icons/fa6";
+import OrderHistoryModal from "./OrderHistoryModal";
 
 const items = [
   {
@@ -77,6 +80,11 @@ const items = [
   },
 ];
 const OrderHistory = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="border border-[#DCDDDE4D] lg:p-10 p-3">
@@ -100,14 +108,23 @@ const OrderHistory = () => {
               {" "}
               Price: {item.price}
             </p>
-            <p className="text-[#555656] lg:text-lg text-sm">
-              {" "}
-              Date: {item.date}
-            </p>
+
             <button> {item.btn}</button>
-            <a href="tel:1-855-396-2838"><LuPhoneCall size={24} /></a>
+            <a href="tel:1-855-396-2838">
+              <LuPhoneCall size={24} />
+            </a>
+            <p
+              className="text-[#555656] lg:text-lg text-sm"
+              onClick={showModal}
+            >
+              <FaEye />
+            </p>
           </div>
         ))}
+        <OrderHistoryModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
       </div>
     </div>
   );

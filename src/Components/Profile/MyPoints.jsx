@@ -3,6 +3,7 @@ import CommonHeading from "./CommonHeading";
 import Image from "next/image";
 import point from "@/assets/point.png";
 import MyPointsModal from "./MyPointsModal";
+import CouponModal from "./CouponModal";
 
 const items = [
   {
@@ -44,7 +45,12 @@ const items = [
 ];
 const MyPoints = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const showPointModal = () => {
     setIsModalOpen(true);
   };
   return (
@@ -63,7 +69,10 @@ const MyPoints = () => {
         </div>
 
         {/* todo: Link  */}
-        <button className="bg-[#7CC84E] h-12 text-white text-lg w-full mt-6  rounded  ">
+        <button
+          className="bg-[#7CC84E] h-12 text-white text-lg w-full mt-6  rounded  "
+          onClick={showPointModal}
+        >
           Coupon Store
         </button>
 
@@ -94,6 +103,11 @@ const MyPoints = () => {
         ))}
 
         <MyPointsModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
+
+        <CouponModal
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
