@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import CommonHeading from "./CommonHeading";
-import { LuPhoneCall } from "react-icons/lu";
-import { FaEye } from "react-icons/fa6";
+import { LuPhoneCall, LuEye } from "react-icons/lu";
 import OrderHistoryModal from "./OrderHistoryModal";
 
 const items = [
@@ -113,12 +112,7 @@ const OrderHistory = () => {
             <a href="tel:1-855-396-2838">
               <LuPhoneCall size={24} />
             </a>
-            <p
-              className="text-[#555656] lg:text-lg text-sm"
-              onClick={showModal}
-            >
-              <FaEye />
-            </p>
+            <LuEye onClick={showModal} size={24} color="#555656" className="cursor-pointer" />
           </div>
         ))}
         <OrderHistoryModal
