@@ -5,10 +5,10 @@ const ResetPassword = ({setTab}) => {
   return (
     <div className=" ">
       <div className="text-center mb-4 mt-16 ">
-        <p className=" mt-8 mb-6 text-xl font-semibold text-[#6E6E6F] ">
+        <p className=" mt-8 mb-3 poppins text-[32px] leading-[48px] font-medium text-[#6E6E6F]">
           Set a new password
         </p>
-        <p className="text-[#929394] mt-6 mb-10">
+        <p className="text-[#929394] mb-10  poppins text-[16px] leading-[24px] font-normal ">
           Create a new password. Ensure it differs from previous ones for
           security
         </p>
@@ -16,7 +16,7 @@ const ResetPassword = ({setTab}) => {
       <Form layout="vertical">
         <Form.Item
           name="password"
-          label={<p className="text-[#6A6D7C] text-lg ">New password</p>}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal">New password</p>}
           rules={[
             {
               required: true,
@@ -35,7 +35,7 @@ const ResetPassword = ({setTab}) => {
 
         <Form.Item
           name="confirmPassword"
-          label={<p className="text-[#6A6D7C] text-lg ">Confirm Password</p>}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal">Confirm Password</p>}
           rules={[
             {
               required: true,

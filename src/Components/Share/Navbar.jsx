@@ -4,13 +4,15 @@ import React, { useState } from "react";
 import title from "@/assets/title.png";
 import { IoClose, IoSearch, IoHeartOutline  } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { Drawer, Input, Select } from "antd";
+import { Drawer, Dropdown, Input, Menu, Select } from "antd";
 import Link from "next/link";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 const { Option } = Select;
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Drawers from "../Drawers";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 
 
@@ -37,7 +39,64 @@ const item = [
   },
 ]
 
-
+const options = [
+  {
+    value: '200',
+    label: 'Fresh Fruits',
+    children: [
+      {
+        value: '201',
+        label: 'Apples',
+      },
+      {
+        value: '202',
+        label: 'Bananas',
+      },
+    ],
+  },
+  {
+    value: '100',
+    label: 'Organic',
+    children: [
+      {
+        value: '301',
+        label: 'Salmon',
+      },
+      {
+        value: '302',
+        label: 'Tuna',
+      },
+    ],
+  },
+  {
+    value: '300',
+    label: 'Fish',
+    children: [
+      {
+        value: '301',
+        label: 'Salmon',
+      },
+      {
+        value: '302',
+        label: 'Tuna',
+      },
+    ],
+  },
+  {
+    value: '400',
+    label: 'Meat',
+    children: [
+      {
+        value: '301',
+        label: 'Salmon',
+      },
+      {
+        value: '302',
+        label: 'Tuna',
+      },
+    ],
+  },
+];
 
 const Navbar = () => {
   const [keyword, setkeyword] = useState("")
@@ -48,13 +107,13 @@ const Navbar = () => {
     <div>
 
       {/* 1st navbar  */}
-      <div className="container py-2">
+      <div className="container py-2 poppins">
           <Link href={`/`} className=" md:hidden flex items-center justify-center mb-6">
               <Image src={title} style={{height: 60}} width={160} alt="Photo" />
             </Link>
           <div className="flex items-center gap-8 lg:gap-0  justify-between w-full mb-2 md:mb-2">
             <Link href={`/`} className="hidden md:block">
-              <Image src={title} style={{height: 60}} width={160} alt="Photo" />
+              <Image src={title} width={160} height={80} alt="Photo" />
             </Link>
             <Input
               onChange={(e)=>setkeyword(e.target.value)}
@@ -74,6 +133,7 @@ const Navbar = () => {
 
             <div className=" flex gap-3">
               <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+              
             </div>
           </div>
         </div>
@@ -83,20 +143,42 @@ const Navbar = () => {
         <div className="container  flex items-center  justify-between ">
           <div className="bg-primary w-[180px] md:w-[321px] rounded-lg navbar">
             <Select
-                  placeholder="Select Category"
+                  placeholder={<p className="poppins flex items-center justify-between">Select Category <MdKeyboardArrowRight color="white"  size={20} /></p>}
                   style={{
                     background: "#7CC84E",
                     width: "100%",
                     height: 48,
                     outline: "none",
                     borderRadius: "5px",
-                    color: "white"
+                    color: "white",
                   }}
+                  className="poppins custom-select"
                 >
-                  <Option value="200">Fresh Fruits</Option>
-                  <Option value="100">Organic</Option>
-                  <Option value="300">Fish</Option>
-                  <Option value="400">Meat</Option>
+                  {
+                    options.map((option) => (
+                      <Option value={option.value} key={option.value}>
+                        {option.label}
+                        {option.children && (
+                          <Dropdown
+                            overlayStyle={{
+                              marginLeft: 60
+                            }}
+                            overlay={
+                              <Menu>
+                                {option.children.map((child) => (
+                                  <Menu.Item key={child.value}>{child.label}</Menu.Item>
+                                ))}
+                              </Menu>
+                            }
+                            trigger={['hover']}
+                          >
+                            <MdKeyboardArrowRight color="#6E6E6F" className="block absolute top-[21%] right-0" size={20} />
+                          </Dropdown>
+                        )}
+                      </Option>
+                    ))
+                  }
+
             </Select>
           </div>
 
@@ -106,7 +188,7 @@ const Navbar = () => {
           {
             item.map((menu, index) => {
               return(
-                <Link key={index} className="font-normal text-[16px] leading-6 text-[#555656]" href={`${menu.path}`}>{menu.label}</Link>
+                <Link key={index} className="font-normal poppins text-[16px] leading-6 text-[#555656]" href={`${menu.path}`}>{menu.label}</Link>
               )
             } )
           }
@@ -128,6 +210,9 @@ const Navbar = () => {
               }} 
               className="cursor-pointer" color="#555656" size={24}
             />
+            <Link href={"/profile"}>
+                <FaRegCircleUser size={26} />
+            </Link>
 
             <div className="lg:hidden">
               <HiOutlineMenuAlt1 onClick={()=>setOpen(true)}  className="cursor-pointer" color="#555656" size={24}/>

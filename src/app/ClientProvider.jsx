@@ -8,6 +8,7 @@ import Footer from "@/Components/Share/Footer";
 import RegisterModal from "@/Modal/RegisterModal";
 import LoginModal from "@/Modal/loginModal";
 import { store } from "../redux/store";
+import { Toaster } from 'react-hot-toast';
 
 const ClientProvider = ({ children }) => {
   return (
@@ -19,6 +20,7 @@ const ClientProvider = ({ children }) => {
         {children}
         <Footer />
       </AntdRegistry>
+      <Toaster />
     </Provider>
   );
 };

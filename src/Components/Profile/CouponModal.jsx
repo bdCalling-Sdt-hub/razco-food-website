@@ -1,6 +1,6 @@
 import React from "react";
 import CommonHeading from "./CommonHeading";
-import { Space, Table, Tag } from "antd";
+import { Modal, Space, Table, Tag } from "antd";
 const columns = [
   {
     title: "Coupon name",
@@ -41,19 +41,27 @@ const data = [
   },
 ];
 
-const MyPoints2 = () => {
+const CouponModal = ({ isModalOpen, setIsModalOpen }) => {
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
-    <div className=" border border-[#DCDDDE4D] lg:p-10 ">
-      <CommonHeading title={"My Points"} />
-      <h2 className="bg-[#7CC84E] p-2 text-white text-lg w-full mt-6  rounded  mb-6 ">
-        Coupon Store
-      </h2>
+    <Modal open={isModalOpen} onCancel={handleCancel} footer={false}>
+      <div className=" lg:p-2 mt-2 ">
+        <h2 className="bg-[#7CC84E] p-2 text-white text-lg w-full mt-6  rounded  mb-6 font-[poppins] ">
+          Coupon Store
+        </h2>
 
-      <div>
-        <Table columns={columns} dataSource={data} className="border-b-0" />
+        <div>
+          <Table
+            columns={columns}
+            dataSource={data}
+            className="border-b-0 font-[poppins]"
+          />
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
-export default MyPoints2;
+export default CouponModal;

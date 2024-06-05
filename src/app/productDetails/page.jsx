@@ -1,5 +1,5 @@
-import TopCategory from "@/Components/Home/TopCategory";
 import Imagebar from "@/Components/ProductDetails/Imagebar/Imagebar";
+import RelatedProduct from "@/Components/ProductDetails/RelatedProduct";
 import SideDetails from "@/Components/ProductDetails/SideDetails/SideDetails";
 
 const page = () => {
@@ -17,7 +17,7 @@ const page = () => {
         </div>
       </div>
 
-      <TopCategory />
+      <RelatedProduct />
     </div>
   );
 };

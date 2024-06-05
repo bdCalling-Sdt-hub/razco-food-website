@@ -5,24 +5,15 @@ import { baseURL } from "@/Config";
 const initialState = {
     error: false,
     success: false,
-    loading: false,
-    products: [],
-    pagination: {}
+    loading: false
 };
 
 
-export const getProductList = createAsyncThunk(
-    'getProductList',
+export const makeWish = createAsyncThunk(
+    'makeWish',
     async (value, thunkApi) => {
-        const {offer, category, subcategory} = value;
         try{
-            const params = new URLSearchParams();
-
-            if (category) params.append('category', category);
-            if (offer) params.append('offer', offer);
-            if (subcategory) params.append('subcategory', subcategory);
-
-            const response = await baseURL.get(`/product?${params.toString()}`, {
+            const response = await baseURL.post(`/wishlist`, {product: value}, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjAyMmVhYzNkNGEwMWM4Mzg2YmY1NyIsImVtYWlsIjoibmFkaXJob3NzYWluMzM2QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NTc2NDM0LCJleHAiOjE3MTc2NjI4MzR9.OKNwSO_YJwwkbIfNssz-KoUAQqBadjL5MIokd8iqYQU`,
@@ -39,29 +30,25 @@ export const getProductList = createAsyncThunk(
 
 
 
-export const getProductListSlice = createSlice({
-    name: 'getProductList',
+export const makeWishSlice = createSlice({
+    name: 'makeWish',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(getProductList.pending, (state)=> {
+        builder.addCase(makeWish.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(getProductList.fulfilled, (state, action)=> {
+        builder.addCase(makeWish.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
-            state.products= action.payload.data
-            state.pagination= action.payload.pagination
         }),
-        builder.addCase(getProductList.rejected, (state)=> {
+        builder.addCase(makeWish.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
-            state.products= []
-            state.pagination= {}
         })
     }
 })
 
-export default getProductListSlice.reducer
+export default makeWishSlice.reducer

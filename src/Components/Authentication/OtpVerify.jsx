@@ -4,11 +4,11 @@ const CheckEmail = ({setTab}) => {
   return (
     <div className="">
       <div className="text-center mt-14">
-        <h1 className=" mt-8 text-2xl font-semibold text-[#6E6E6F]">
+        <h1 className=" mt-8 poppins text-[32px] leading-[48px] font-medium text-[#6E6E6F]">
           Check your email
         </h1>
-        <p className="text-[#929394]">
-          We sent a reset link to contact@dscode...com enter 5 digit code that
+        <p className="text-[#929394] poppins text-[16px] leading-[25px] font-normal ">
+          We sent a reset link to <span className="text-secondary">contact@dscode...com</span>  enter 5 digit code that
           mentioned in the email
         </p>
       </div>
@@ -44,17 +44,18 @@ const CheckEmail = ({setTab}) => {
               outline: "none",
               color: "white"
             }}
+            className="poppins"
           >
             Verify Code
           </Button>
         </Form.Item>
       </Form>
 
-      <p className="text-center mt-10 text-[#6A6D7C]">
+      <p className="text-center mt-10 text-[#6A6D7C] poppins text-[16px] leading-[25px] font-normal ">
         You have not received the email?
-        <Button  className="pl-0 text-[#7CC84E]" type="link">
+        <span  className="ml-2 text-[#7CC84E]" type="link">
           Resend
-        </Button>
+        </span>
       </p>
     </div>
   );

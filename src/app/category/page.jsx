@@ -1,10 +1,10 @@
 import React from "react";
-import PaymentClient from "./PaymentClient";
+import Categories from "./Categories";
 
 const page = () => {
   return (
     <React.Fragment>
-      <PaymentClient/>
+      <Categories />
     </React.Fragment>
   );
 };

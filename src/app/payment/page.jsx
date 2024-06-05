@@ -9,8 +9,8 @@ const page = () => {
       <div className="  ">
         <Image
           src={debitCard}
-          width={500}
-          height={300}
+          width={400}
+          height={200}
           alt=""
           className="mx-auto lg:mb-14  mb-4 "
         />

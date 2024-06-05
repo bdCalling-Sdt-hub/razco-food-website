@@ -17,9 +17,9 @@ const Login = ({onToggle}) => {
         tab === "login"
         &&
         <>
-          <div className="text-center mb-12  mx-auto text-[#6A6D7C]">
-            <p className="mt-8 mb-6 text-xl font-semibold ">Login to Account</p>
-            <p className="text-[#6A6D7C]">
+          <div className="text-center my-12  mx-auto text-[#6A6D7C]">
+            <p className="poppins text-[32px] leading-[48px] font-medium mb-2 text-[#6E6E6F]">Login to Account</p>
+            <p className="text-[#6A6D7C] poppins text-[17px] leading-[27px] font-normal ">
               Please enter your email and password to continue
             </p>
           </div>
@@ -30,7 +30,7 @@ const Login = ({onToggle}) => {
             
             <Form.Item
               name="email"
-              label={<p className="text-[#6A6D7C] text-lg">Email Address</p>}
+              label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Email Address</p>}
               rules={[
                 {
                   required: true,
@@ -51,7 +51,7 @@ const Login = ({onToggle}) => {
             </Form.Item>
             <Form.Item
               name="password"
-              label={<p className="text-[#6A6D7C] text-lg">Password</p>}
+              label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Password</p>}
               rules={[
                 {
                   required: true,
@@ -81,10 +81,10 @@ const Login = ({onToggle}) => {
             >
               <div className="flex justify-between items-center text-[#6A6D7C]">
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox className="text-[#6A6D7C]">Remember me</Checkbox>
+                  <Checkbox className="text-[#6A6D7C]  poppins text-[16px] leading-[24px] opacity-[60%] font-normal ">Remember me</Checkbox>
                 </Form.Item>
 
-                <p className="text-[#6A6D7C]" onClick={()=>setTab("forgot")}>
+                <p className="text-[#6A6D7C] poppins text-[15px] cursor-pointer leading-[27px] font-normal" onClick={()=>setTab("forgot")}>
                   Forgot password
                 </p>
               </div>

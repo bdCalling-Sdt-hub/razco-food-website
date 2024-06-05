@@ -14,6 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { ImageConfig } from "@/Config";
 const { Option } = Select;
+import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
+import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
+import toast from "react-hot-toast";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 
 const ShopClient = () => {
@@ -31,7 +36,29 @@ const ShopClient = () => {
     useEffect(()=>{
         dispatch(getCategory());
         dispatch(getSubCategory());
-    }, [dispatch])
+    }, [dispatch]);
+
+    const handleWish=(e, id)=>{
+        e.stopPropagation();
+        e.preventDefault();
+        dispatch(makeWish(id)).then((response)=>{
+            if(response?.type === "makeWish/fulfilled"){
+                dispatch(getProductList({category: category, subcategory: subcategory}))
+                toast.success(response?.payload?.message)
+            }
+        })
+    }
+
+    const handleCart = (e, id) => {
+        e.stopPropagation();
+        e.preventDefault();
+        dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+            if(response?.type === "makeCart/fulfilled"){
+                dispatch(getProductList({category: category, subcategory: subcategory}))
+                toast.success(response?.payload?.message)
+            }
+        })
+    };
 
     return (
         <div className=" container mb-20 mt-10 ">
@@ -101,8 +128,7 @@ const ShopClient = () => {
                 {
                     products?.map((product, index) => (
                         <Link href="/productDetails" key={index}>
-                            <div className="mx-auto">
-                                <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative ">
+                            <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative ">
                                 <div className="relative w-full h-[220px] overflow-hidden rounded" >
                                     <Image 
                                         src={`${ImageConfig}${product?.productImage[0]}`} 
@@ -112,27 +138,46 @@ const ShopClient = () => {
                                     />
                                 </div>
 
-                                    <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
-                                        <HeartOutlined />
-                                    </p>
+                                <div
+                                    className="
+                                        absolute  top-4 right-4
+                                        hover:opacity-80
+                                        transition
+                                        cursor-pointer
+                                    "
+                                    onClick={(e) => handleWish(e, product?._id)}
+                                >
+                                    <AiOutlineHeart
+                                        size={28}
+                                        className="
+                                            fill-primary
+                                            absolute
+                                            -top-[2px]
+                                            -right-[2px]
+                                        "
+                                    />
+                                    <AiFillHeart
+                                        size={24}
+                                        className={
+                                            `${ product?.favorite ? "fill-primary " : "fill-neutral-500/70" }`
+                                        }
+                                    />
+                                </div>
 
-                                    <div className="px-5 pb-5">
-                                        <div className="flex justify-between px-1 pt-3">
-                                            <h3 className="text-[555656] font-medium text-xl tracking-tight ">
-                                                {product?.productName}
-                                            </h3>
-                                            <p className="text-[#929394] text-sm "> {product?.store} pc</p>
-                                        </div>
-
-                                        <div className="flex items-center justify-between mt-3">
-                                        <p className="text-xl font-semibold text-[#7CC84E] ">
+                                <div className="px-2 pb-5">
+                                    <div className="flex justify-between px-1 pt-3">
+                                        <p className="text-[555656] poppins font-medium text-[18px] leading-7 ">
+                                            {product?.productName}
+                                        </p>
+                                        <p className="text-[#929394] text-[16px] leading-6 font-thin poppins "> {product?.store} pc</p>
+                                    </div>
+                                    <div className="flex items-center justify-between mt-3">
+                                        <p className="text-[18px] leading-5 font-semibold text-primary">
                                             ${product?.discountPrice}
-                                            <span className="text-sm font-medium text-red-600 ps-2 line-through">${product?.price}</span>
+                                            <span className="text-[12px] font-medium text-red-600 ps-2 line-through">${product?.price}</span>
                                         </p>
-
-                                        <p className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
-                                            <ShoppingCartOutlined />
-                                        </p>
+                                        <div onClick={(e)=>handleCart(e, product?._id)} className="text-primary flex items-center justify-center w-10 h-10 bg-white rounded-lg">
+                                            <MdOutlineAddShoppingCart size={20} />
                                         </div>
                                     </div>
                                 </div>

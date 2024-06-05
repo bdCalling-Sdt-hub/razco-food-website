@@ -13,6 +13,10 @@ import getCartSlice from './apiSlice/getCartSlice';
 import getWishSlice from './apiSlice/getWishSlice';
 import getProductListSlice from './apiSlice/Product/getProductListSlice';
 import getSubCategorySlice from './apiSlice/Category/getSubCategorySlice';
+import makeWishSlice from './apiSlice/Wish/makeWishSlice';
+import makeCartSlice from './apiSlice/Cart/makeCartSlice';
+import removeCartSlice from './apiSlice/Cart/removeCartSlice';
+import getProfileSlice from './apiSlice/Profile/getProfileSlice';
 
 export const store = configureStore({
     reducer:{
@@ -34,12 +38,22 @@ export const store = configureStore({
         getFaq: getFaqSlice,
         getPrivacyPolicy: getPrivacyPolicySlice,
         getTerms: getTermsAndConditionSlice,
+
+        // cart
+        makeCart: makeCartSlice,
         getCart: getCartSlice,
+        removeCart: removeCartSlice,
+
+        // wish
         getWish: getWishSlice,
+        makeWish: makeWishSlice,
 
 
         // products
         getProducts: getProductListSlice,
+
+        // profile,
+        getProfile: getProfileSlice,
 
     }
 })

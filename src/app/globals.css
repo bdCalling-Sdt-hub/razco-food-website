@@ -21,12 +21,8 @@
   column-gap: 25px;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-}
-
-.custom-class {
-  font-family: "Poppins", sans-serif;
+.poppins {
+  font-family: var(--font-poppins);
 }
 
 /* this is the react slick slider custom navigation button css start here */
@@ -86,6 +82,7 @@ body {
 
 .navbar .ant-select .ant-select-arrow{
   color: #FFFFFF !important;
+  display: none;
 }
 
 
@@ -93,4 +90,43 @@ body {
   height: 50px !important;
   width: 50px !important;
   background: #F1F4F9 !important;
+}
+
+
+.payment .ant-form-vertical .ant-form-item-label{
+  padding: 0 !important;
+}
+
+
+.custom-option {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #f0f0f0; /* Customize as needed */
+  padding: 8px 12px; /* Customize as needed */
+  color: #333; /* Customize as needed */
+}
+
+.custom-select .ant-select-selector {
+  background: #7CC84E !important;
+  color: white !important;
+  height: 48px !important;
+  border-radius: 5px !important;
+}
+
+.mySwiper .swiper-slide{
+  opacity: 1 !important;
+}
+
+
+.swiper-custom-bullet {
+  height: 20px;
+  width: 20px;
+  background-color: white;
+}
+
+.swiper-custom-bullet.swiper-custom-bullet-active {
+  height: 20px;
+  width: 20px;
+  background-color: orange;
 }

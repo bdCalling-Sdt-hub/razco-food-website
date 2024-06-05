@@ -31,7 +31,7 @@ const FAQ = () => {
     }, [openIndex]);
     return (
         <div className=" container mt-10 mb-20 ">
-            <h1 className="  lg:text-5xl text-center font-bold text-[#555656] lg:mb-10">
+            <h1 className=" text-4xl leading-[42px] font-semibold text-[#575757] pb-5 poppins">
                 Frequently Asked Questions
             </h1>
 
@@ -42,7 +42,7 @@ const FAQ = () => {
 
                                     {/* question */}
                                     <div className='flex cursor-pointer items-center justify-between px-4 py-3' onClick={() => toggleAccordion(index)}>
-                                        <p className='text-[20px] leading-5 font-normal text-secondary'>Do you offer online shopping and home delivery?</p>
+                                        <p className='text-[20px] leading-5 font-normal poppins text-secondary'>Do you offer online shopping and home delivery?</p>
 
                                         <div className='w-7 h-7 border border-[#63A03E] rounded-full flex items-center justify-center'>
                                             <MdKeyboardArrowRight

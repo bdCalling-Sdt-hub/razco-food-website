@@ -5,6 +5,7 @@ import FAQ from "@/Components/Home/FAQ";
 import NewArrival from "@/Components/Home/NewArrival";
 import TopCategory from "@/Components/Home/TopCategory";
 
+
 const Home = () => {
   return (
     <div>

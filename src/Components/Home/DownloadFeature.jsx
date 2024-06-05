@@ -9,10 +9,10 @@ const DownloadFeature = () => {
       <div className="container grid grid-cols-12 gap-6 lg:gap-20 py-10">
         {/* 1 st side  */}
         <div className="col-span-12 md:col-span-6 order-2 md:order-1">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold mb-3  leading-relaxed ">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold mb-3  leading-[82px] poppins ">
             Download Our Grocery Mobile App And Save Time, Mony
           </h1>
-          <p className=" mb-3 leading-loose text-lg">
+          <p className=" mb-3 leading-[28px] text-[16px] poppins">
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using Lorem Ipsum is that it has a more

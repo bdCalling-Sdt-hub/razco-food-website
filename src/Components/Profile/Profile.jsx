@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoCameraOutline } from "react-icons/io5";
 import profileImage from "@/assets/profile.png";
 import { MdOutlineFeedback } from "react-icons/md";
@@ -13,13 +13,9 @@ import Settings from "./Settings";
 import FeedBack from "./FeedBack";
 import OrderHistory from "./OrderHistory";
 import MyPoints from "./MyPoints";
-import OrderHistory2 from "./OrderHistory2";
-import MyPoints2 from "./MyPoints2";
 
 const Profile = () => {
-  const [tab, setTab] = useState(
-    new URLSearchParams(window.location.search).get("tab") || "Profile Details"
-  );
+  const [tab, setTab] = useState("Profile Details");
   const [imgUrl, setimgUrl] = useState();
   const [image, setImage] = useState();
 
@@ -32,13 +28,6 @@ const Profile = () => {
 
   const handlePageChange = (tab) => {
     setTab(tab);
-    const params = new URLSearchParams(window.location.search);
-    params.set("tab", tab);
-    window.history.pushState(null, "", `?${params.toString()}`);
-  };
-
-  const handleLogout = () => {
-    window.location.replace("/");
   };
 
   const items = [
@@ -65,11 +54,10 @@ const Profile = () => {
   ];
   return (
     <div
-      className="container mb-16 mt-10 grid grid-cols-12 gap-10 p-[50px] rounded "
+      className="container mb-16 mt-10 grid grid-cols-12 lg:gap-10 lg:p-[50px] p-1 gap-[2px] rounded font-[poppins] "
       style={{
         boxShadow:
           "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
-        
       }}
     >
       <aside className="col-span-12  md:col-span-4 lg:col-span-3 order-1 md:order-1">
@@ -112,16 +100,12 @@ const Profile = () => {
               <p
                 onClick={() => handlePageChange(item.name)}
                 className={`
-                                        ${
-                                          tab === item.name
-                                            ? "bg-[#EFEEF6]"
-                                            : null
-                                        }
-                                        flex p-[10px] hover:bg-[#EFEEF6] 
-                                        transition-all duration-300 cursor-pointer 
-                                        items-center gap-[10px]
-                                        rounded-lg
-                                    `}
+                  ${tab === item.name ? "bg-[#EFEEF6]" : null}
+                  flex p-3 lg:p-[10px] hover:bg-[#EFEEF6] 
+                  transition-all duration-300 cursor-pointer 
+                  items-center gap-[10px]
+                  rounded-lg  w-1/2  lg:w-full lg:ms-1 ms-5
+                `}
                 key={index}
               >
                 {item.icons} {item.name}
@@ -136,6 +120,7 @@ const Profile = () => {
         {tab === "Change Password" && <Settings />}
         {tab === "Feedback" && <FeedBack />}
         {tab === "Order History" && <OrderHistory />}
+        {tab === "Order Details" && <OrderHistory />}
         {tab === "My Points" && <MyPoints />}
       </main>
     </div>

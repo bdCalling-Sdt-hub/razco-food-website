@@ -14,13 +14,13 @@ export const getCart = createAsyncThunk(
     'getCart',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.get(`/offer?page=${value}`, {
+            const response = await baseURL.get(`/cart/products`, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem('token')}`,
+                    authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjAyMmVhYzNkNGEwMWM4Mzg2YmY1NyIsImVtYWlsIjoibmFkaXJob3NzYWluMzM2QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NTc2NDM0LCJleHAiOjE3MTc2NjI4MzR9.OKNwSO_YJwwkbIfNssz-KoUAQqBadjL5MIokd8iqYQU`,
                 }
             });
-            return response?.data;
+            return response?.data?.data?.products;
         }catch(error){
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);

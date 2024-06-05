@@ -1,17 +1,17 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import {
-  DownOutlined,
-  HeartOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
 import { Pagination, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getOffer } from "@/redux/apiSlice/getOfferSlice";
 import { getProductList } from "@/redux/apiSlice/Product/getProductListSlice";
+import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
 import Image from "next/image";
 import { ImageConfig } from "@/Config";
 const { Option } = Select;
+import toast from 'react-hot-toast';
+import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 
 
 const OfferClient = () => {
@@ -36,10 +36,31 @@ const OfferClient = () => {
     useEffect(()=>{
         dispatch(getProductList({offer: offer}))
     }, [dispatch, offer]);
-
     const handleChange=(page)=>{
         setPage(page)
     }
+
+    const handleWish=(e, id)=>{
+        e.stopPropagation();
+        e.preventDefault();
+        dispatch(makeWish(id)).then((response)=>{
+            if(response?.type === "makeWish/fulfilled"){
+                dispatch(getProductList({offer: offer}))
+                toast.success(response?.payload?.message)
+            }
+        })
+    }
+
+    const handleCart = (e, id) => {
+        e.stopPropagation();
+        e.preventDefault();
+        dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+            if(response?.type === "makeCart/fulfilled"){
+                dispatch(getProductList({offer: offer}))
+                toast.success(response?.payload?.message)
+            }
+        })
+    };
 
     return (
         <div className=" container mt-10 mb-20 ">
@@ -67,47 +88,69 @@ const OfferClient = () => {
                 </Select>
             </div>
 
-            <div className=" mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 relative">
+            <div className=" mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5  gap-6 relative">
                 {
                     products?.map((product, index) => (
-                        <div key={index} className=" mx-auto w-full lg:w-[300px] sm:w-full ">
-                            <div className="bg-gray-100 shadow-sm rounded w-full py-3 relative ">
-                                <div style={{ position: 'relative', width: '100%', height: '300px', overflow: 'hidden' }}>
-                                    <Image 
-                                        src={`${ImageConfig}${product?.productImage[0]}`} 
-                                        alt="offer image"
-                                        layout="fill"
-                                        objectFit="cover"
-                                    />
-                                </div>
+                        <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative " key={index}>
+                                
+                            <div className="relative w-full h-[220px] overflow-hidden rounded" >
+                                <Image 
+                                    src={`${ImageConfig}${product?.productImage[0]}`} 
+                                    alt="offer image"
+                                    layout="fill"
+                                    objectFit="cover"
+                                />
+                            </div>
 
-                                <p className=" bg-red-600 text-white  ps-4 rounded text-lg w-1/3 absolute left-2 top-2">{product?.offer?.percentage}% off</p>
-                                <p className=" text-[#7CC84E] absolute right-5 top-4 text-2xl">
-                                {" "}
-                                <HeartOutlined />{" "}
-                                </p>
-                                <div className="px-5 pb-5">
+                            <div
+                                className="
+                                    absolute  top-4 right-4
+                                    hover:opacity-80
+                                    transition
+                                    cursor-pointer
+                                "
+                                onClick={(e) => handleWish(e, product?._id)}
+                            >
+                                <AiOutlineHeart
+                                    size={28}
+                                    className="
+                                        fill-primary
+                                        absolute
+                                        -top-[2px]
+                                        -right-[2px]
+                                    "
+                                />
+                                <AiFillHeart
+                                    size={24}
+                                    className={
+                                        `${ product?.favorite ? "fill-primary " : "fill-neutral-500/70" }`
+                                    }
+                                />
+                            </div>
+
+                            <div className="px-2 pb-5">
                                 <div className="flex justify-between px-1 pt-3">
-                                    <h3 className="text-[555656] font-medium text-xl tracking-tight ">
-                                    {product?.productName}
-                                    </h3>
-                                    <p className="text-[#929394] text-sm ">{product?.store} pc</p>
+                                    <p className="text-[555656] poppins font-medium text-[18px] leading-7 ">
+                                        {product?.productName}
+                                    </p>
+                                    <p className="text-[#929394] text-[16px] leading-6 font-thin poppins "> {product?.store} pc</p>
                                 </div>
 
                                 <div className="flex items-center justify-between mt-3">
-                                    <p className="text-xl font-semibold text-[#7CC84E] ">
-                                    ${product?.discountPrice} 
-                                    <span className="text-sm font-medium text-red-600 ps-2 line-through">
-                                        ${product?.price}
-                                    </span>
+                                    <p className="text-[18px] leading-5 font-semibold text-primary">
+                                        ${product?.discountPrice}
+                                        <span className="text-[12px] font-medium text-red-600 ps-2 line-through">${product?.price}</span>
                                     </p>
+                                    <div 
+                                        onClick={(e)=>handleCart(e, product?._id)} 
+                                        className="text-primary cursor-pointer flex items-center justify-center w-10 h-10 bg-white rounded-lg"
+                                    >
+                                        <MdOutlineAddShoppingCart size={20} />
+                                    </div>
+                                </div>
 
-                                    <p className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
-                                    <ShoppingCartOutlined />
-                                    </p>
-                                </div>
-                                </div>
                             </div>
+
                         </div>
                     ))
                 }
