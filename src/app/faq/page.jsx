@@ -1,13 +1,13 @@
 "use client";
 
-import FAQ from '@/Components/FAQ';
 import React from 'react'
+import FaqClient from './FaqClient';
 
 const page = () => {
     return (
-        <>
-            <FAQ/>
-        </>
+        <React.Fragment>
+            <FaqClient/>
+        </React.Fragment>
     )
 }
 

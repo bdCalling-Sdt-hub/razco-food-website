@@ -1,16 +1,17 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react'
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { getCategory } from "@/redux/apiSlice/Category/getCategorySlice"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { getFaq } from "@/redux/apiSlice/getFaqSlice";
 
-const FAQ = () => {
+const FaqClient = () => {
     const dispatch = useDispatch()
-  const { categories } = useSelector(state=> state.getCategory);
+    const { faqs } = useSelector(state=> state.getFaq);
 
-  useEffect(()=>{
-    dispatch(getCategory())
-  }, [dispatch])
+    useEffect(()=>{
+        dispatch(getFaq())
+    }, [dispatch])
+
     const [openIndex, setOpenIndex] = useState(null);
     const contentRefs = useRef([]);
 
@@ -29,6 +30,8 @@ const FAQ = () => {
         }
         });
     }, [openIndex]);
+
+
     return (
         <div className=" container mt-10 mb-20 ">
             <h1 className="  lg:text-5xl text-center font-bold text-[#555656] lg:mb-10">
@@ -37,12 +40,12 @@ const FAQ = () => {
 
             <div className='grid grid-cols-1 gap-6 mt-16 mb-20'>
                         {
-                            [...Array(10)].map((_, index) => (
+                            faqs?.map((faq, index) => (
                                 <div key={index} className='border border-[#555555] border-opacity-[12%] rounded-lg'>
 
                                     {/* question */}
                                     <div className='flex cursor-pointer items-center justify-between px-4 py-3' onClick={() => toggleAccordion(index)}>
-                                        <p className='text-[20px] leading-5 font-normal text-secondary'>Do you offer online shopping and home delivery?</p>
+                                        <p className='text-[20px] leading-5 font-normal text-secondary'>{faq?.question}?</p>
 
                                         <div className='w-7 h-7 border border-[#63A03E] rounded-full flex items-center justify-center'>
                                             <MdKeyboardArrowRight
@@ -61,16 +64,7 @@ const FAQ = () => {
                                             maxHeight: openIndex === index ? `${contentRefs.current[index]?.scrollHeight}px` : '0px'
                                         }}
                                     >
-                                        <div className='px-4 pb-4'>
-                                            convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada
-                                            tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet
-                                            convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada
-                                            tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet
-                                            convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada
-                                            tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet
-                                            convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada
-                                            tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet
-                                        </div>
+                                        <div className='px-4 pb-4'>{faq?.question}</div>
                                     </div>
 
 
@@ -82,4 +76,4 @@ const FAQ = () => {
     )
 }
 
-export default FAQ
+export default FaqClient

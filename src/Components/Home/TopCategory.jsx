@@ -1,81 +1,22 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import img2 from "@/assets/ctgry2.png";
-import img3 from "@/assets/ctgry3.png";
-import img4 from "@/assets/ctgry4.png";
-import img5 from "@/assets/ctgry5.png";
-import img6 from "@/assets/ctgry6.png";
 import Image from "next/image";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi";
 import Title from "@/Components/Share/Title";
-
-const products = [
-  {
-    key: "1",
-    imgURL: (
-      <Image src={img5} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Fruits & Vegetables",
-  },
-
-  {
-    key: "2",
-    imgURL: (
-      <Image src={img2} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Dairy & Breakfast",
-  },
-
-  {
-    key: "3",
-    imgURL: (
-      <Image src={img3} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Dairy & Breakfast",
-  },
-
-  {
-    key: "4",
-    imgURL: (
-      <Image src={img4} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Dairy & Breakfast",
-  },
-
-  {
-    key: "5",
-    imgURL: (
-      <Image src={img5} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "6",
-    imgURL: (
-      <Image src={img6} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "7",
-    imgURL: (
-      <Image src={img3} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "8",
-    imgURL: (
-      <Image src={img2} width={150} height={40} alt=" " className="mx-auto" />
-    ),
-    title: "Dairy & Breakfast",
-  },
-];
+import { getCategory } from "@/redux/apiSlice/Category/getCategorySlice"
+import { useDispatch, useSelector } from "react-redux";
+import { ImageConfig } from "@/Config";
 
 const TopCategory = () => {
+  const dispatch = useDispatch()
+  const { categories } = useSelector(state=> state.getCategory);
+
+  useEffect(()=>{
+    dispatch(getCategory())
+  }, [dispatch])
 
   const ArrowLeft = ({ currentSlide, slideCount, ...props }) => (
     <button
@@ -143,12 +84,16 @@ const TopCategory = () => {
       <div className="mt-16 relative">
         <div >
           <Slider {...settings}>
-            {products.map((product) => (
-              <div key={product.key} className=" mx-auto">
-                <p> {product.imgURL}</p>
-                <h4 className=" text-center text-lg  mt-2 ">{product.title}</h4>
-              </div>
-            ))}
+            {categories?.map((product, index) =>{
+              return (
+                <div key={index} className=" w-[320px]">
+                  <div>
+                    <Image  src={`${ImageConfig}${product?.categoryImage}`} width={80} height={80} style={{objectFit: "cover", margin: "0 auto"}} alt="" />
+                  </div>
+                  <h4 className=" text-center poppins text-lg  mt-2 ">{product?.categoryName}</h4>
+                </div>
+              )
+            } )}
           </Slider>
         </div>
       </div>

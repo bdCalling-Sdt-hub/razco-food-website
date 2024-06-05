@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import banner1 from "@/assets/Banner.png";
 import banner2 from "@/assets/Banner1.png";
 import banner3 from "@/assets/Banner2.png";
@@ -13,6 +13,9 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
+import { getBanner } from "@/redux/apiSlice/Home/getBannerSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { ImageConfig } from "@/Config";
 
 const Banner = () => {
   const progressContent = useRef(null);
@@ -21,6 +24,11 @@ const Banner = () => {
       progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
     }
   };
+  const dispatch = useDispatch()
+  const { banner } = useSelector(state=> state.banner);
+  useEffect(()=>{
+    dispatch(getBanner())
+  }, [dispatch])
 
   return (
     <div className="container my-6 md:my-10">
@@ -38,32 +46,20 @@ const Banner = () => {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <Image
-            src={banner1}
-            height={600}
-            width={1320}
-            alt=" "
-          />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <Image
-            src={banner2}
-            width={1320}
-            height={600}
-            alt=" "
-          />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <Image
-            src={banner3}
-            width={1320}
-            height={600}
-            alt=" "
-          />
-        </SwiperSlide>
+        {
+          banner?.map((item ,index)=>{
+            return(
+              <SwiperSlide key={index}>
+                <Image
+                  src={`${ImageConfig}${item?.bannerImage}`}
+                  height={600}
+                  width={1320}
+                  alt=" "
+                />
+              </SwiperSlide>
+            )
+          })
+        }
       </Swiper>
     </div>
   );
