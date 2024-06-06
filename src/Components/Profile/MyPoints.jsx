@@ -1,48 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonHeading from "./CommonHeading";
 import Image from "next/image";
 import point from "@/assets/point.png";
 import MyPointsModal from "./MyPointsModal";
 import CouponModal from "./CouponModal";
+import { useDispatch, useSelector } from "react-redux";
+import { getPoints } from "@/redux/apiSlice/Profile/getMyPointSlice";
+import { Empty } from "antd";
 
-const items = [
-  {
-    id: 1,
-    title: " 10% Discount ",
-    date: " 09-Dec-2024",
-    point: "2k",
-    btn: (
-      <button className="bg-[#7CC84E] p-2 text-white text-sm  lg:w-[28]   rounded ">
-        {" "}
-        claim Promo
-      </button>
-    ),
-  },
-  {
-    id: 2,
-    title: " 20% Discount ",
-    date: " 09-Dec-2024",
-    point: "2k",
-    btn: (
-      <button className="bg-[#E6E5F1] p-2 text-[#5B52A3] text-sm  lg:w-[28]   rounded ">
-        {" "}
-        claim Promo
-      </button>
-    ),
-  },
-  {
-    id: 3,
-    title: " 15% Discount ",
-    date: " 09-Dec-2024",
-    point: "2k",
-    btn: (
-      <button className="bg-[#7CC84E] p-2 text-white text-sm  lg:w-[28]   rounded ">
-        {" "}
-        claim Promo
-      </button>
-    ),
-  },
-];
+
 const MyPoints = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,10 +19,19 @@ const MyPoints = () => {
   const showPointModal = () => {
     setIsModalOpen(true);
   };
+
+  const dispatch = useDispatch();
+  const { points } = useSelector(state=> state.getPoints);
+
+  useEffect(()=>{
+    dispatch(getPoints())
+  }, [dispatch])
+
   return (
     <div className="border border-[#DCDDDE4D] lg:p-6 p-2 font-[poppins]">
       <CommonHeading title={"My Points"} />
-      <div>
+
+      <div style={{display: points?.available > 0 ? "block": "none"}}>
         <div className=" flex items-center gap-5 bg-[#5B52A3] p-4 ps-6  rounded mt-5 ">
           <Image src={point} width={40} height={10} alt="" />
           <div>
@@ -112,6 +87,12 @@ const MyPoints = () => {
           setIsModalOpen={setIsModalOpen}
         />
       </div>
+
+      <div className="w-full h-full" style={{display: points?.available === 0 ? "block": "none"}}>
+        <Empty />
+      </div>
+
+
     </div>
   );
 };

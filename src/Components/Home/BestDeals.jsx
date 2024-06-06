@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,117 +11,13 @@ import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import Title from "@/Components/Share/Title";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
+import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductList } from "@/redux/apiSlice/Product/getProductListSlice";
+import { ImageConfig } from "@/Config";
 
-const products = [
-  {
-    key: "1",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded "
-      />
-    ),
-    title: "Fruits & Vegetables",
-  },
-
-  {
-    key: "2",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-
-  {
-    key: "3",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-
-  {
-    key: "4",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-
-  {
-    key: "5",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "6",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "7",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "8",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-];
 
 const BestDeals = () => {
   const ArrowLeft = ({ currentSlide, slideCount, ...props }) => (
@@ -173,23 +69,37 @@ const BestDeals = () => {
     ],
   };
 
-  const [hasFavorited, setHasFavorited] = useState(Array(12).fill(false));
+  const { products } = useSelector(state=> state.getProducts);
+  const dispatch= useDispatch()
+
+  useEffect(()=>{
+    dispatch(getProductList({}))
+  }, [dispatch])
+
+
+
   
-  const handleWish = (e, index) => {
+  const handleWish=(e, id)=>{
     e.stopPropagation();
     e.preventDefault();
-    const newFavoriteStatuses = [...hasFavorited];
-    newFavoriteStatuses[index] = !newFavoriteStatuses[index];
-    setHasFavorited(newFavoriteStatuses);
-};
+    dispatch(makeWish(id)).then((response)=>{
+      if(response?.type === "makeWish/fulfilled"){
+        dispatch(getProductList({}))
+        toast.success(response?.payload?.message)
+      }
+    })
+  }
 
-
-const handleCart=(e)=>{
-    console.log("clicked")
+  const handleCart = (e, id) => {
     e.stopPropagation();
     e.preventDefault();
-    window.location.replace("/addCart")
-}
+    dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+        if(response?.type === "makeCart/fulfilled"){
+            dispatch(getProductList({}))
+            toast.success(response?.payload?.message)
+        }
+    })
+  };
 
   return (
     <div className="container bg-white">
@@ -206,11 +116,18 @@ const handleCart=(e)=>{
       <div className="mt-16 relative font-[poppins]">
         <div>
           <Slider {...settings}>
-            {products.map((product) => (
-              <Link key={product.key} href={"/productDetails"}>
+            {products.map((product, index) => (
+              <Link key={index} href={`/productDetails/${product?._id}`}>
                 <div className=" mx-auto pl-3">
                   <div className="bg-gray-100 shadow-sm rounded  py-3 relative ">
-                    <p className="px-3"> {product.imgURL}</p>
+                  <div className="relative w-full h-[220px] overflow-hidden rounded" >
+                      <Image 
+                          src={`${ImageConfig}${product?.productImage[0]}`} 
+                          alt="offer image"
+                          layout="fill"
+                          objectFit="cover"
+                      />
+                    </div>
 
 
 
@@ -221,7 +138,7 @@ const handleCart=(e)=>{
                                             transition
                                             cursor-pointer
                                         "
-                                        onClick={(e) => handleWish(e, product.key)}
+                                        onClick={(e) => handleWish(e, product?._id)}
                                     >
                                         <AiOutlineHeart
                                             size={28}
@@ -235,7 +152,7 @@ const handleCart=(e)=>{
                                         <AiFillHeart
                                             size={24}
                                             className={
-                                                `${ hasFavorited[product.key] ? "fill-rose-500 " : "fill-neutral-500/70" }`
+                                                `${ product?.favorite ? "fill-primary " : "fill-neutral-500/70" }`
                                             }
                                         />
                     </div>
@@ -245,21 +162,23 @@ const handleCart=(e)=>{
                     <div className="px-5 pb-5">
                       <div className="flex justify-between px-1 pt-3">
                         <h3 className="text-[555656] font-medium text-xl tracking-tight ">
-                          {product.title}
+                          {product?.productName}
                         </h3>
-                        <p className="text-[#929394] text-sm "> 1 pc</p>
+                        <p className="text-[#929394] text-sm "> {product?.store} pc</p>
                       </div>
 
                       <div className="flex items-center justify-between  py-2">
                         <p className="text-xl font-semibold text-[#7CC84E] ">
-                          $5{" "}
-                          <span className="text-sm font-medium text-red-600 ps-2 line-through">
-                            {" "}
-                            $7
-                          </span>
+                          ${product?.discountPrice ? product?.discountPrice : product?.price}
+                          {
+                            product?.discountPrice &&
+                            <span className="text-sm font-medium text-red-600 ps-2 line-through">
+                              ${product?.price}
+                            </span>
+                          }
                         </p>
 
-                        <p onClick={handleCart} className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
+                        <p onClick={(e)=>handleCart(e, product?._id)} className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
                           <ShoppingCartOutlined />
                         </p>
                       </div>

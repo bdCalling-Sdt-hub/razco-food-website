@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import CommonHeading from "./CommonHeading";
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "@/redux/apiSlice/Profile/getProfileSlice"
+import { updateProfile } from "@/redux/apiSlice/Profile/updateProfileSlice";
+import toast from "react-hot-toast";
+const { Option } = Select;
+
 const ProfileDetails = () => {
   const dispatch = useDispatch();
   const {profile} = useSelector(state=> state.getProfile);
@@ -17,13 +21,23 @@ const ProfileDetails = () => {
   useEffect(()=>{
     dispatch(getProfile());
   }, [dispatch])
+  
+  const handleSubmit=(values)=>{
+    const {email, ...othersValue} = values;
+    dispatch(updateProfile(othersValue)).then((response)=>{
+      if(response.type === "updateProfile/fulfilled"){
+        toast.success(response?.payload?.message);
+        dispatch(getProfile());
+      }
+    })
 
+  }
 
 
   return (
     <div className=" p-5 lg:mt-2  mt-8  border border-[#DCDDDE4D] lg:p-10  ">
       <CommonHeading title={"Personal Information :"} />
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <div className=" lg:flex lg:gap-4  w-full mt-5 ">
           <Form.Item
 
@@ -70,14 +84,23 @@ const ProfileDetails = () => {
           <Form.Item
             name="gender"
             className=" lg:w-1/2 w-full  "
-            label={<p className="text-[#6A6D7C] text-lg">Gander:</p>}
+            label={<p className="text-[#6A6D7C] text-lg">Gander</p>}
           >
-            <Input
-              placeholder="Female"
-              className="bg-[#2E3C43] border text-[#6A6D7C] border-[#3a3a3a] placeholder:text-gray-400 py-3 hover:bg-transparent focus:bg-transparent font-[poppins] "
-              size="large"
-              name="password"
-            />
+            <Select
+              placeholder="Select Gender"
+              style={{
+                  background: "transparent",
+                  width: "100%",
+                  height: 40,
+                  outline: "none",
+                  borderRadius: "5px",
+                  color: "#555656"
+              }}
+            >
+              <Option value="Male">Male</Option>
+              <Option value="Female">Female</Option>
+              <Option value="Others">Others</Option>
+            </Select>
           </Form.Item>
         </div>
 

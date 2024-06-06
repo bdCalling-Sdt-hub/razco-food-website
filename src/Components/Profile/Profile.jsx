@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoCameraOutline } from "react-icons/io5";
 import profileImage from "@/assets/profile.png";
 import { MdOutlineFeedback } from "react-icons/md";
@@ -13,11 +13,16 @@ import Settings from "./Settings";
 import FeedBack from "./FeedBack";
 import OrderHistory from "./OrderHistory";
 import MyPoints from "./MyPoints";
+import { UserContext } from "@/provider/User";
+import { ImageConfig } from "@/Config";
 
 const Profile = () => {
   const [tab, setTab] = useState("Profile Details");
   const [imgUrl, setimgUrl] = useState();
   const [image, setImage] = useState();
+  const { user, setUser } = useContext(UserContext);
+
+  console.log(user)
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -52,6 +57,10 @@ const Profile = () => {
       icons: <TbDatabaseDollar size={24} color="#555656" />,
     },
   ];
+
+
+
+
   return (
     <div
       className="container mb-16 mt-10 grid grid-cols-12 lg:gap-10 lg:p-[50px] p-1 gap-[2px] rounded font-[poppins] "
@@ -63,7 +72,7 @@ const Profile = () => {
       <aside className="col-span-12  md:col-span-4 lg:col-span-3 order-1 md:order-1">
         <div className="w-fit relative mb-3 mx-auto">
           <Image
-            src={imgUrl ? imgUrl : profileImage}
+            src={ imgUrl ? imgUrl :  `${ImageConfig}${user?.profileImage}` }
             width={95}
             height={95}
             style={{ borderRadius: "100%" }}
@@ -88,10 +97,10 @@ const Profile = () => {
         </div>
 
         <h1 className="text-secondary text-[16px] leading-6 font-semibold text-center">
-          Cameron Williamson
+        {user?.name}
         </h1>
         <p className="text-[#929394] text-[14px] leading-[18px] font-normal  text-center">
-          deanna.curtis@example.com
+          {user?.email}
         </p>
 
         <div className="mt-5 grid grid-cols-1 gap-3">
@@ -120,7 +129,7 @@ const Profile = () => {
         {tab === "Change Password" && <Settings />}
         {tab === "Feedback" && <FeedBack />}
         {tab === "Order History" && <OrderHistory />}
-        {tab === "Order Details" && <OrderHistory />}
+        {/* {tab === "Order Details" && <OrderHistory />} */}
         {tab === "My Points" && <MyPoints />}
       </main>
     </div>

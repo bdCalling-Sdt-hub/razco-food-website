@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,119 +11,33 @@ import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { getRelatedProduct } from "@/redux/apiSlice/Product/getRelatedProductSlice";
+import { ImageConfig } from "@/Config";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
+import toast from "react-hot-toast";
+import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 
-const products = [
-  {
-    key: "1",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded "
-      />
-    ),
-    title: "Fruits & Vegetables",
-  },
 
-  {
-    key: "2",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
+const RelatedProduct = ({id}) => {
+  const dispatch = useDispatch()
+  const {products, loading}  = useSelector(state=> state.getRelatedProduct);
+  console.log(products)
+  
 
-  {
-    key: "3",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
+  useEffect(()=>{
+    dispatch(getRelatedProduct(id))
+  }, [dispatch, id])
 
-  {
-    key: "4",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  {
-    key: "5",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "6",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "7",
-    imgURL: (
-      <Image
-        src={img2}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-  {
-    key: "8",
-    imgURL: (
-      <Image
-        src={img3}
-        width={300}
-        height={40}
-        alt=" "
-        className="mx-auto bg-gray-200 rounded"
-      />
-    ),
-    title: "Dairy & Breakfast",
-  },
-];
 
-const RelatedProduct = () => {
+
+
+
   const ArrowLeft = ({ currentSlide, slideCount, ...props }) => (
     <button {...props} className="prev">
       <BiChevronLeft size={24} color="#B7B8B9" style={{ margin: "0 auto" }} />
@@ -173,22 +87,27 @@ const RelatedProduct = () => {
     ],
   };
 
-  const [hasFavorited, setHasFavorited] = useState(Array(12).fill(false));
-
-  const handleWish = (e, index) => {
+  const handleWish=(e, id)=>{
     e.stopPropagation();
     e.preventDefault();
-    const newFavoriteStatuses = [...hasFavorited];
-    newFavoriteStatuses[index] = !newFavoriteStatuses[index];
-    setHasFavorited(newFavoriteStatuses);
-  };
+    dispatch(makeWish(id)).then((response)=>{
+        if(response?.type === "makeWish/fulfilled"){
+            dispatch(getProductList({offer: offer}))
+            toast.success(response?.payload?.message)
+        }
+    })
+}
 
-  const handleCart = (e) => {
-    console.log("clicked");
+const handleCart = (e, id) => {
     e.stopPropagation();
     e.preventDefault();
-    window.location.replace("/addCart");
-  };
+    dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+        if(response?.type === "makeCart/fulfilled"){
+            dispatch(getProductList({offer: offer}))
+            toast.success(response?.payload?.message)
+        }
+    })
+};
 
   return (
     <div>
@@ -209,68 +128,69 @@ const RelatedProduct = () => {
         <div className="mt-16 relative">
           <div>
             <Slider {...settings}>
-              {products.map((product) => (
-                <Link key={product.key} href={"/productDetails"}>
-                  <div className=" mx-auto font-[poppins]  ">
-                    <div className="bg-gray-100 shadow-sm rounded w-full  md:w-[310px]  py-3 relative ">
-                      <p className="px-3"> {product.imgURL}</p>
+              {products?.map((product, index) => (
+                <Link href={`/productDetails/${product?._id}`} key={index}>
+                <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative " >
+                    <div className="relative w-full h-[220px] overflow-hidden rounded" >
+                        <Image 
+                            src={`${ImageConfig}${product?.productImage[0]}`} 
+                            alt="offer image"
+                            layout="fill"
+                            objectFit="cover"
+                        />
+                    </div>
 
-                      <div
+                    <div
                         className="
-                                            absolute  top-4 right-4
-                                            hover:opacity-80
-                                            transition
-                                            cursor-pointer
-                                        "
-                        onClick={(e) => handleWish(e, product.key)}
-                      >
+                            absolute  top-4 right-4
+                            hover:opacity-80
+                            transition
+                            cursor-pointer
+                        "
+                        onClick={(e) => handleWish(e, product?._id)}
+                    >
                         <AiOutlineHeart
-                          size={28}
-                          className="
-                                                fill-white
-                                                absolute
-                                                -top-[2px]
-                                                -right-[2px]
-                                            "
+                            size={28}
+                            className="
+                                fill-primary
+                                absolute
+                                -top-[2px]
+                                -right-[2px]
+                            "
                         />
                         <AiFillHeart
-                          size={24}
-                          className={`${
-                            hasFavorited[product.key]
-                              ? "fill-rose-500 "
-                              : "fill-neutral-500/70"
-                          }`}
+                            size={24}
+                            className={
+                                `${ product?.favorite ? "fill-primary " : "fill-neutral-500/70" }`
+                            }
                         />
-                      </div>
+                    </div>
 
-                      <div className="px-5 pb-5">
+                    <div className="px-2 pb-5">
                         <div className="flex justify-between px-1 pt-3">
-                          <h3 className="text-[555656] font-medium text-xl tracking-tight ">
-                            {product.title}
-                          </h3>
-                          <p className="text-[#929394] text-sm "> 1 pc</p>
+                            <p className="text-[555656] poppins font-medium text-[18px] leading-7 ">
+                                {product?.productName}
+                            </p>
+                            <p className="text-[#929394] text-[16px] leading-6 font-thin poppins "> {product?.store} pc</p>
                         </div>
 
                         <div className="flex items-center justify-between mt-3">
-                          <p className="text-xl font-semibold text-[#7CC84E] ">
-                            $5{" "}
-                            <span className="text-sm font-medium text-red-600 ps-2 line-through">
-                              {" "}
-                              $7
-                            </span>
-                          </p>
-
-                          <p
-                            onClick={handleCart}
-                            className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center"
-                          >
-                            <ShoppingCartOutlined />
-                          </p>
+                            <p className="text-[18px] leading-5 font-semibold text-primary">
+                                ${product?.discountPrice}
+                                <span className="text-[12px] font-medium text-red-600 ps-2 line-through">${product?.price}</span>
+                            </p>
+                            <div 
+                                onClick={(e)=>handleCart(e, product?._id)} 
+                                className="text-primary cursor-pointer flex items-center justify-center w-10 h-10 bg-white rounded-lg"
+                            >
+                                <MdOutlineAddShoppingCart size={20} />
+                            </div>
                         </div>
-                      </div>
+
                     </div>
-                  </div>
-                </Link>
+
+                </div>
+            </Link>
               ))}
             </Slider>
           </div>

@@ -8,10 +8,9 @@ import { IconCoin } from '@tabler/icons-react';
 
 const PaymentClient = () => {
     const [open, setOpen] = useState(false);
-
+    
     const handleSubmit=(values)=>{
         window.location.replace("/payment")
-
     }
     return (
         <div className="container mb-16 mt-10">

@@ -5,22 +5,21 @@ import { baseURL } from "@/Config";
 const initialState = {
     error: false,
     success: false,
-    loading: false,
-    orders: []
+    loading: false
 };
 
 
-export const getOrders = createAsyncThunk(
-    'getOrders',
+export const updateProfile = createAsyncThunk(
+    'updateProfile',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.get(`/order/history`, {
+            const response = await baseURL.patch(`/user/profile-update`, value, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjAyMmVhYzNkNGEwMWM4Mzg2YmY1NyIsImVtYWlsIjoibmFkaXJob3NzYWluMzM2QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NjY1OTI4LCJleHAiOjE3MTc3NTIzMjh9.1W_XIoIpRLx8AoB31nCJm9GZjTY-O0FdGiznFpnpxNI`,
                 }
             });
-            return response?.data?.data;
+            return response?.data;
         }catch(error){
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
@@ -31,27 +30,25 @@ export const getOrders = createAsyncThunk(
 
 
 
-export const getOrdersSlice = createSlice({
-    name: 'getOrders',
+export const updateProfileSlice = createSlice({
+    name: 'updateProfile',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(getOrders.pending, (state)=> {
+        builder.addCase(updateProfile.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(getOrders.fulfilled, (state, action)=> {
+        builder.addCase(updateProfile.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
-            state.orders= action.payload
         }),
-        builder.addCase(getOrders.rejected, (state)=> {
+        builder.addCase(updateProfile.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
-            state.orders= []
         })
     }
 })
 
-export default getOrdersSlice.reducer
+export default updateProfileSlice.reducer

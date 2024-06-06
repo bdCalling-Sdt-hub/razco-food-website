@@ -9,17 +9,20 @@ import RegisterModal from "@/Modal/RegisterModal";
 import LoginModal from "@/Modal/loginModal";
 import { store } from "../redux/store";
 import { Toaster } from 'react-hot-toast';
+import { UserProvider } from '@/provider/User';
 
 const ClientProvider = ({ children }) => {
   return (
     <Provider store={store}>
-      <AntdRegistry>
-        <Navbar />
-        <LoginModal />
-        <RegisterModal />
-        {children}
-        <Footer />
-      </AntdRegistry>
+      <UserProvider>
+        <AntdRegistry>
+          <Navbar />
+          <LoginModal />
+          <RegisterModal />
+          {children}
+          <Footer />
+        </AntdRegistry>
+      </UserProvider>
       <Toaster />
     </Provider>
   );

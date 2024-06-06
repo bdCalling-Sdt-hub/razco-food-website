@@ -6,15 +6,16 @@ const initialState = {
     error: false,
     success: false,
     loading: false,
-    orders: []
+    products: [],
 };
 
 
-export const getOrders = createAsyncThunk(
-    'getOrders',
-    async (value, thunkApi) => {
+export const getRelatedProduct = createAsyncThunk(
+    'getRelatedProduct',
+    async (id, thunkApi) => {
         try{
-            const response = await baseURL.get(`/order/history`, {
+            
+            const response = await baseURL.get(`/product/related-product/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjAyMmVhYzNkNGEwMWM4Mzg2YmY1NyIsImVtYWlsIjoibmFkaXJob3NzYWluMzM2QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NjY1OTI4LCJleHAiOjE3MTc3NTIzMjh9.1W_XIoIpRLx8AoB31nCJm9GZjTY-O0FdGiznFpnpxNI`,
@@ -31,27 +32,27 @@ export const getOrders = createAsyncThunk(
 
 
 
-export const getOrdersSlice = createSlice({
-    name: 'getOrders',
+export const getRelatedProductSlice = createSlice({
+    name: 'getRelatedProduct',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(getOrders.pending, (state)=> {
+        builder.addCase(getRelatedProduct.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(getOrders.fulfilled, (state, action)=> {
+        builder.addCase(getRelatedProduct.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
-            state.orders= action.payload
+            state.products= action.payload
         }),
-        builder.addCase(getOrders.rejected, (state)=> {
+        builder.addCase(getRelatedProduct.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
-            state.orders= []
+            state.products=  []
         })
     }
 })
 
-export default getOrdersSlice.reducer
+export default getRelatedProductSlice.reducer

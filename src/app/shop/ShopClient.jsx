@@ -127,7 +127,7 @@ const ShopClient = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5  gap-6 relative mt-12">
                 {
                     products?.map((product, index) => (
-                        <Link href="/productDetails" key={index}>
+                        <Link href={`/productDetails/${product?._id}`} key={index}>
                             <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative ">
                                 <div className="relative w-full h-[220px] overflow-hidden rounded" >
                                     <Image 

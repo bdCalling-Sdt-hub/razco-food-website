@@ -1,8 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonHeading from "./CommonHeading";
 import { LuPhoneCall, LuEye } from "react-icons/lu";
 import OrderHistoryModal from "./OrderHistoryModal";
+import { getOrders } from "@/redux/apiSlice/Profile/getOrderHistorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Empty } from "antd";
 
 const items = [
   {
@@ -85,14 +88,21 @@ const OrderHistory = () => {
     setIsModalOpen(true);
   };
 
+  const dispatch = useDispatch();
+  const {orders} = useSelector(state=> state.getOrders);
+
+  useEffect(()=>{
+    dispatch(getOrders())
+  }, [dispatch])
+
   return (
     <div className="border border-[#DCDDDE4D] lg:p-10 p-3">
       <CommonHeading title={"Order History"} />
 
-      <div>
-        {items.map((item) => (
+      <div style={{display: orders?.length > 0 ? "block": "none"}}>
+        {orders?.map((item, index) => (
           <div
-            key={item.id}
+            key={index}
             className="flex justify-between items-center mt-8 lg:gap-1 gap-2"
           >
             <p className="text-[#555656] lg:text-lg text-sm">
@@ -115,11 +125,16 @@ const OrderHistory = () => {
             <LuEye onClick={showModal} size={24} color="#555656" className="cursor-pointer" />
           </div>
         ))}
-        <OrderHistoryModal
+      </div>
+
+      <div className="w-full h-full" style={{display: orders?.length === 0 ? "block": "none"}}>
+        <Empty />
+      </div>
+
+      <OrderHistoryModal
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
-      </div>
     </div>
   );
 };

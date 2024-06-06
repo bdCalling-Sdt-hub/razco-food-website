@@ -16,8 +16,9 @@ import t2 from "@/assets/t2.png";
 import t1 from "@/assets/t1.png";
 
 import t4 from "@/assets/t4.png";
+import { ImageConfig } from "@/Config";
 
-const Imagebar = () => {
+const Imagebar = ({imageList}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
@@ -34,35 +35,22 @@ const Imagebar = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2 "
       >
-        <SwiperSlide>
-          <Image
-            alt="Slide 2"
-            width={800}
-            height={400}
-            style={{ height: "400px", backgroundColor: "#DADADA" }}
-            src={t4}
-          />
-        </SwiperSlide>
 
-        <SwiperSlide>
-          <Image
-            alt="Slide 1"
-            width={800}
-            height={400}
-            style={{ height: "400px", backgroundColor: "#DADADA" }}
-            src={t2}
-          />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <Image
-            alt="Slide 2"
-            width={800}
-            height={400}
-            style={{ height: "400px", backgroundColor: "#DADADA" }}
-            src={t1}
-          />
-        </SwiperSlide>
+        {
+          imageList?.map((image, index)=>{
+            return(
+              <SwiperSlide key={index}>
+              <Image
+                alt="Slide 2"
+                width={800}
+                height={400}
+                style={{ height: "400px", backgroundColor: "#DADADA" }}
+                src={`${ImageConfig}${image}`}
+              />
+            </SwiperSlide>
+            )
+          })
+        }
       </Swiper>
 
       <Swiper
@@ -75,47 +63,26 @@ const Imagebar = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper  "
       >
-        <SwiperSlide>
-          <Image
-            alt="Thumb 4"
-            width={120}
-            height={130}
-            style={{
-              width: "100%",
-              height: "130px",
-              backgroundColor: "#DADADA",
-            }}
-            src={t4}
-          />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <Image
-            alt="Thumb 1"
-            width={120}
-            height={130}
-            style={{
-              width: "100%",
-              height: "130px",
-              backgroundColor: "#DADADA",
-            }}
-            src={t2}
-          />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <Image
-            alt="Thumb 2"
-            width={120}
-            height={130}
-            style={{
-              width: "100%",
-              height: "130px",
-              backgroundColor: "#DADADA",
-            }}
-            src={t1}
-          />
-        </SwiperSlide>
+        
+        {
+          imageList?.map((image, index)=>{
+            return(
+              <SwiperSlide key={index}>
+              <Image
+                alt="Thumb 2"
+                width={120}
+                height={130}
+                style={{
+                  width: "100%",
+                  height: "130px",
+                  backgroundColor: "#DADADA",
+                }}
+                src={`${ImageConfig}${image}`}
+              />
+            </SwiperSlide>
+            )
+          })
+        }
       </Swiper>
     </div>
   );
