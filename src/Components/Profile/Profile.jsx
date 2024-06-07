@@ -22,8 +22,6 @@ const Profile = () => {
   const [image, setImage] = useState();
   const { user, setUser } = useContext(UserContext);
 
-  console.log(user)
-
   const handleChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -58,6 +56,7 @@ const Profile = () => {
     },
   ];
 
+  const src = user?.profileImage?.startsWith("https") ?  user?.profileImage : `${ImageConfig}/${user?.profileImage}`;
 
 
 
@@ -72,7 +71,7 @@ const Profile = () => {
       <aside className="col-span-12  md:col-span-4 lg:col-span-3 order-1 md:order-1">
         <div className="w-fit relative mb-3 mx-auto">
           <Image
-            src={ imgUrl ? imgUrl :  `${ImageConfig}${user?.profileImage}` }
+            src={ imgUrl ? imgUrl : src}
             width={95}
             height={95}
             style={{ borderRadius: "100%" }}

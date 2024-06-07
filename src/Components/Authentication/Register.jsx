@@ -1,12 +1,34 @@
+import useEmailVerifyModal from "@/hooks/useEmailVerifyModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import { UserContext } from "@/provider/User";
+import { register } from "@/redux/apiSlice/Authentication/registerSlice";
+import { getProfile } from "@/redux/apiSlice/Profile/getProfileSlice";
 import { Button, Checkbox, Form, Input } from "antd";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = ({onToggle}) => {
+  const registerModal = useRegisterModal();
+  const emailVerifyModal = useEmailVerifyModal();
+  const dispatch = useDispatch();
+  const {loading} = useSelector(state=> state.register);
 
   const handleSubmit=(values)=>{
-    console.log("Received Values", values)
+    dispatch(register(values)).then((response)=>{
+      localStorage.setItem("email", values?.email)
+      if(response.type === "register/fulfilled"){
+        toast.success(response?.payload?.message)
+        registerModal.onClose();
+        emailVerifyModal.onOpen();
+      }else{
+        toast.error(response?.payload)
+      }
+    })
   }
+
+
   return (
     <div>
       <div className="text-center mb-12  mx-auto text-[#6A6D7C]">
@@ -22,16 +44,16 @@ const Register = ({onToggle}) => {
       <Form layout="vertical" onFinish={handleSubmit}>
         <Form.Item
           name="name"
-          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">User name</p>}
+          label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Full name</p>}
           rules={[
             {
               required: true,
-              message: "Please Enter User Name!"
+              message: "Please Enter Your Name!"
             }
           ]}
         >
           <Input
-            placeholder="write your name"
+            placeholder="Write Your Name"
             style={{
               background: "#F1F4F9",
               height: 48,
@@ -63,7 +85,7 @@ const Register = ({onToggle}) => {
         </Form.Item>
 
         <Form.Item
-          name="email"
+          name="phone"
           label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Contact no</p>}
           rules={[
             {
@@ -115,7 +137,7 @@ const Register = ({onToggle}) => {
               outline: "none"
             }}
           >
-            Sign Up
+            { loading ? "Loading..." : "Sign Up"}
           </Button>
         </Form.Item>
 

@@ -1,7 +1,24 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "@/redux/apiSlice/Authentication/forgotPasswordSlice";
+import toast from "react-hot-toast";
 
 const ForgetPassword = ({setTab}) => {
+  const dispatch = useDispatch();
+  const {loading} = useSelector(state=> state.forgotPassword);
+
+  const handleSubmit=(values)=>{
+    localStorage.setItem("email", values?.email)
+    dispatch(forgotPassword(values)).then((response)=>{
+      if(response.type === "forgotPassword/fulfilled"){
+        toast.success("Send OTP")
+        setTab("otp")
+      }else{
+        toast.error(response?.payload?.message)
+      }
+    })
+  }
   return (
     <div className=" ">
       <div className="text-center mb-12">
@@ -9,7 +26,7 @@ const ForgetPassword = ({setTab}) => {
           Forget Password
         </p>
       </div>
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={handleSubmit}>
         <Form.Item
           name="email"
           label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Email Address</p>}
@@ -22,7 +39,7 @@ const ForgetPassword = ({setTab}) => {
         </Form.Item>
 
         <Form.Item>
-          <button onClick={()=>setTab("otp")} className="bg-[#7CC84E] h-12 text-white text-lg w-full mt-6  rounded  ">
+          <button type="submit" className="bg-[#7CC84E] h-12 text-white text-lg w-full mt-6  rounded  ">
             Send
           </button>
         </Form.Item>

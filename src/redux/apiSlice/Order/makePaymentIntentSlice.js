@@ -6,15 +6,15 @@ const initialState = {
     error: false,
     success: false,
     loading: false,
-    profile: {}
+    intent: {}
 };
 
 
-export const getProfile = createAsyncThunk(
-    'getProfile',
+export const makePaymentIntent = createAsyncThunk(
+    'makePaymentIntent',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.get(`/user/profile`, {
+            const response = await baseURL.post(`/order/create-payment-intent`, {price: value}, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -31,27 +31,27 @@ export const getProfile = createAsyncThunk(
 
 
 
-export const getProfileSlice = createSlice({
-    name: 'getProfile',
+export const makePaymentIntentSlice = createSlice({
+    name: 'makePaymentIntent',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(getProfile.pending, (state)=> {
+        builder.addCase(makePaymentIntent.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(getProfile.fulfilled, (state, action)=> {
+        builder.addCase(makePaymentIntent.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
-            state.profile= action.payload
+            state.intent = action.payload
         }),
-        builder.addCase(getProfile.rejected, (state)=> {
+        builder.addCase(makePaymentIntent.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
-            state.profile= {}
+            state.intent = {}
         })
     }
 })
 
-export default getProfileSlice.reducer
+export default makePaymentIntentSlice.reducer

@@ -10,6 +10,7 @@ import LoginModal from "@/Modal/loginModal";
 import { store } from "../redux/store";
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from '@/provider/User';
+import EmailVerifyModal from '@/Modal/EmailVerifyModal';
 
 const ClientProvider = ({ children }) => {
   return (
@@ -19,6 +20,7 @@ const ClientProvider = ({ children }) => {
           <Navbar />
           <LoginModal />
           <RegisterModal />
+          <EmailVerifyModal/>
           {children}
           <Footer />
         </AntdRegistry>

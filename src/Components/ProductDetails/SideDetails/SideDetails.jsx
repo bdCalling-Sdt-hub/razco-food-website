@@ -1,16 +1,20 @@
 "use client"
 import { LuMinus, LuPlus } from "react-icons/lu";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PaymentModal from "@/Components/PaymentModal";
 import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import useLoginModal from "@/hooks/useLoginModal";
+import { UserContext } from "@/provider/User";
 
 const SideDetails = ({product}) => {
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
+  const loginModal = useLoginModal();
+  const {user} = useContext(UserContext);
 
 
   const handleCart = () => {
@@ -41,12 +45,31 @@ const SideDetails = ({product}) => {
       </div>
 
       <div className="w-full">
-          <button onClick={handleCart} className="poppins w-full text-[#70B446] border border-[#70B446] p-2 mb-6 rounded font-medium">
+          <button 
+            onClick={()=>{
+              if(!user){
+                loginModal.onOpen()
+              }else{
+                handleCart()
+              }
+            }} 
+            className="poppins w-full text-[#70B446] border border-[#70B446] p-2 mb-6 rounded font-medium"
+          >
             Add to Cart
           </button>
 
         <br />
-        <button onClick={()=>setOpen(true)} className="poppins bg-[#7CC84E] text-white w-full  p-2 rounded ">
+        <button
+          className="poppins bg-[#7CC84E] text-white w-full  p-2 rounded"
+          onClick={()=>{
+            if(!user){
+              loginModal.onOpen()
+            }else{
+              setOpen(true)
+            }
+          }}
+        
+        >
           Buy Now
         </button>
       </div>
@@ -57,7 +80,7 @@ const SideDetails = ({product}) => {
       </p>
 
 
-      <PaymentModal open={open} setOpen={setOpen} />
+      <PaymentModal open={open} setOpen={setOpen}  total = { (product?.discountPrice ? product?.discountPrice : product?.price) * count } />
 
 
     </div>

@@ -1,7 +1,23 @@
+import { resetPassword } from "@/redux/apiSlice/Authentication/resetPasswordSlice";
 import { Button, Form, Input } from "antd";
 import React from "react";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const ResetPassword = ({setTab}) => {
+  const dispatch = useDispatch();
+  const {loading} = useSelector(state=> state.resetPassword);
+
+  const handleSubmit=(values)=>{
+    dispatch(resetPassword(values)).then((response)=>{
+      if(response.type === "resetPassword/fulfilled"){
+        toast.success("Password Updated successful")
+        setTab("login")
+      }else{
+        toast.error(response?.payload?.message)
+      }
+    })
+  }
   return (
     <div className=" ">
       <div className="text-center mb-4 mt-16 ">
@@ -13,9 +29,9 @@ const ResetPassword = ({setTab}) => {
           security
         </p>
       </div>
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={handleSubmit}>
         <Form.Item
-          name="password"
+          name="newPassword"
           label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal">New password</p>}
           rules={[
             {
@@ -54,7 +70,6 @@ const ResetPassword = ({setTab}) => {
 
         <Form.Item>
           <Button
-                onClick={()=>setTab("login")}
                 htmlType="submit"
                 style={{
                   width: "100%",
@@ -65,7 +80,7 @@ const ResetPassword = ({setTab}) => {
                   color: "white"
                 }}
               >
-                Sign In
+                {loading ? "Loading..." : "Update"}
               </Button>
         </Form.Item>
       </Form>

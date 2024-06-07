@@ -1,27 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { baseURL } from "@/Config";
+import { baseURL } from "../../../Config";
 
 
 const initialState = {
     error: false,
     success: false,
     loading: false,
-    profile: {}
 };
 
 
-export const getProfile = createAsyncThunk(
-    'getProfile',
+export const verifyOtp = createAsyncThunk(
+    'verifyOtp',
     async (value, thunkApi) => {
+        console.log(value)
         try{
-            const response = await baseURL.get(`/user/profile`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-                }
-            });
+            const response = await baseURL.post(`/auth/otp-verify`, {email: value.email, code: value?.otp})
+            localStorage.setItem("rToken", response?.data?.data)
             return response?.data?.data;
         }catch(error){
+            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }
@@ -31,27 +28,25 @@ export const getProfile = createAsyncThunk(
 
 
 
-export const getProfileSlice = createSlice({
-    name: 'getProfile',
+export const verifyOtpSlice = createSlice({
+    name: 'verifyOtp',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(getProfile.pending, (state)=> {
+        builder.addCase(verifyOtp.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(getProfile.fulfilled, (state, action)=> {
+        builder.addCase(verifyOtp.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
-            state.profile= action.payload
         }),
-        builder.addCase(getProfile.rejected, (state)=> {
+        builder.addCase(verifyOtp.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
-            state.profile= {}
         })
     }
 })
 
-export default getProfileSlice.reducer
+export default verifyOtpSlice.reducer

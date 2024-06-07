@@ -1,27 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { baseURL } from "@/Config";
+import { baseURL } from "../../../Config";
 
 
 const initialState = {
     error: false,
     success: false,
     loading: false,
-    profile: {}
 };
 
 
-export const getProfile = createAsyncThunk(
-    'getProfile',
+export const resetPassword = createAsyncThunk(
+    'resetPassword',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.get(`/user/profile`, {
+            const response = await baseURL.post(`/auth/reset-password`, {...value}, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    authorization: `${localStorage.getItem("rToken")}`,
                 }
             });
+            console.log(response)
             return response?.data?.data;
         }catch(error){
+            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }
@@ -31,27 +32,25 @@ export const getProfile = createAsyncThunk(
 
 
 
-export const getProfileSlice = createSlice({
-    name: 'getProfile',
+export const resetPasswordSlice = createSlice({
+    name: 'resetPassword',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(getProfile.pending, (state)=> {
+        builder.addCase(resetPassword.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(getProfile.fulfilled, (state, action)=> {
+        builder.addCase(resetPassword.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
-            state.profile= action.payload
         }),
-        builder.addCase(getProfile.rejected, (state)=> {
+        builder.addCase(resetPassword.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
-            state.profile= {}
         })
     }
 })
 
-export default getProfileSlice.reducer
+export default resetPasswordSlice.reducer

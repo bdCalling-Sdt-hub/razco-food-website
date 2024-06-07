@@ -1,6 +1,39 @@
+import { forgotPassword } from "@/redux/apiSlice/Authentication/forgotPasswordSlice";
+import { verifyOtp } from "@/redux/apiSlice/Authentication/verifyOtpSlice";
 import { Button, Form, Input } from "antd";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const CheckEmail = ({setTab}) => {
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+
+  form.setFieldsValue()
+
+  const handleSubmit=(values)=>{
+    dispatch(verifyOtp({email: localStorage.getItem("email"), otp: values?.otp })).then((response)=>{
+      if(response.type === "verifyOtp/fulfilled"){
+        toast.success("OTP Verified successfuly")
+        setTab("reset")
+      }else{
+        toast.error(response?.payload);
+        form.resetFields()
+      }
+    })
+  }
+
+  const handleResent=()=>{
+    dispatch(forgotPassword({email: localStorage.getItem("email")})).then((response)=>{
+      if(response.type === "forgotPassword/fulfilled"){
+        toast.success("Send OTP")
+        setTab("otp")
+        form.resetFields()
+      }else{
+        toast.error(response?.payload)
+      }
+    })
+  }
+
   return (
     <div className="">
       <div className="text-center mt-14">
@@ -14,8 +47,9 @@ const CheckEmail = ({setTab}) => {
       </div>
 
 
-      <Form style={{margin: "40px 0"}}>
-        <Form.Item  
+      <Form style={{margin: "40px 0"}} onFinish={handleSubmit} form={form}>
+        <Form.Item 
+          name={"otp"} 
           style={{display :"flex", alignItems: "center", justifyContent: "center"}}
           rules={[
             {
@@ -28,13 +62,14 @@ const CheckEmail = ({setTab}) => {
             size="large"
             className="otp-input  "
             style={{ width: "100%", height: "50px" }}
-            length={5}
+            length={4}
+            type="number"
           />
         </Form.Item>
 
         <Form.Item >
           <Button
-            onClick={()=>setTab("reset")}
+            
             htmlType="submit"
             style={{
               width: "100%",
@@ -53,9 +88,9 @@ const CheckEmail = ({setTab}) => {
 
       <p className="text-center mt-10 text-[#6A6D7C] poppins text-[16px] leading-[25px] font-normal ">
         You have not received the email?
-        <span  className="ml-2 text-[#7CC84E]" type="link">
+        <button type="button" onClick={handleResent} className="ml-2 cursor-pointer text-[#7CC84E]" >
           Resend
-        </span>
+        </button>
       </p>
     </div>
   );

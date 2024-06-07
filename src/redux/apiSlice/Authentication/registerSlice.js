@@ -9,17 +9,13 @@ const initialState = {
 };
 
 
-export const login = createAsyncThunk(
-    'login',
+export const register = createAsyncThunk(
+    'register',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/auth/login`, {...value}, {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem('token')}`,
-                }
-            });
-            return response?.data?.data;
+            const response = await baseURL.post(`/user/create-user`, {...value});
+            
+            return response?.data;
         }catch(error){
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
@@ -30,20 +26,20 @@ export const login = createAsyncThunk(
 
 
 
-export const loginSlice = createSlice({
-    name: 'login',
+export const registerSlice = createSlice({
+    name: 'register',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(login.pending, (state)=> {
+        builder.addCase(register.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(login.fulfilled, (state, action)=> {
+        builder.addCase(register.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
         }),
-        builder.addCase(login.rejected, (state)=> {
+        builder.addCase(register.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
@@ -51,4 +47,4 @@ export const loginSlice = createSlice({
     }
 })
 
-export default loginSlice.reducer
+export default registerSlice.reducer

@@ -1,25 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { baseURL } from "@/Config";
+import { baseURL } from "../../../Config";
 
 
 const initialState = {
     error: false,
     success: false,
     loading: false,
-    profile: {}
 };
 
 
-export const getProfile = createAsyncThunk(
-    'getProfile',
+export const emailVerify = createAsyncThunk(
+    'emailVerify',
     async (value, thunkApi) => {
+        console.log(value)
         try{
-            const response = await baseURL.get(`/user/profile`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-                }
-            });
+            const response = await baseURL.post(`/user/verify-email`, value);
+            console.log(response)
             return response?.data?.data;
         }catch(error){
             const message = error?.response?.data?.message;
@@ -31,27 +27,25 @@ export const getProfile = createAsyncThunk(
 
 
 
-export const getProfileSlice = createSlice({
-    name: 'getProfile',
+export const emailVerifySlice = createSlice({
+    name: 'emailVerify',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(getProfile.pending, (state)=> {
+        builder.addCase(emailVerify.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(getProfile.fulfilled, (state, action)=> {
+        builder.addCase(emailVerify.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
-            state.profile= action.payload
         }),
-        builder.addCase(getProfile.rejected, (state)=> {
+        builder.addCase(emailVerify.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
-            state.profile= {}
         })
     }
 })
 
-export default getProfileSlice.reducer
+export default emailVerifySlice.reducer

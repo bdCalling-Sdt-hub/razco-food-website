@@ -13,6 +13,8 @@
     "@ant-design/nextjs-registry": "^1.0.0",
     "@next/font": "^14.2.3",
     "@reduxjs/toolkit": "^2.2.5",
+    "@stripe/react-stripe-js": "^2.7.1",
+    "@stripe/stripe-js": "^3.5.0",
     "antd": "^5.17.3",
     "axios": "^1.7.2",
     "next": "14.2.3",

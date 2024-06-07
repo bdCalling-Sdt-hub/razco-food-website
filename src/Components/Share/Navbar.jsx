@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import title from "@/assets/title.png";
 import { IoClose, IoSearch, IoHeartOutline  } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
@@ -13,6 +13,9 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Drawers from "../Drawers";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { UserContext } from "@/provider/User";
+import { ImageConfig } from "@/Config";
+import { redirect } from 'next/navigation';
 
 
 
@@ -101,8 +104,16 @@ const options = [
 const Navbar = () => {
   const [keyword, setkeyword] = useState("")
   const loginModal = useLoginModal();
-  const user = true;
-  const [open, setOpen] = useState(false)
+  const {user, setUser} = useContext(UserContext);
+  const [open, setOpen] = useState(false);
+
+  const handleLogOut=()=>{
+    localStorage.removeItem("token");
+    setUser(null)
+
+  }
+
+  const src = user?.profileImage?.startsWith("https") ?  user?.profileImage : `${ImageConfig}/${user?.profileImage}`;
   return (
     <div>
 
@@ -132,7 +143,13 @@ const Navbar = () => {
             />
 
             <div className=" flex gap-3">
-              <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+              {
+                user?._id 
+                ?
+                <button onClick={handleLogOut} className=" bg-secondary text-white w-[133px] py-2 rounded ">Logout</button>
+                :
+                <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+              }
               
             </div>
           </div>
@@ -196,23 +213,38 @@ const Navbar = () => {
 
           {/* cart btn   */}
           <div className="flex items-center gap-6">
-            <Link  href={`/addCart`} >
-              <RiShoppingCartLine  className="cursor-pointer" color="#555656" size={24}/>
-            </Link>
+            <RiShoppingCartLine 
+              onClick={()=>{
+                if(!user){
+                  loginModal.onOpen()
+                }else{
+                  redirect('/addCart', "push"); 
+                }
+              }}  
+              className="cursor-pointer" 
+              color="#555656" 
+              size={24}
+            />
 
             <IoHeartOutline 
               onClick={()=>{
                 if(!user){
                   loginModal.onOpen()
                 }else{
-                  window.location.replace("/favorite")
+                  redirect('/favorite', "push"); 
                 }
               }} 
               className="cursor-pointer" color="#555656" size={24}
             />
-            <Link href={"/profile"}>
-                <FaRegCircleUser size={26} />
-            </Link>
+            <div>
+              {
+                user?._id 
+                &&
+                <Link href={"/profile"}>
+                  <Image src={src} width={26} height={26} alt="" />
+                </Link>
+              }
+          </div>
 
             <div className="lg:hidden">
               <HiOutlineMenuAlt1 onClick={()=>setOpen(true)}  className="cursor-pointer" color="#555656" size={24}/>

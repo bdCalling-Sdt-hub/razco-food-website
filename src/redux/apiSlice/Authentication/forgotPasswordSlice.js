@@ -9,18 +9,16 @@ const initialState = {
 };
 
 
-export const login = createAsyncThunk(
-    'login',
+export const forgotPassword = createAsyncThunk(
+    'forgotPassword',
     async (value, thunkApi) => {
+        console.log(value)
         try{
-            const response = await baseURL.post(`/auth/login`, {...value}, {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem('token')}`,
-                }
-            });
-            return response?.data?.data;
+            const response = await baseURL.post(`/auth/forget-password`, {...value});
+            console.log(response)
+            return response?.data?.message;
         }catch(error){
+            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }
@@ -30,20 +28,20 @@ export const login = createAsyncThunk(
 
 
 
-export const loginSlice = createSlice({
-    name: 'login',
+export const forgotPasswordSlice = createSlice({
+    name: 'forgotPassword',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(login.pending, (state)=> {
+        builder.addCase(forgotPassword.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(login.fulfilled, (state, action)=> {
+        builder.addCase(forgotPassword.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
         }),
-        builder.addCase(login.rejected, (state)=> {
+        builder.addCase(forgotPassword.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
@@ -51,4 +49,4 @@ export const loginSlice = createSlice({
     }
 })
 
-export default loginSlice.reducer
+export default forgotPasswordSlice.reducer

@@ -17,7 +17,9 @@ export const UserProvider = (props)=>{
     }, [dispatch]);
 
     useEffect(()=>{
-        setUser(profile);
+        if(profile){
+            setUser(profile);
+        }
     }, [profile]);
 
 

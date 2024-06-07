@@ -24,11 +24,23 @@ import updatePasswordSlice from './apiSlice/Profile/updatePasswordSlice';
 import putFeedBackSlice from './apiSlice/Profile/putFeedBackSlice';
 import getOrderHistorySlice from './apiSlice/Profile/getOrderHistorySlice';
 import getMyPointSlice from './apiSlice/Profile/getMyPointSlice';
+import registerSlice from './apiSlice/Authentication/registerSlice';
+import forgotPasswordSlice from './apiSlice/Authentication/forgotPasswordSlice';
+import verifyOtpSlice from './apiSlice/Authentication/verifyOtpSlice';
+import resetPasswordSlice from './apiSlice/Authentication/resetPasswordSlice';
+import verifyEmailSlice from './apiSlice/Authentication/verifyEmailSlice';
+import makePaymentIntentSlice from './apiSlice/Order/makePaymentIntentSlice';
 
 export const store = configureStore({
     reducer:{
         // authentication
         login :loginSlice,
+        register: registerSlice,
+        forgotPassword: forgotPasswordSlice,
+        verifyOtp: verifyOtpSlice,
+        resetPassword: resetPasswordSlice,
+        verifyEmail: verifyEmailSlice,
+
 
         // home
         banner: getBannerSlice,
@@ -69,5 +81,7 @@ export const store = configureStore({
         getOrders: getOrderHistorySlice,
         getPoints: getMyPointSlice,
 
+        // 
+        makePayment: makePaymentIntentSlice,
     }
 })

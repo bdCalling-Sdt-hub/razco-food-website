@@ -23,7 +23,6 @@ import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 const RelatedProduct = ({id}) => {
   const dispatch = useDispatch()
   const {products, loading}  = useSelector(state=> state.getRelatedProduct);
-  console.log(products)
   
 
   useEffect(()=>{
