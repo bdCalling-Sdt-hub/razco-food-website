@@ -69,6 +69,7 @@ const NewArrival = () => {
   };
   
   const { products } = useSelector(state=> state.getProducts);
+  console.log(products)
   const dispatch= useDispatch()
 
   useEffect(()=>{
@@ -79,11 +80,14 @@ const NewArrival = () => {
 
   
   const handleWish=(e, id)=>{
+    console.log(id)
     e.stopPropagation();
     e.preventDefault();
     dispatch(makeWish(id)).then((response)=>{
       if(response?.type === "makeWish/fulfilled"){
-        dispatch(getProductList({}))
+        dispatch(getProductList({})).then((res)=>{
+          console.log(res)
+        })
         toast.success(response?.payload?.message)
       }
     })
@@ -94,7 +98,9 @@ const NewArrival = () => {
     e.preventDefault();
     dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
       if(response?.type === "makeCart/fulfilled"){
-        dispatch(getProductList({}))
+        dispatch(getProductList({})).then((res)=>{
+          console.log(res)
+        })
         toast.success(response?.payload?.message)
       }
     })
@@ -151,7 +157,7 @@ const NewArrival = () => {
                           <AiFillHeart
                               size={24}
                               className={
-                                  `${ product?.favorite ? "fill-primary " : "fill-neutral-500/70" }`
+                                  `${ product?.favorite === true ? "fill-primary " : "fill-neutral-500/70" }`
                               }
                           />
                       </div>

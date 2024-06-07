@@ -87,12 +87,19 @@ const TopCategory = () => {
           <Slider {...settings}>
             {categories?.map((product, index) =>{
               return (
-                <div key={index} className=" w-[320px]">
-                  <div>
-                    <Image  src={`${ImageConfig}${product?.categoryImage}`} width={80} height={80} style={{objectFit: "cover", margin: "0 auto"}} alt="" />
+                <Link key={index} href={`/subCategory/${product?._id}`}>
+                  <div className=" mx-auto">
+                    <div className="relative w-[100px] h-[100px] overflow-hidden rounded mx-auto" >
+                        <Image 
+                            src={`${ImageConfig}${product?.categoryImage}`} 
+                            alt="offer image"
+                            layout="fill"
+                            objectFit="cover"
+                        />
+                      </div>
+                    <h4 className="poppins text-center text-lg  mt-2 ">{product?.categoryName}</h4>
                   </div>
-                  <h4 className=" text-center poppins text-lg  mt-2 ">{product?.categoryName}</h4>
-                </div>
+                </Link>
               )
             } )}
           </Slider>

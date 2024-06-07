@@ -1,26 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { baseURL } from "@/Config";
+import { baseURL } from "../../../Config";
 
 
 const initialState = {
     error: false,
     success: false,
-    loading: false
+    loading: false,
+    datas: []
 };
 
 
-export const makeWish = createAsyncThunk(
-    'makeWish',
+export const getSubCategoryById = createAsyncThunk(
+    'getSubCategoryById',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/wishlist`, {product: value}, {
+            const response = await baseURL.get(`/category/all-subcategories/${value}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
-
-            return response?.data;
+            return response?.data?.data;
         }catch(error){
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
@@ -31,25 +31,27 @@ export const makeWish = createAsyncThunk(
 
 
 
-export const makeWishSlice = createSlice({
-    name: 'makeWish',
+export const getSubCategoryByIdSlice = createSlice({
+    name: 'category',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(makeWish.pending, (state)=> {
+        builder.addCase(getSubCategoryById.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(makeWish.fulfilled, (state, action)=> {
+        builder.addCase(getSubCategoryById.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
+            state.datas= action.payload
         }),
-        builder.addCase(makeWish.rejected, (state)=> {
+        builder.addCase(getSubCategoryById.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
+            state.datas= []
         })
     }
 })
 
-export default makeWishSlice.reducer
+export default getSubCategoryByIdSlice.reducer

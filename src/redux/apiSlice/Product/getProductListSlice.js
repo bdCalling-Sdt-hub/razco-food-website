@@ -22,14 +22,11 @@ export const getProductList = createAsyncThunk(
             if (offer) params.append('offer', offer);
             if (subcategory) params.append('subcategory', subcategory);
             
-            const response = await baseURL.get(`/product?${params.toString()}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjAyMmVhYzNkNGEwMWM4Mzg2YmY1NyIsImVtYWlsIjoibmFkaXJob3NzYWluMzM2QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NjY1OTI4LCJleHAiOjE3MTc3NTIzMjh9.1W_XIoIpRLx8AoB31nCJm9GZjTY-O0FdGiznFpnpxNI`,
-                }
-            });
+            const response = await baseURL.get(`/product?${params.toString()}`);
+            console.log(response)
             return response?.data;
         }catch(error){
+            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }

@@ -17,7 +17,7 @@ export const getPoints = createAsyncThunk(
             const response = await baseURL.get(`/user/my-points`, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjAyMmVhYzNkNGEwMWM4Mzg2YmY1NyIsImVtYWlsIjoibmFkaXJob3NzYWluMzM2QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NjY1OTI4LCJleHAiOjE3MTc3NTIzMjh9.1W_XIoIpRLx8AoB31nCJm9GZjTY-O0FdGiznFpnpxNI`,
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }
             });
             return response?.data?.data;

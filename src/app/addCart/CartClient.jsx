@@ -14,7 +14,6 @@ import { removeCart } from "@/redux/apiSlice/Cart/removeCartSlice";
 const CartClient = () => {
     const dispatch = useDispatch()
     const { carts } = useSelector(state=> state.getCart);
-
     useEffect(()=>{
         dispatch(getCart())
     }, [dispatch]);
@@ -39,7 +38,6 @@ const CartClient = () => {
     }, 0);
 
     const handleDelete=(id)=>{
-        console.log(id)
         dispatch(removeCart(id)).then((_res)=>{
             dispatch(getCart())
         })
@@ -107,7 +105,7 @@ const CartClient = () => {
                 </div>
 
                 <div className="col-span-12 md:col-span-6 order-1 lg:order-1">
-                    <Summary carts={carts} total={total} />
+                    <Summary id={carts._id} carts={carts} total={total} />
                 </div>
 
             </div>

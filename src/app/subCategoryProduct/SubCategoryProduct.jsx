@@ -1,66 +1,69 @@
 "use client"
-import React, { useState } from "react";
-import {
-  DownOutlined,
-  HeartFilled,
-  HeartOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
-import { Dropdown, Select, Space } from "antd";
+import React, { useEffect, useState } from "react";
+import { Empty, Select } from "antd";
 import Image from "next/image";
-import img2 from "@/assets/fruit1.png";
-import img3 from "@/assets/fruit2.png";
 import { Pagination } from "antd";
 import Link from "next/link";
-const { Option } = Select;
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
+import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
+import toast from "react-hot-toast";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { getProductList } from "@/redux/apiSlice/Product/getProductListSlice";
+import { ImageConfig } from "@/Config";
 
-const products = [...Array(16).keys()].map((index) => ({
-  key: `${index + 1}`,
-  imgURL: (
-    <Image
-      src={index % 2 === 0 ? img2 : img3} // Alternating between img2 and img3
-      width={300}
-      height={40}
-      alt=" "
-      className="mx-auto bg-gray-200 rounded"
-    />
-  ),
-  title: "Dairy & Breakfast", // You can adjust the title as needed
-}));
 
-const Categories = () => {
-  const [hasFavorited, setHasFavorited] = useState(Array(12).fill(false));
 
-    const handleWish = (e, index) => {
+const Categories = ({name}) => {
+    const dispatch = useDispatch()
+    const { products, pagination } = useSelector(state=> state.getProducts);
+
+    useEffect(()=>{
+        dispatch(getProductList({subcategory: name}))
+    }, [dispatch, name]);
+
+    const handleWish=(e, id)=>{
         e.stopPropagation();
         e.preventDefault();
-        const newFavoriteStatuses = [...hasFavorited];
-        newFavoriteStatuses[index] = !newFavoriteStatuses[index];
-        setHasFavorited(newFavoriteStatuses);
-    };
-
-
-    const handleCart=(e)=>{
-        console.log("clicked")
-        e.stopPropagation();
-        e.preventDefault();
-        window.location.replace("/addCart")
+        dispatch(makeWish(id)).then((response)=>{
+            if(response?.type === "makeWish/fulfilled"){
+                dispatch(getProductList({subcategory: name}))
+                toast.success(response?.payload?.message)
+            }
+        })
     }
-  return (
-    <div className="container mb-16 mt-10">
-      <h1 className=" text-[#7CC84E] underline underline-offset-8 text-xl md:text-2xl font-semibold ">
-        Sub Category Product
-      </h1>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
-                {
-                    products.map((product) => (
-                        <Link href="./productDetails" key={product.key}>
-                            <div className=" mx-auto relative ">
-                                <div className="bg-gray-100 shadow-sm rounded  w-full py-3 relative ">
-                                    <p className="px-3"> {product.imgURL}</p>
-                    
+    const handleCart = (e, id) => {
+        e.stopPropagation();
+        e.preventDefault();
+        dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+            if(response?.type === "makeCart/fulfilled"){
+                dispatch(getProductList({subcategory: name}))
+                toast.success(response?.payload?.message)
+            }
+        })
+    };
+    return (
+        <div className="container mb-16 mt-10">
+            <h1 className=" text-[#7CC84E] underline underline-offset-8 text-xl md:text-2xl font-semibold ">
+                Sub Category Product
+            </h1>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
+                    {
+                        products?.map((product, index) => (
+                            <Link href={`/productDetails/${product?._id}`} key={index}>
+                                <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative " >
+                                    <div className="relative w-full h-[220px] overflow-hidden rounded" >
+                                        <Image 
+                                            src={`${ImageConfig}${product?.productImage[0]}`} 
+                                            alt="offer image"
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                    </div>
+
                                     <div
                                         className="
                                             absolute  top-4 right-4
@@ -68,12 +71,12 @@ const Categories = () => {
                                             transition
                                             cursor-pointer
                                         "
-                                        onClick={(e) => handleWish(e, product.key)}
+                                        onClick={(e) => handleWish(e, product?._id)}
                                     >
                                         <AiOutlineHeart
                                             size={28}
                                             className="
-                                                fill-white
+                                                fill-primary
                                                 absolute
                                                 -top-[2px]
                                                 -right-[2px]
@@ -82,50 +85,56 @@ const Categories = () => {
                                         <AiFillHeart
                                             size={24}
                                             className={
-                                                `${ hasFavorited[product.key] ? "fill-rose-500 " : "fill-neutral-500/70" }`
+                                                `${ product?.favorite ? "fill-primary " : "fill-neutral-500/70" }`
                                             }
                                         />
                                     </div>
-                                    <div className="px-5 pb-5">
-                                    <div className="flex justify-between px-1 pt-3 items-center relative">
-                                        <h3 className="text-[555656] font-medium text-xl tracking-tight ">
-                                        {product.title}
-                                        </h3>
-                                        <p className="text-[#929394] text-sm "> 1 pc</p>
+
+                                    <div className="px-2 pb-5">
+                                        <div className="flex justify-between px-1 pt-3">
+                                            <p className="text-[555656] poppins font-medium text-[18px] leading-7 ">
+                                                {product?.productName}
+                                            </p>
+                                            <p className="text-[#929394] text-[16px] leading-6 font-thin poppins "> {product?.store} pc</p>
+                                        </div>
+
+                                        <div className="flex items-center justify-between mt-3">
+                                            <p className="text-[18px] leading-5 font-semibold text-primary">
+                                                ${product?.discountPrice}
+                                                <span className="text-[12px] font-medium text-red-600 ps-2 line-through">${product?.price}</span>
+                                            </p>
+                                            <div 
+                                                onClick={(e)=>handleCart(e, product?._id)} 
+                                                className="text-primary cursor-pointer flex items-center justify-center w-10 h-10 bg-white rounded-lg"
+                                            >
+                                                <MdOutlineAddShoppingCart size={20} />
+                                            </div>
+                                        </div>
+
                                     </div>
-                    
-                                    <div className="flex items-center justify-between mt-3">
-                                        <p className="text-xl font-semibold text-[#7CC84E]">
-                                        $5
-                                        <span className="text-sm font-medium text-red-600 ps-2 line-through">
-                                            $7
-                                        </span>
-                                        </p>
-                                    </div>
-                                    </div>
+
                                 </div>
-                                
-                                <span onClick={handleCart} className="text-[#7CC84E] bg-white font-semibold rounded-lg text-2xl px-4 py-2 text-center absolute right-3 bottom-5">
-                                    <ShoppingCartOutlined  />
-                                </span>
-                            </div>
-                        </Link>
-                    ))
-                }
+                            </Link>
+                        ))
+                    }
             </div>
-    
-            <div className="flex items-center sm:items-start justify-center md:justify-start mt-10 relative">
+
+            <div className="w-full h-full" style={{display: products?.length === 0 ? "block": "none"}}>
+              <Empty />
+            </div>
+        
+            <div style={{display: products?.length > 0 ? "block": "none"}} className="flex items-center sm:items-start justify-center md:justify-start mt-10 relative">
                 <Pagination
-                total={50}
-                showTotal={(total, range) => (
-                    <span className="text-[#929394] hidden sm:block font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
-                    {`Showing ${range[0]}-${range[1]} of ${total} items`}
-                    </span>
-                )}
+                    total={pagination?.total}
+                    showTotal={(total, range) => (
+                        <span className="text-[#929394] hidden sm:block font-normal text-[16px] leading-[18px] absolute top-[24%] right-0">
+                        {`Showing ${range[0]}-${range[1]} of ${total} items`}
+                        </span>
+                    )}
                 />
             </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default Categories;

@@ -1,92 +1,22 @@
-import React from "react";
+"use client"
+import React, { useEffect } from "react";
 import Image from "next/image";
-import { Pagination } from "antd";
 import Link from "next/link";
-import img2 from "@/assets/ctgry2.png";
-import img3 from "@/assets/ctgry3.png";
-import img4 from "@/assets/ctgry4.png";
-import img5 from "@/assets/ctgry5.png";
-import img6 from "@/assets/ctgry6.png";
 
-const products = [
-    {
-      key: "1",
-      imgURL: (
-        <Image src={img2} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Dairy & Breakfast",
-    },
-  
-    {
-      key: "2",
-      imgURL: (
-        <Image src={img4} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Egg, Meat & Fish",
-    },
-  
-    {
-      key: "3",
-      imgURL: (
-        <Image src={img5} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Bath & Body",
-    },
-  
-    {
-      key: "4",
-      imgURL: (
-        <Image src={img2} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Cold drinks & Juices",
-    },
-  
-    {
-      key: "5",
-      imgURL: (
-        <Image src={img6} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Snacks & Munchies",
-    },
-    {
-      key: "6",
-      imgURL: (
-        <Image src={img3} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Bath & Body",
-    },
-    {
-      key: "7",
-      imgURL: (
-        <Image src={img3} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Cold drinks & Juices",
-    },
-    {
-      key: "8",
-      imgURL: (
-        <Image src={img2} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Snacks & Munchies",
-    },
-    {
-      key: "9",
-      imgURL: (
-        <Image src={img4} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Dairy & Breakfast",
-    },
-  
-    {
-      key: "10",
-      imgURL: (
-        <Image src={img5} width={240} height={25} alt=" " className="mx-auto" />
-      ),
-      title: "Egg, Meat & Fish",
-    },
-  ];
+import { useDispatch, useSelector } from "react-redux";
+import { getSubCategoryById } from "@/redux/apiSlice/Category/getSubCategoryByIdSlice";
+import { ImageConfig } from "@/Config";
+import { Empty } from "antd";
 
-const Categories = () => {
+
+
+const Categories = ({id}) => {
+  const dispatch = useDispatch()
+  const {datas} = useSelector(state=> state.getSubCategoryPerCategory);
+
+  useEffect(()=>{
+    dispatch(getSubCategoryById(id))
+  }, [dispatch, id])
 
     return (
         <div className="container my-20 ">
@@ -95,14 +25,25 @@ const Categories = () => {
             </h1>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
-                {products.map((product) => (
-                <Link key={product.key} href={"/subCategoryProduct"}>
-                    <div className=" mx-auto font-[poppins]">
-                    <p> {product.imgURL}</p>
-                    <h4 className=" text-center text-lg  mt-2 ">{product.title}</h4>
-                    </div>
+                {datas?.map((product, index) => (
+                  <Link key={index} href={`/subCategoryProduct/${product?.subcategoryName}`}>
+                  <div className=" mx-auto">
+                    <div className="relative w-[100px] h-[100px] overflow-hidden rounded mx-auto" >
+                        <Image 
+                            src={`${ImageConfig}${product?.subcategoryImage}`} 
+                            alt="offer image"
+                            layout="fill"
+                            objectFit="cover"
+                        />
+                      </div>
+                    <h4 className="poppins text-center text-lg  mt-2 ">{product?.subcategoryName}</h4>
+                  </div>
                 </Link>
                 ))}
+            </div>
+
+            <div className="w-full h-full" style={{display: datas?.length === 0 ? "block": "none"}}>
+              <Empty />
             </div>
         </div>
     );

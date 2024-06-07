@@ -1,21 +1,21 @@
 "use client";
 import Image from "next/image";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import title from "@/assets/title.png";
 import { IoClose, IoSearch, IoHeartOutline  } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { Drawer, Dropdown, Input, Menu, Select } from "antd";
+import { Drawer, Input, Select } from "antd";
 import Link from "next/link";
 import useLoginModal from "@/hooks/useLoginModal";
-import useRegisterModal from "@/hooks/useRegisterModal";
 const { Option } = Select;
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Drawers from "../Drawers";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { FaRegCircleUser } from "react-icons/fa6";
 import { UserContext } from "@/provider/User";
 import { ImageConfig } from "@/Config";
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from "react-redux";
+import { getCategory } from "@/redux/apiSlice/Category/getCategorySlice";
 
 
 
@@ -106,12 +106,19 @@ const Navbar = () => {
   const loginModal = useLoginModal();
   const {user, setUser} = useContext(UserContext);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch()
+  const {categories} = useSelector(state=> state.getCategory);
 
   const handleLogOut=()=>{
     localStorage.removeItem("token");
     setUser(null)
 
   }
+
+  useEffect(()=>{
+    dispatch(getCategory())
+  }, [dispatch])
 
   const src = user?.profileImage?.startsWith("https") ?  user?.profileImage : `${ImageConfig}/${user?.profileImage}`;
   return (
@@ -172,26 +179,11 @@ const Navbar = () => {
                   className="poppins custom-select"
                 >
                   {
-                    options.map((option) => (
-                      <Option value={option.value} key={option.value}>
-                        {option.label}
-                        {option.children && (
-                          <Dropdown
-                            overlayStyle={{
-                              marginLeft: 60
-                            }}
-                            overlay={
-                              <Menu>
-                                {option.children.map((child) => (
-                                  <Menu.Item key={child.value}>{child.label}</Menu.Item>
-                                ))}
-                              </Menu>
-                            }
-                            trigger={['hover']}
-                          >
-                            <MdKeyboardArrowRight color="#6E6E6F" className="block absolute top-[21%] right-0" size={20} />
-                          </Dropdown>
-                        )}
+                    categories?.map((option) => (
+                      <Option value={option?.categoryName} key={option.value}>
+                        {option?.categoryName}
+                        
+                        <MdKeyboardArrowRight color="#6E6E6F" className="block absolute top-[21%] right-0" size={20} />
                       </Option>
                     ))
                   }
@@ -218,7 +210,7 @@ const Navbar = () => {
                 if(!user){
                   loginModal.onOpen()
                 }else{
-                  redirect('/addCart', "push"); 
+                  router.push('/addCart'); 
                 }
               }}  
               className="cursor-pointer" 
@@ -231,7 +223,7 @@ const Navbar = () => {
                 if(!user){
                   loginModal.onOpen()
                 }else{
-                  redirect('/favorite', "push"); 
+                  router.push('/favorite'); 
                 }
               }} 
               className="cursor-pointer" color="#555656" size={24}

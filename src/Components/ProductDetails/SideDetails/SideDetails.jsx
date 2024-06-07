@@ -58,7 +58,7 @@ const SideDetails = ({product}) => {
             Add to Cart
           </button>
 
-        <br />
+        {/* <br />
         <button
           className="poppins bg-[#7CC84E] text-white w-full  p-2 rounded"
           onClick={()=>{
@@ -71,7 +71,9 @@ const SideDetails = ({product}) => {
         
         >
           Buy Now
-        </button>
+        </button> */}
+
+
       </div>
       <p className=" font-medium text-xl text-[#555656] mt-8 poppins">
         Products Details
@@ -80,7 +82,7 @@ const SideDetails = ({product}) => {
       </p>
 
 
-      <PaymentModal open={open} setOpen={setOpen}  total = { (product?.discountPrice ? product?.discountPrice : product?.price) * count } />
+      {/* <PaymentModal open={open} setOpen={setOpen}  total = { (product?.discountPrice ? product?.discountPrice : product?.price) * count } /> */}
 
 
     </div>

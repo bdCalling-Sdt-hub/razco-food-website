@@ -3,7 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ImageConfig } from "@/Config";
 
-const Summary = ({ carts, total }) => {
+const Summary = ({ carts, total, id }) => {
+  if(id){
+    localStorage.setItem("cartId" , id)
+  }
   return (
     <div className=" bg-[#F8F8FC] p-4 ">
       <h4 className=" text-[#555656]  text-lg  font-semibold"> Summary </h4>
@@ -81,7 +84,6 @@ const Summary = ({ carts, total }) => {
       <div className="  text-center my-6 ">
         <Link href="/paymentDetails">
           <button className=" bg-[#7CC84E] text-white w-1/2  p-2 rounded ">
-            {" "}
             Check Out
           </button>
         </Link>

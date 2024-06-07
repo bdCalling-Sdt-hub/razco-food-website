@@ -104,7 +104,6 @@ const AddCarts = ( {products} ) => {
 
   const dispatch = useDispatch()
     const { carts } = useSelector(state=> state.getCart);
-    console.log(carts)
 
     useEffect(()=>{
         dispatch(getCart())

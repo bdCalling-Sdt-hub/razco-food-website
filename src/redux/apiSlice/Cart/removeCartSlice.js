@@ -16,7 +16,7 @@ export const removeCart = createAsyncThunk(
             const response = await baseURL.delete(`/cart/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjAyMmVhYzNkNGEwMWM4Mzg2YmY1NyIsImVtYWlsIjoibmFkaXJob3NzYWluMzM2QGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE3NTc2NDM0LCJleHAiOjE3MTc2NjI4MzR9.OKNwSO_YJwwkbIfNssz-KoUAQqBadjL5MIokd8iqYQU`,
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }
             });
             return response?.data;

@@ -30,6 +30,9 @@ import verifyOtpSlice from './apiSlice/Authentication/verifyOtpSlice';
 import resetPasswordSlice from './apiSlice/Authentication/resetPasswordSlice';
 import verifyEmailSlice from './apiSlice/Authentication/verifyEmailSlice';
 import makePaymentIntentSlice from './apiSlice/Order/makePaymentIntentSlice';
+import getSubCategoryById  from './apiSlice/Category/getSubCategoryByIdSlice';
+import makeOrderSlice from './apiSlice/Order/makeOrderSlice';
+import getAllCouponSlice from './apiSlice/Points/getAllCouponSlice';
 
 export const store = configureStore({
     reducer:{
@@ -41,6 +44,10 @@ export const store = configureStore({
         resetPassword: resetPasswordSlice,
         verifyEmail: verifyEmailSlice,
 
+        // order
+        makeOrder: makeOrderSlice,
+        getCoupons: getAllCouponSlice,
+
 
         // home
         banner: getBannerSlice,
@@ -50,6 +57,7 @@ export const store = configureStore({
         // category
         getCategory : getCategorySlice,
         getSubCategory : getSubCategorySlice,
+        getSubCategoryPerCategory: getSubCategoryById,
 
         getShop: getShopSlice,
         getAbout: getAboutSlice,
