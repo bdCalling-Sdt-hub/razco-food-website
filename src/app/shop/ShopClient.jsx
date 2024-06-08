@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState }  from "react";
+import React, { useContext, useEffect, useState }  from "react";
 import {
   HeartOutlined,
   ShoppingCartOutlined,
@@ -19,19 +19,24 @@ import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
 import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import useLoginModal from "@/hooks/useLoginModal";
+import { UserContext } from "@/provider/User";
 
 
 const ShopClient = () => {
     const dispatch = useDispatch()
     const [category, setCategory] = useState("")
     const [subcategory, setSubCategory] = useState("")
+    const [price, setPrice] = useState()
     const { products, pagination } = useSelector(state=> state.getProducts);
     const { categories } = useSelector(state=> state.getCategory);
     const { subCategory } = useSelector(state=> state.getSubCategory);
+    const loginModal = useLoginModal();
+    const {user} = useContext(UserContext);
 
     useEffect(()=>{
-        dispatch(getProductList({category: category, subcategory: subcategory}))
-    }, [dispatch, category, subcategory])
+        dispatch(getProductList({category: category, subcategory: subcategory, price: price}))
+    }, [dispatch, category, subcategory, price])
 
     useEffect(()=>{
         dispatch(getCategory());
@@ -41,23 +46,33 @@ const ShopClient = () => {
     const handleWish=(e, id)=>{
         e.stopPropagation();
         e.preventDefault();
-        dispatch(makeWish(id)).then((response)=>{
+    
+        if(!user?.email){
+          loginModal.onOpen()
+        }else{
+          dispatch(makeWish(id)).then((response)=>{
             if(response?.type === "makeWish/fulfilled"){
-                dispatch(getProductList({category: category, subcategory: subcategory}))
+                dispatch(getProductList({category: category, subcategory: subcategory, price: price}))
                 toast.success(response?.payload?.message)
             }
-        })
+          })
+        }
     }
 
     const handleCart = (e, id) => {
         e.stopPropagation();
         e.preventDefault();
-        dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+    
+        if(!user?.email){
+          loginModal.onOpen()
+        }else{
+          dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
             if(response?.type === "makeCart/fulfilled"){
-                dispatch(getProductList({category: category, subcategory: subcategory}))
-                toast.success(response?.payload?.message)
+                dispatch(getProductList({category: category, subcategory: subcategory, price: price}))
+              toast.success(response?.payload?.message)
             }
-        })
+          })
+        }
     };
 
     return (
@@ -75,11 +90,18 @@ const ShopClient = () => {
                         borderRadius: "5px",
                         color: "#555656"
                     }}
-                    >
-                    <Option value="200">2000</Option>
-                    <Option value="100">1000</Option>
-                    <Option value="300">3000</Option>
-                    <Option value="400">4000</Option>
+                    onChange={(e)=>setPrice(e)}
+                >
+                    <Option value="10">10</Option>
+                    <Option value="20">20</Option>
+                    <Option value="30">30</Option>
+                    <Option value="40">40</Option>
+                    <Option value="50">50</Option>
+                    <Option value="60">60</Option>
+                    <Option value="70">70</Option>
+                    <Option value="80">80</Option>
+                    <Option value="90">90</Option>
+                    <Option value="100">100</Option>
                 </Select>
 
                 <Select
@@ -128,7 +150,7 @@ const ShopClient = () => {
                 {
                     products?.map((product, index) => (
                         <Link href={`/productDetails/${product?._id}`} key={index}>
-                            <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative ">
+                            <div className="bg-gray-100 shadow-sm rounded  w-full p-2 relative ">
                                 <div className="relative w-full h-[220px] overflow-hidden rounded" >
                                     <Image 
                                         src={`${ImageConfig}${product?.productImage[0]}`} 
@@ -173,8 +195,8 @@ const ShopClient = () => {
                                     </div>
                                     <div className="flex items-center justify-between mt-3">
                                         <p className="text-[18px] leading-5 font-semibold text-primary">
-                                            ${product?.discountPrice}
-                                            <span className="text-[12px] font-medium text-red-600 ps-2 line-through">${product?.price}</span>
+                                            ${product?.discountPrice ? product?.discountPrice: product?.price }
+                                            <span style={{display: product?.discountPrice ? "block" : "none" }} className="text-[12px] font-medium text-red-600 ps-2 line-through">${ product?.price}</span>
                                         </p>
                                         <div onClick={(e)=>handleCart(e, product?._id)} className="text-primary flex items-center justify-center w-10 h-10 bg-white rounded-lg">
                                             <MdOutlineAddShoppingCart size={20} />

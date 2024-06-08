@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -18,11 +18,15 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
 import toast from "react-hot-toast";
 import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
+import useLoginModal from "@/hooks/useLoginModal";
+import { UserContext } from "@/provider/User";
 
 
 const RelatedProduct = ({id}) => {
   const dispatch = useDispatch()
   const {products, loading}  = useSelector(state=> state.getRelatedProduct);
+  const loginModal = useLoginModal();
+    const {user} = useContext(UserContext);
   
 
   useEffect(()=>{
@@ -89,23 +93,36 @@ const RelatedProduct = ({id}) => {
   const handleWish=(e, id)=>{
     e.stopPropagation();
     e.preventDefault();
-    dispatch(makeWish(id)).then((response)=>{
-        if(response?.type === "makeWish/fulfilled"){
-            dispatch(getProductList({offer: offer}))
-            toast.success(response?.payload?.message)
-        }
-    })
-}
 
+    if(!user?.email){
+      loginModal.onOpen()
+    }else{
+      dispatch(makeWish(id)).then((response)=>{
+        if(response?.type === "makeWish/fulfilled"){
+          dispatch(getProductList({})).then((res)=>{
+            console.log(res)
+          })
+          toast.success(response?.payload?.message)
+        }
+      })
+    }
+}
 const handleCart = (e, id) => {
     e.stopPropagation();
     e.preventDefault();
-    dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+
+    if(!user?.email){
+      loginModal.onOpen()
+    }else{
+      dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
         if(response?.type === "makeCart/fulfilled"){
-            dispatch(getProductList({offer: offer}))
-            toast.success(response?.payload?.message)
+          dispatch(getProductList({})).then((res)=>{
+            console.log(res)
+          })
+          toast.success(response?.payload?.message)
         }
-    })
+      })
+    }
 };
 
   return (

@@ -28,6 +28,7 @@ const Login = ({onToggle}) => {
             toast.success("Logged In successfully")
             setUser(res.payload)
             loginModal.onClose();
+            window.location.reload()
           }
         })
       }else{

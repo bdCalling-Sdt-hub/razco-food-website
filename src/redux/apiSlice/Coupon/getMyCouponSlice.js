@@ -5,23 +5,22 @@ import { baseURL } from "@/Config";
 const initialState = {
     error: false,
     success: false,
-    loading: false
+    loading: false,
+    myCoupons: []
 };
 
 
-export const makeWish = createAsyncThunk(
-    'makeWish',
+export const getMyCoupon = createAsyncThunk(
+    'getMyCoupon',
     async (value, thunkApi) => {
-        console.log(value)
         try{
-            const response = await baseURL.post(`/wishlist`, {product: value}, {
+            const response = await baseURL.get(`/user/my-coupons`, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-
-            return response?.data;
+            return response?.data?.data;
         }catch(error){
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
@@ -32,25 +31,27 @@ export const makeWish = createAsyncThunk(
 
 
 
-export const makeWishSlice = createSlice({
-    name: 'makeWish',
+export const getMyCouponSlice = createSlice({
+    name: 'getMyCoupon',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(makeWish.pending, (state)=> {
+        builder.addCase(getMyCoupon.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(makeWish.fulfilled, (state, action)=> {
+        builder.addCase(getMyCoupon.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
+            state.myCoupons= action.payload
         }),
-        builder.addCase(makeWish.rejected, (state)=> {
+        builder.addCase(getMyCoupon.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
+            state.myCoupons= []
         })
     }
 })
 
-export default makeWishSlice.reducer
+export default getMyCouponSlice.reducer

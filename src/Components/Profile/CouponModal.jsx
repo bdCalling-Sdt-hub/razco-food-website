@@ -1,52 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CommonHeading from "./CommonHeading";
 import { Modal, Space, Table, Tag } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyCoupon } from "@/redux/apiSlice/Coupon/getMyCouponSlice";
+
+
 const columns = [
   {
-    title: "Coupon name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <p>{text}</p>,
+    title: "Coupon Code",
+    dataIndex: "couponCode",
+    key: "couponCode",
   },
   {
     title: "Date",
-    dataIndex: "date",
-    key: "date",
+    dataIndex: "expireDate",
+    key: "expireDate",
   },
   {
     title: "Points",
-    dataIndex: "Points",
-    key: "Points",
-  },
-  {
-    title: "Coupon code",
-    key: "CouponCode",
-    dataIndex: "CouponCode",
-  },
+    dataIndex: "points",
+    key: "points",
+  }
 ];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    date: "Date:  20-Feb-2024",
-    Points: "2k",
-    CouponCode: "Eid24",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    date: "Date:  20-Feb-2024",
-    Points: "2k",
-    CouponCode: "Eid24",
-  },
-];
+
 
 const CouponModal = ({ isModalOpen, setIsModalOpen }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const dispatch = useDispatch();
+  const {myCoupons} = useSelector(state=> state.myCoupons);
+
+  useEffect(()=>{
+    dispatch(getMyCoupon())
+  }, [dispatch]);
+
+
   return (
-    <Modal open={isModalOpen} onCancel={handleCancel} footer={false}>
+    <Modal open={isModalOpen} onCancel={handleCancel} footer={false} width={600}>
       <div className=" lg:p-2 mt-2 ">
         <h2 className="bg-[#7CC84E] p-2 text-white text-lg w-full mt-6  rounded  mb-6 font-[poppins] ">
           Coupon Store
@@ -55,8 +47,9 @@ const CouponModal = ({ isModalOpen, setIsModalOpen }) => {
         <div>
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={myCoupons}
             className="border-b-0 font-[poppins]"
+            pagination={false}
           />
         </div>
       </div>

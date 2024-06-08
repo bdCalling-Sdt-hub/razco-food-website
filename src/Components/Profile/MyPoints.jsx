@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPoints } from "@/redux/apiSlice/Profile/getMyPointSlice";
 import { Empty } from "antd";
 import { getAllCoupon } from "@/redux/apiSlice/Points/getAllCouponSlice";
+import { claimCoupon } from "@/redux/apiSlice/Coupon/claimCouponSlice";
+import toast from "react-hot-toast";
 
 
 const MyPoints = () => {
@@ -32,6 +34,22 @@ const MyPoints = () => {
   useEffect(()=>{
     dispatch(getAllCoupon())
   }, [dispatch])
+
+  const handleClaim=(data)=>{
+    const value = {
+      couponCode: data?.couponCode,
+      couponDiscount: data?.couponDiscount,
+      expireDate: data?.expireDate,
+      points: data?.targetPoints
+    }
+
+    dispatch(claimCoupon(value)).then((res)=>{
+      if(res.type === "claimCoupon/fulfilled"){
+        toast.success(res?.payload)
+        dispatch(getPoints())
+      }
+    })
+  }
 
   return (
     <div className="border border-[#DCDDDE4D] lg:p-6 p-2 font-[poppins]">
@@ -70,15 +88,10 @@ const MyPoints = () => {
               <p className=" text-[#555656] text-sm leading-7 flex gap-2">points: <Image src={point} width={20} height={2} alt="" />{item?.targetPoints}
               </p>
             </div>
-            <p onClick={showModal}> Cliemt </p>
+            <button onClick={()=>handleClaim(item)} disabled={points?.available === 0 || points?.available < item?.targetPoints }  className="bg-primary text-white poppins rounded px-2 py-1"> Claim </button>
           </div>
           )
         })}
-
-        <MyPointsModal
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-        />
 
         <CouponModal
           isModalOpen={isModalOpen}

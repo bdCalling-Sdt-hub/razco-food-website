@@ -10,11 +10,13 @@ import { makeWish } from "@/redux/apiSlice/Wish/makeWishSlice";
 import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 import toast from "react-hot-toast";
 import { ImageConfig } from "@/Config";
+import { Empty } from "antd";
 
 
 const FavouriteClient = () => {
     const dispatch = useDispatch()
     const { wish } = useSelector(state=> state.getWish);
+    console.log(wish)
 
     useEffect(()=>{
         dispatch(getWish())
@@ -49,11 +51,11 @@ const FavouriteClient = () => {
                 {
                     wish?.map((item, index) =>{
                         return(
-                            <Link href="./productDetails" key={index}>
+                            <Link href="/productDetails" key={index}>
                                 <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative ">
                                     <div className="relative w-full h-[220px] overflow-hidden rounded" >
                                         <Image 
-                                            src={`${ImageConfig}${item?.product?.productImage[0]}`} 
+                                            src={`${ImageConfig}/${item?.product?.productImage[0]}`} 
                                             alt="offer image"
                                             layout="fill"
                                             objectFit="cover"
@@ -113,6 +115,11 @@ const FavouriteClient = () => {
                     })
                 }
             </div>
+
+            <div  style={{display: wish?.length === 0 ? "block" : "none"}}>
+                <Empty/>
+            </div>
+
         </div>
     );
 };

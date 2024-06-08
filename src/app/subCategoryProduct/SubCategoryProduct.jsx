@@ -54,7 +54,7 @@ const Categories = ({name}) => {
                     {
                         products?.map((product, index) => (
                             <Link href={`/productDetails/${product?._id}`} key={index}>
-                                <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative " >
+                                <div className="bg-gray-100 shadow-sm rounded  w-full p-2 relative " >
                                     <div className="relative w-full h-[220px] overflow-hidden rounded" >
                                         <Image 
                                             src={`${ImageConfig}${product?.productImage[0]}`} 
@@ -100,8 +100,8 @@ const Categories = ({name}) => {
 
                                         <div className="flex items-center justify-between mt-3">
                                             <p className="text-[18px] leading-5 font-semibold text-primary">
-                                                ${product?.discountPrice}
-                                                <span className="text-[12px] font-medium text-red-600 ps-2 line-through">${product?.price}</span>
+                                                ${product?.discountPrice ? product?.discountPrice: product?.price }
+                                                <span style={{display: product?.discountPrice ? "block" : "none" }} className="text-[12px] font-medium text-red-600 ps-2 line-through">${ product?.price}</span>
                                             </p>
                                             <div 
                                                 onClick={(e)=>handleCart(e, product?._id)} 

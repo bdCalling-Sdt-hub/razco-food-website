@@ -33,6 +33,9 @@ import makePaymentIntentSlice from './apiSlice/Order/makePaymentIntentSlice';
 import getSubCategoryById  from './apiSlice/Category/getSubCategoryByIdSlice';
 import makeOrderSlice from './apiSlice/Order/makeOrderSlice';
 import getAllCouponSlice from './apiSlice/Points/getAllCouponSlice';
+import callPickUpSlice from './apiSlice/Order/callPickUpSlice';
+import claimCouponSlice from './apiSlice/Coupon/claimCouponSlice';
+import getMyCouponSlice from './apiSlice/Coupon/getMyCouponSlice';
 
 export const store = configureStore({
     reducer:{
@@ -46,8 +49,12 @@ export const store = configureStore({
 
         // order
         makeOrder: makeOrderSlice,
+        callPickUp: callPickUpSlice,
+        
+        // coupon
+        claimCoupon: claimCouponSlice,
         getCoupons: getAllCouponSlice,
-
+        myCoupons: getMyCouponSlice,
 
         // home
         banner: getBannerSlice,

@@ -15,7 +15,6 @@ export const emailVerify = createAsyncThunk(
         console.log(value)
         try{
             const response = await baseURL.post(`/user/verify-email`, value);
-            console.log(response)
             return response?.data?.data;
         }catch(error){
             const message = error?.response?.data?.message;

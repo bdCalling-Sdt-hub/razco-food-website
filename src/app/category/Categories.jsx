@@ -20,7 +20,7 @@ const Categories = () => {
     <div className="container my-20 ">
       <h1 className=" text-[#7CC84E] underline underline-offset-8 text-xl md:text-2xl font-semibold ">Category</h1>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7  gap-6  mt-12 font-[poppins]">
         {categories?.map((product, index) => (
           <Link key={index} href={`/subCategory/${product?._id}`}>
             <div className=" mx-auto">

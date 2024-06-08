@@ -24,7 +24,7 @@ const Categories = ({id}) => {
                 Sub Category
             </h1>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4  gap-6  mt-12 font-[poppins]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7  gap-6  mt-12 font-[poppins]">
                 {datas?.map((product, index) => (
                   <Link key={index} href={`/subCategoryProduct/${product?.subcategoryName}`}>
                   <div className=" mx-auto">

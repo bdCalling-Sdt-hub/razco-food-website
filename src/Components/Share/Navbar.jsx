@@ -15,7 +15,7 @@ import { UserContext } from "@/provider/User";
 import { ImageConfig } from "@/Config";
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from "react-redux";
-import { getCategory } from "@/redux/apiSlice/Category/getCategorySlice";
+import {  getCategory } from "@/redux/apiSlice/Category/getCategorySlice";
 
 
 
@@ -42,65 +42,6 @@ const item = [
   },
 ]
 
-const options = [
-  {
-    value: '200',
-    label: 'Fresh Fruits',
-    children: [
-      {
-        value: '201',
-        label: 'Apples',
-      },
-      {
-        value: '202',
-        label: 'Bananas',
-      },
-    ],
-  },
-  {
-    value: '100',
-    label: 'Organic',
-    children: [
-      {
-        value: '301',
-        label: 'Salmon',
-      },
-      {
-        value: '302',
-        label: 'Tuna',
-      },
-    ],
-  },
-  {
-    value: '300',
-    label: 'Fish',
-    children: [
-      {
-        value: '301',
-        label: 'Salmon',
-      },
-      {
-        value: '302',
-        label: 'Tuna',
-      },
-    ],
-  },
-  {
-    value: '400',
-    label: 'Meat',
-    children: [
-      {
-        value: '301',
-        label: 'Salmon',
-      },
-      {
-        value: '302',
-        label: 'Tuna',
-      },
-    ],
-  },
-];
-
 const Navbar = () => {
   const [keyword, setkeyword] = useState("")
   const loginModal = useLoginModal();
@@ -113,6 +54,7 @@ const Navbar = () => {
   const handleLogOut=()=>{
     localStorage.removeItem("token");
     setUser(null)
+    window.location.reload()
 
   }
 
@@ -177,10 +119,11 @@ const Navbar = () => {
                     color: "white",
                   }}
                   className="poppins custom-select"
+                  onChange={(e)=>router.push(`/subCategory/${e}`)}
                 >
                   {
                     categories?.map((option) => (
-                      <Option value={option?.categoryName} key={option.value}>
+                      <Option value={option?._id} key={option.value}>
                         {option?.categoryName}
                         
                         <MdKeyboardArrowRight color="#6E6E6F" className="block absolute top-[21%] right-0" size={20} />
@@ -207,7 +150,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <RiShoppingCartLine 
               onClick={()=>{
-                if(!user){
+                if(!user?.email){
                   loginModal.onOpen()
                 }else{
                   router.push('/addCart'); 
@@ -220,7 +163,7 @@ const Navbar = () => {
 
             <IoHeartOutline 
               onClick={()=>{
-                if(!user){
+                if(!user?.email){
                   loginModal.onOpen()
                 }else{
                   router.push('/favorite'); 

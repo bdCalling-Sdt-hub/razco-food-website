@@ -130,3 +130,7 @@
   width: 20px;
   background-color: orange;
 }
+
+:disabled{
+  background: 	#fbd9d3;
+}

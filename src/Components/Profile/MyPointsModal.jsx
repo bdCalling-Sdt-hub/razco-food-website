@@ -1,7 +1,11 @@
+
 import { Modal } from "antd";
 import React from "react";
 
 const MyPointsModal = ({ isModalOpen, setIsModalOpen }) => {
+  
+
+  
   const handleCancel = () => {
     setIsModalOpen(false);
   };

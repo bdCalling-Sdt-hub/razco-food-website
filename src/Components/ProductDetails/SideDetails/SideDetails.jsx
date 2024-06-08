@@ -47,7 +47,7 @@ const SideDetails = ({product}) => {
       <div className="w-full">
           <button 
             onClick={()=>{
-              if(!user){
+              if(!user?.email){
                 loginModal.onOpen()
               }else{
                 handleCart()

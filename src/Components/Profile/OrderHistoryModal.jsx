@@ -20,96 +20,78 @@ const products = [
 ];
 
 const OrderHistoryModal = ({ isModalOpen, setIsModalOpen }) => {
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  
 
   return (
-    <Modal open={isModalOpen} onCancel={handleCancel} footer={false}>
+    <Modal open={isModalOpen} onCancel={()=>setIsModalOpen(null)} footer={false}>
       <div className=" p-5">
         <div className=" ">
           <p className=" text-[#7CC84E] text-lg font-medium  lg:mt-7">
-            {" "}
-            Order No : # 77777777777{" "}
+            Order No : {isModalOpen?.orderId}
           </p>
 
           <div className=" flex justify-between lg:mt-2 items-center">
             <div>
-              <p className="text-[#929394] text-sm pt-3"> Name: User Name </p>
+              <p className="text-[#929394] text-sm pt-3"> Name: {isModalOpen?.user?.name} </p>
               <p className="text-[#929394] text-sm pt-3">
-                {" "}
-                Cnontuct No:+9900000000{" "}
+                Cnontuct No: {isModalOpen?.user?.phone}
               </p>
             </div>
 
             <button className=" text-[#7CC84E] rounded p-2 bg-[#D6EEC8] px-4">
-              {" "}
+  
               Shipping
             </button>
           </div>
 
-          <p className="text-[#929394] text-sm pt-3 mb-6">
-            {" "}
-            13th Street. 47 W 13th St, New York, NY 10011{" "}
-          </p>
+          <p className="text-[#929394] text-sm pt-3 mb-6">{isModalOpen?.user?.address}</p>
 
           {/* product  */}
-          {products.map((product) => (
+          {isModalOpen?.cart?.products?.map((product, index) => (
             <div
-              key={product.key}
-              className=" flex items-center justify-between p-4 ps-5"
+              key={index}
+              className=" flex items-center  justify-between px-4 border-b-[1px] py-2"
             >
-              <p> {product.img}</p>
-              <div>
-                <p className="text-[#555656] text-lg font-medium ">
-                  {" "}
-                  {product.title}{" "}
-                </p>
-                <p className="text-[#524A93]"> 12*5qty=60</p>
+              <div className="relative  w-16 h-16 overflow-hidden rounded">
+                <Image
+                  src={`${ImageConfig}${product?.product?.productImage[0]}`}
+                  alt="offer image"
+                  layout="fill"
+                  objectFit="cover"
+                />
               </div>
+
+              <div>
+                <p className="text-[#555656] text-lg font-medium ">{product?.product?.productName}</p>
+                <p className="text-[#524A93]">
+                  Price {product?.product?.price} * {product?.quantity} Quantity
+                </p>
+              </div>
+
               <p className="text-[#70B446] text-2xl font-semibold">
-                {" "}
-                {product.price}
+                $ { (product?.product?.discountPrice ? product?.product?.discountPrice  : product?.product?.price) * product?.quantity}
               </p>
             </div>
           ))}
 
           {/* payment  */}
           <p className=" flex justify-between px-3 mt-10">
-            <span className=" text-xl font-medium  text-[#555656] ">
-              {" "}
-              Subtotal Amount{" "}
-            </span>
-            <span className=" text-xl font-medium text-[#555656]">
-              {" "}
-              $545.00{" "}
-            </span>
+            <span className=" text-xl font-medium  text-[#555656] ">Subtotal Amount</span>
+            <span className=" text-xl font-medium text-[#555656]">${isModalOpen?.price}</span>
           </p>
 
           <p className=" flex justify-between px-3 mt-4 mb-3">
-            <span className=" text-xl font-medium  text-[#555656] ">
-              {" "}
-              Delivery Fee{" "}
-            </span>
-            <span className=" text-xl font-medium text-[#555656]">
-              {" "}
-              $55.00{" "}
-            </span>
+            <span className=" text-xl font-medium  text-[#555656] ">Delivery Fee</span>
+            <span className=" text-xl font-medium text-[#555656]">${isModalOpen?.deliveryFee}</span>
           </p>
           <p className="border-b border-[#DCDDDE] ps-3 "></p>
 
           <p className=" flex justify-between px-3 mt-2">
-            <span className=" text-xl font-medium  text-[#555656] ">
-              {" "}
-              Total Amount{" "}
-            </span>
-            <span className=" text-xl font-medium text-[#555656]">
-              {" "}
-              $600.00{" "}
-            </span>
+            <span className=" text-xl font-medium  text-[#555656] ">Total Amount</span>
+            <span className=" text-xl font-medium text-[#555656]">${isModalOpen?.deliveryFee + isModalOpen?.price}</span>
           </p>
           <p className="text-sm text-[#6E6E6F] px-3 mt-3 ">
-            You will earn 160 Points
+            You will earn {isModalOpen?.points} Points
           </p>
         </div>
       </div>

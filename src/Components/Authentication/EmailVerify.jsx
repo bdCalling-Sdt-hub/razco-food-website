@@ -12,16 +12,14 @@ const EmailVerify = () => {
     const emailVerifyModal = useEmailVerifyModal();
 
     const handleSubmit=(values)=>{
-        const formData = new FormData();
-        formData.append("otp", values?.otp);
-        formData.append("email", localStorage.getItem("email"))
 
-        console.log("Received Values", values)
-        dispatch(emailVerify(formData)).then((response)=>{
+        dispatch(emailVerify({email :localStorage.getItem("email"), code: values?.otp})).then((response)=>{
         if(response.type === "emailVerify/fulfilled"){
             toast.success("OTP Verified successfuly")
+            loginModal.onOpen();
+            emailVerifyModal.onClose();
         }else{
-            toast.error(response?.payload?.message)
+            toast.error(response?.payload)
         }
         })
     }

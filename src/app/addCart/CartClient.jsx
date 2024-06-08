@@ -10,6 +10,7 @@ import Image from "next/image";
 import { ImageConfig } from "@/Config";
 import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 import { removeCart } from "@/redux/apiSlice/Cart/removeCartSlice";
+import { Empty } from "antd";
 
 const CartClient = () => {
     const dispatch = useDispatch()
@@ -46,7 +47,7 @@ const CartClient = () => {
 
     return (
         <div className="container mb-5 mt-5">
-            <div className=" grid grid-cols-12 gap-6 lg:gap-10">
+            <div  className=" grid grid-cols-12 gap-6 lg:gap-10">
 
                 <div className="col-span-12 md:col-span-6 order-2 lg:order-1">
                 {
@@ -58,7 +59,7 @@ const CartClient = () => {
                             >
                                 <div className="relative w-24 h-20 overflow-hidden rounded" >
                                     <Image 
-                                        src={`${ImageConfig}${product?.product?.productImage[0]}`} 
+                                        src={`${ImageConfig}/${product?.product?.productImage[0]}`} 
                                         alt="offer image"
                                         layout="fill"
                                         objectFit="cover"
@@ -108,6 +109,11 @@ const CartClient = () => {
                     <Summary id={carts._id} carts={carts} total={total} />
                 </div>
 
+            </div>
+
+            
+            <div  style={{display: carts?.length === 0 ? "block" : "none"}}>
+                <Empty/>
             </div>
         </div>
     );

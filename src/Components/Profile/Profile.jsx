@@ -15,12 +15,17 @@ import OrderHistory from "./OrderHistory";
 import MyPoints from "./MyPoints";
 import { UserContext } from "@/provider/User";
 import { ImageConfig } from "@/Config";
+import { updateProfile } from "@/redux/apiSlice/Profile/updateProfileSlice";
+import { getProfile } from "@/redux/apiSlice/Profile/getProfileSlice";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
   const [tab, setTab] = useState("Profile Details");
   const [imgUrl, setimgUrl] = useState();
-  const [image, setImage] = useState();
-  const { user, setUser } = useContext(UserContext);
+  const [image, setImage] = useState(null);
+  const { user } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -28,6 +33,18 @@ const Profile = () => {
     const url = URL.createObjectURL(file);
     setimgUrl(url);
   };
+
+  if(image){
+    const formData = new FormData();
+    formData.append("profileImage", image)
+    dispatch(updateProfile(formData)).then((response)=>{
+      if(response.type === "updateProfile/fulfilled"){
+        setImage(null)
+        toast.success(response?.payload?.message);
+        dispatch(getProfile());
+      }
+    })
+  }
 
   const handlePageChange = (tab) => {
     setTab(tab);

@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Pagination, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getOffer } from "@/redux/apiSlice/getOfferSlice";
@@ -13,6 +13,8 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { makeCart } from "@/redux/apiSlice/Cart/makeCartSlice";
 import Link from "next/link";
+import useLoginModal from "@/hooks/useLoginModal";
+import { UserContext } from "@/provider/User";
 
 
 const OfferClient = () => {
@@ -21,6 +23,8 @@ const OfferClient = () => {
     const { offers } = useSelector(state=> state.getOffer);
     const [offer, setOffer] = useState("")
     const { products, pagination } = useSelector(state=> state.getProducts);
+    const loginModal = useLoginModal();
+    const {user} = useContext(UserContext);
 
 
     useEffect(()=>{
@@ -42,23 +46,36 @@ const OfferClient = () => {
     const handleWish=(e, id)=>{
         e.stopPropagation();
         e.preventDefault();
-        dispatch(makeWish(id)).then((response)=>{
+    
+        if(!user?.email){
+          loginModal.onOpen()
+        }else{
+          dispatch(makeWish(id)).then((response)=>{
             if(response?.type === "makeWish/fulfilled"){
-                dispatch(getProductList({offer: offer}))
-                toast.success(response?.payload?.message)
+              dispatch(getProductList({})).then((res)=>{
+                console.log(res)
+              })
+              toast.success(response?.payload?.message)
             }
-        })
+          })
+        }
     }
-
     const handleCart = (e, id) => {
         e.stopPropagation();
         e.preventDefault();
-        dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
+    
+        if(!user?.email){
+          loginModal.onOpen()
+        }else{
+          dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
             if(response?.type === "makeCart/fulfilled"){
-                dispatch(getProductList({offer: offer}))
-                toast.success(response?.payload?.message)
+              dispatch(getProductList({})).then((res)=>{
+                console.log(res)
+              })
+              toast.success(response?.payload?.message)
             }
-        })
+          })
+        }
     };
 
     return (
@@ -91,7 +108,7 @@ const OfferClient = () => {
                 {
                     products?.map((product, index) => (
                         <Link href={`/productDetails/${product?._id}`} key={index}>
-                            <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative " >
+                            <div className="bg-gray-100 shadow-sm rounded  w-full p-2 relative " >
                                 <div className="relative w-full h-[220px] overflow-hidden rounded" >
                                     <Image 
                                         src={`${ImageConfig}${product?.productImage[0]}`} 
@@ -137,8 +154,8 @@ const OfferClient = () => {
 
                                     <div className="flex items-center justify-between mt-3">
                                         <p className="text-[18px] leading-5 font-semibold text-primary">
-                                            ${product?.discountPrice}
-                                            <span className="text-[12px] font-medium text-red-600 ps-2 line-through">${product?.price}</span>
+                                            ${product?.discountPrice ? product?.discountPrice: product?.price }
+                                            <span style={{display: product?.discountPrice ? "block" : "none" }} className="text-[12px] font-medium text-red-600 ps-2 line-through">${ product?.price}</span>
                                         </p>
                                         <div 
                                             onClick={(e)=>handleCart(e, product?._id)} 
