@@ -1,8 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images : {
-        domains : ['192.168.10.16', "i.ibb.co"] // <== Domain name
-    }
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'http',
+            hostname: '192.168.10.16',
+            pathname: '**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'i.ibb.co',
+            pathname: '**',
+          },
+        ],
+      },
 };
 
 export default nextConfig;

@@ -11,9 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 const PaymentClient = () => {
     const stripePromise = loadStripe('pk_test_51JwnGrLiLwVG3jO00U7B3YmokwdPnB6FKd1uresJgkbsL4f5xUfCmbFdBaGO42KvLmLfVzsgo1oIQToXABSTyypS00xQsEgKZ6');
     const { intent } = useSelector(state => state.makePayment);
-    const cart = JSON.parse(localStorage.getItem("cartData"))
+    const [cart, setCart] = useState(null);
     const price = cart?.deliveryFee + cart?.price
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const storedCart = JSON.parse(localStorage.getItem("cartData"));
+            setCart(storedCart);
+            if (storedCart) {
+                setPrice(storedCart.deliveryFee + storedCart.price);
+            }
+        }
+    }, []);
 
     
     
