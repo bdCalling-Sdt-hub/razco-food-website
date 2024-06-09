@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
           {
             protocol: 'http',
-            hostname: '146.190.130.172',
+            hostname: 'server.razcofoods.net',
             pathname: '**',
           },
           {
