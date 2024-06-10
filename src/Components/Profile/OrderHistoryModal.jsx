@@ -5,7 +5,6 @@ import { ImageConfig } from "@/Config";
 
 
 const OrderHistoryModal = ({ isModalOpen, setIsModalOpen }) => { 
-  console.log(isModalOpen)
 
   return (
     <Modal open={isModalOpen} onCancel={()=>setIsModalOpen(null)} footer={false}>

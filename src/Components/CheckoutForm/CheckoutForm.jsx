@@ -31,7 +31,7 @@ const ELEMENT_OPTIONS = {
 const CheckoutForm = ({ intent, cart }) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState(null);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const router = useRouter();
     
