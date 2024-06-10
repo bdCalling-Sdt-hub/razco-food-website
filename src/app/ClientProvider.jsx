@@ -12,6 +12,7 @@ import { Toaster } from 'react-hot-toast';
 import { UserProvider } from '@/provider/User';
 import EmailVerifyModal from '@/Modal/EmailVerifyModal';
 
+
 const ClientProvider = ({ children }) => {
   return (
     <Provider store={store}>

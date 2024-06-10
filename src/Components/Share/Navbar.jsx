@@ -16,6 +16,7 @@ import { ImageConfig } from "@/Config";
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from "react-redux";
 import {  getCategory } from "@/redux/apiSlice/Category/getCategorySlice";
+import {  getSearchProductList } from "@/redux/apiSlice/Product/getSearchProductSlice";
 
 
 
@@ -43,13 +44,15 @@ const item = [
 ]
 
 const Navbar = () => {
-  const [keyword, setkeyword] = useState("")
+  const [keyword, setkeyword] = useState("");
+  const [search, setSearch] = useState("")
   const loginModal = useLoginModal();
   const {user, setUser} = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch()
   const {categories} = useSelector(state=> state.getCategory);
+  const { products } = useSelector(state=> state.getSeachProduct);
 
   const handleLogOut=()=>{
     localStorage.removeItem("token");
@@ -57,6 +60,14 @@ const Navbar = () => {
     window.location.reload()
 
   }
+
+
+
+  useEffect(()=>{
+    if(search !== ""){
+      dispatch(getSearchProductList(search))
+    }
+  }, [dispatch, search ])
 
   useEffect(()=>{
     dispatch(getCategory())
@@ -75,22 +86,40 @@ const Navbar = () => {
             <Link href={`/`} className="hidden md:block">
               <Image src={title} width={160} height={80} alt="Photo" />
             </Link>
-            <Input
-              onChange={(e)=>setkeyword(e.target.value)}
-              value={keyword}
-              style={{
-                maxWidth: 600,
-                height: 42,
-                border: "1px solid #C3C4C6",
-                outline: "none",
-                borderRadius: 8
-              }}
-              // className="w-full md:w-[600px]"
-              prefix={<IoSearch  size={20} color="#AAA6B9" />}
-              suffix={<IoClose color="#AAA6B9" size={20} onClick={()=>setkeyword("")} className="cursor-pointer" style={{display:keyword ? "block" : "none" }} />}
-              placeholder="Search something.."
-            />
+            <div className="relative w-[600px]">
+              <Input
+                onChange={(e)=>setkeyword(e.target.value)}
+                value={keyword}
+                style={{
+                  width: 600,
+                  height: 42,
+                  border: "1px solid #C3C4C6",
+                  outline: "none",
+                  borderRadius: 8
+                }}
+                suffix={<IoSearch color="#AAA6B9" size={20} onClick={()=>setSearch(keyword)} className="cursor-pointer"  />}
+                placeholder="Search Product Name"
+              />
+              <div 
+                className={`absolute border  ${products?.length > 0 ? "block" : "hidden"}  left-0 w-full h-[300px] z-20 rounded-lg bg-white overflow-y-auto `} >
+                  <div className="grid grid-cols-1 gap-3 p-3">
 
+                  {
+                    products?.map((product, index)=>{
+                      return(
+                        <Link href={`/productDetails/${product?._id}`} key={index}>
+                          <div className=" flex items-center justify-between">
+                              <Image src={`${ImageConfig}${product?.productImage[0]}`}  width={50} height={50} alt="product Image"/>
+                              <p className="poppins">{product?.productName}</p>
+                              <p className="poppins">${product?.price}</p>
+                          </div>
+                        </Link>
+                      )
+                      })
+                    }
+                  </div>
+              </div>
+            </div>
             <div className=" flex gap-3">
               {
                 user?._id 

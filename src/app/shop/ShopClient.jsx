@@ -4,7 +4,7 @@ import {
   HeartOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Select } from "antd";
+import { Select, Slider } from "antd";
 import { Pagination } from "antd";
 import Link from "next/link";
 import { getProductList } from "@/redux/apiSlice/Product/getProductListSlice";
@@ -100,35 +100,23 @@ const ShopClient = () => {
     }, []);
 
     const maxPrice = getUniquePrices(products);
-    console.log(maxPrice)
+    const formatter = (value) => `${value}`;
 
     return (
         <div className=" container mb-20 mt-10 ">
 
             <div className="flex flex-col sm:flex-row items-end justify-end gap-6">
 
-                <Select
-                    placeholder="Select Price"
-                    style={{
-                        background: "transparent",
-                        width: 150,
-                        height: 48,
-                        outline: "none",
-                        borderRadius: "5px",
-                        color: "#555656"
-                    }}
-                    defaultValue={"All"}
-                    onChange={(e)=>setPrice(e)}
-                >
-                    <Option  value="" >All</Option>
-                    {
-                        maxPrice?.map((price, index)=>{
-                            return(
-                                <Option  value={price} key={index}>{price}</Option>
-                            )
-                        })
-                    }
-                </Select>
+                <div className="border">
+                    <Slider 
+                        style={{width: 250}} 
+                        tooltip={{formatter}}
+                        step={50}
+                        max={500}
+                        defaultValue={500}
+                        onChange={(e)=>setPrice(e)}
+                    />
+                </div>
 
                 <Select
                     placeholder="Select  Category"

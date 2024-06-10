@@ -36,6 +36,7 @@ import getAllCouponSlice from './apiSlice/Points/getAllCouponSlice';
 import callPickUpSlice from './apiSlice/Order/callPickUpSlice';
 import claimCouponSlice from './apiSlice/Coupon/claimCouponSlice';
 import getMyCouponSlice from './apiSlice/Coupon/getMyCouponSlice';
+import getSearchProductListSlice from './apiSlice/Product/getSearchProductSlice';
 
 export const store = configureStore({
     reducer:{
@@ -87,6 +88,7 @@ export const store = configureStore({
         getProducts: getProductListSlice,
         getProduct: getSingleProductSlice,
         getRelatedProduct: getRelatedProductSlice,
+        getSeachProduct: getSearchProductListSlice,
 
         // profile,
         getProfile: getProfileSlice,

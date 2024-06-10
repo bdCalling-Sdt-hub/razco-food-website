@@ -14,10 +14,11 @@ const initialState = {
 export const getProductList = createAsyncThunk(
     'getProductList',
     async (value, thunkApi) => {
-        const {offer, category, subcategory, price} = value;
+        const {offer, category, subcategory, search, price} = value;
         try{
             const params = new URLSearchParams();
 
+            if (search) params.append('search', search);
             if (category) params.append('category', category);
             if (price) params.append('maxPrice', price);
             if (price) params.append('minPrice', 0);
@@ -37,8 +38,8 @@ export const getProductList = createAsyncThunk(
             if (token) {
                 config.headers['Authorization'] = `Bearer ${token}`;
             }
-
             const response = await baseURL.get(`/product?${params.toString()}`, config);
+
             return response?.data;
         }catch(error){
             console.log(error)
