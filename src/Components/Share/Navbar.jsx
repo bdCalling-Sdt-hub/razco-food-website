@@ -53,6 +53,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const {categories} = useSelector(state=> state.getCategory);
   const { products } = useSelector(state=> state.getSeachProduct);
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleLogOut=()=>{
     localStorage.removeItem("token");
@@ -71,7 +72,13 @@ const Navbar = () => {
 
   useEffect(()=>{
     dispatch(getCategory())
-  }, [dispatch])
+  }, [dispatch]);
+
+  const handleImage=(id)=>{
+    setIsOpen(false)
+    router.push(`/productDetails/${id}`)
+
+  }
 
   const src = user?.profileImage?.startsWith("https") ?  user?.profileImage : `${ImageConfig}/${user?.profileImage}`;
   return (
@@ -97,23 +104,21 @@ const Navbar = () => {
                   outline: "none",
                   borderRadius: 8
                 }}
-                suffix={<IoSearch color="#AAA6B9" size={20} onClick={()=>setSearch(keyword)} className="cursor-pointer"  />}
+                suffix={<IoSearch color="#AAA6B9" size={20} onClick={()=> (setIsOpen(true), setSearch(keyword)) } className="cursor-pointer"  />}
                 placeholder="Search Product Name"
               />
               <div 
-                className={`absolute border  ${products?.length > 0 ? "block" : "hidden"}  left-0 w-full h-[300px] z-20 rounded-lg bg-white overflow-y-auto `} >
+                className={`absolute border  ${products?.length > 0 && isOpen ? "block" : "hidden"}  left-0 w-full h-[300px] z-20 rounded-lg bg-white overflow-y-auto `} >
                   <div className="grid grid-cols-1 gap-3 p-3">
 
                   {
                     products?.map((product, index)=>{
                       return(
-                        <Link href={`/productDetails/${product?._id}`} key={index}>
-                          <div className=" flex items-center justify-between">
-                              <Image src={`${ImageConfig}${product?.productImage[0]}`}  width={50} height={50} alt="product Image"/>
-                              <p className="poppins">{product?.productName}</p>
-                              <p className="poppins">${product?.price}</p>
-                          </div>
-                        </Link>
+                        <div key={index} onClick={()=>handleImage(product?._id)} className=" cursor-pointer flex items-center justify-between">
+                            <Image src={`${ImageConfig}${product?.productImage[0]}`}  width={50} height={50} alt="product Image"/>
+                            <p className="poppins">{product?.productName}</p>
+                            <p className="poppins">${product?.price}</p>
+                        </div>
                       )
                       })
                     }
@@ -205,7 +210,7 @@ const Navbar = () => {
                 user?._id 
                 &&
                 <Link href={"/profile"}>
-                  <Image src={src} width={26} height={26} alt="" />
+                  <Image style={{borderRadius: "100%"}} src={src} width={26} height={26} alt="" />
                 </Link>
               }
           </div>
