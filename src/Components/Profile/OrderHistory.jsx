@@ -52,7 +52,7 @@ const OrderHistory = () => {
             {
               item?.callForPickup 
               && 
-              <a href="skype:0123456788?call" target="_blank">
+              <a href="tel:0123456788?call" target="_blank">
                 <LuPhoneCall color="#7CC84E" size={24} />
               </a>
             }
