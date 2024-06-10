@@ -5,6 +5,7 @@ import { ImageConfig } from "@/Config";
 
 
 const OrderHistoryModal = ({ isModalOpen, setIsModalOpen }) => { 
+  console.log(isModalOpen)
 
   return (
     <Modal open={isModalOpen} onCancel={()=>setIsModalOpen(null)} footer={false}>
@@ -22,10 +23,7 @@ const OrderHistoryModal = ({ isModalOpen, setIsModalOpen }) => {
               </p>
             </div>
 
-            <button className=" text-[#7CC84E] rounded p-2 bg-[#D6EEC8] px-4">
-  
-              Shipping
-            </button>
+            <button className=" text-[#7CC84E] rounded p-2 bg-[#D6EEC8] capitalize px-4">{isModalOpen?.status}</button>
           </div>
 
           <p className="text-[#929394] text-sm pt-3 mb-6">{isModalOpen?.user?.address}</p>
