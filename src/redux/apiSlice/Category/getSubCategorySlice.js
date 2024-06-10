@@ -12,9 +12,9 @@ const initialState = {
 
 export const getSubCategory = createAsyncThunk(
     'getSubCategory',
-    async (value, thunkApi) => {
+    async (id, thunkApi) => {
         try{
-            const response = await baseURL.get(`/subcategory`, {
+            const response = await baseURL.get(`/category/all-subcategories/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem('token')}`,

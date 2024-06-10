@@ -1,26 +1,10 @@
 import React from "react";
 import Image from "next/image";
-import img1 from "@/assets/fruit1.png";
-import img2 from "@/assets/fruit2.png";
 import { Modal } from "antd";
+import { ImageConfig } from "@/Config";
 
-const products = [
-  {
-    key: 1,
-    img: <Image src={img1} height={40} width={80} alt=" " />,
-    title: " Tamato",
-    price: "$12",
-  },
-  {
-    key: 2,
-    img: <Image src={img2} height={40} width={80} alt=" " />,
-    title: " Orange",
-    price: "$15",
-  },
-];
 
-const OrderHistoryModal = ({ isModalOpen, setIsModalOpen }) => {
-  
+const OrderHistoryModal = ({ isModalOpen, setIsModalOpen }) => { 
 
   return (
     <Modal open={isModalOpen} onCancel={()=>setIsModalOpen(null)} footer={false}>

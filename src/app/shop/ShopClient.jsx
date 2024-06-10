@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState }  from "react";
+import React, { useCallback, useContext, useEffect, useState }  from "react";
 import {
   HeartOutlined,
   ShoppingCartOutlined,
@@ -27,6 +27,7 @@ const ShopClient = () => {
     const dispatch = useDispatch()
     const [category, setCategory] = useState("")
     const [subcategory, setSubCategory] = useState("")
+    const [subcategoryId, setSubCategoryId] = useState()
     const [price, setPrice] = useState()
     const { products, pagination } = useSelector(state=> state.getProducts);
     const { categories } = useSelector(state=> state.getCategory);
@@ -40,6 +41,15 @@ const ShopClient = () => {
 
     useEffect(()=>{
         dispatch(getCategory());
+    }, [dispatch]);
+
+    useEffect(()=>{
+        if(subcategoryId){
+            dispatch(getSubCategory(subcategoryId));
+        }
+    }, [dispatch, subcategoryId]);
+
+    useEffect(()=>{
         dispatch(getSubCategory());
     }, [dispatch]);
 
@@ -75,6 +85,23 @@ const ShopClient = () => {
         }
     };
 
+    const handleCategory = useCallback((value) => {
+        if (value?.split('|')[0] !== subcategoryId) {
+          setSubCategoryId(value?.split('|')[0]);
+        }
+        setCategory(value?.split('|')[1]);
+    }, [subcategoryId]);
+
+    const getUniquePrices = useCallback((products) => {
+        const allPrices = products?.flatMap(product =>  product.price);
+        const uniquePrices = [...new Set(allPrices)];
+        uniquePrices.sort((a, b) => a - b);
+        return uniquePrices;
+    }, []);
+
+    const maxPrice = getUniquePrices(products);
+    console.log(maxPrice)
+
     return (
         <div className=" container mb-20 mt-10 ">
 
@@ -90,18 +117,17 @@ const ShopClient = () => {
                         borderRadius: "5px",
                         color: "#555656"
                     }}
+                    defaultValue={"All"}
                     onChange={(e)=>setPrice(e)}
                 >
-                    <Option value="10">10</Option>
-                    <Option value="20">20</Option>
-                    <Option value="30">30</Option>
-                    <Option value="40">40</Option>
-                    <Option value="50">50</Option>
-                    <Option value="60">60</Option>
-                    <Option value="70">70</Option>
-                    <Option value="80">80</Option>
-                    <Option value="90">90</Option>
-                    <Option value="100">100</Option>
+                    <Option  value="" >All</Option>
+                    {
+                        maxPrice?.map((price, index)=>{
+                            return(
+                                <Option  value={price} key={index}>{price}</Option>
+                            )
+                        })
+                    }
                 </Select>
 
                 <Select
@@ -113,12 +139,15 @@ const ShopClient = () => {
                         outline: "none",
                         borderRadius: "5px",
                     }}
-                    onChange={(e)=>setCategory(e)}
+                    defaultValue={"All"}
+                    onChange={handleCategory}
+
                     >
+                        <Option  value="" >All</Option>
                         {
                             categories?.map((category, index)=>{
                                 return(
-                                    <Option key={index} value={category?.categoryName} >{category?.categoryName}</Option>
+                                    <Option key={index} value={`${category?._id}|${category?.categoryName}`} >{category?.categoryName}</Option>
                                 )
                             })
                         }
@@ -134,7 +163,9 @@ const ShopClient = () => {
                         borderRadius: "5px",
                     }}
                     onChange={(e)=>setSubCategory(e)}
+                    defaultValue={"All"}
                 >
+                    <Option  value="" >All</Option>
                     {
                         subCategory?.map((category, index)=>{
                             return(

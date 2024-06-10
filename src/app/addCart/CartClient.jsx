@@ -15,6 +15,7 @@ import { Empty } from "antd";
 const CartClient = () => {
     const dispatch = useDispatch()
     const { carts } = useSelector(state=> state.getCart);
+    console.log(carts)
     useEffect(()=>{
         dispatch(getCart())
     }, [dispatch]);
@@ -47,7 +48,7 @@ const CartClient = () => {
 
     return (
         <div className="container mb-5 mt-5">
-            <div  className=" grid grid-cols-12 gap-6 lg:gap-10">
+            <div style={{display: carts?.length > 0 ? "grid" : "none"}}  className="  grid-cols-12 gap-6 lg:gap-10">
 
                 <div className="col-span-12 md:col-span-6 order-2 lg:order-1">
                 {
@@ -112,8 +113,10 @@ const CartClient = () => {
             </div>
 
             
-            <div  style={{display: carts?.length === 0 ? "block" : "none"}}>
-                <Empty/>
+            <div className="relative w-full h-[50vh]"  style={{display: carts?.length === 0 ? "block" : "none"}}>
+                <div className="w-fit absolute top-[40%] left-[40%]">
+                    <Empty/>
+                </div>
             </div>
         </div>
     );
