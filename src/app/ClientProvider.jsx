@@ -11,12 +11,13 @@ import { store } from "../redux/store";
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from '@/provider/User';
 import EmailVerifyModal from '@/Modal/EmailVerifyModal';
+import ComingSoon from './ComingSoon';
 
 
 const ClientProvider = ({ children }) => {
   return (
     <Provider store={store}>
-      <UserProvider>
+      {/* <UserProvider>
         <AntdRegistry>
           <Navbar />
           <LoginModal />
@@ -26,7 +27,8 @@ const ClientProvider = ({ children }) => {
           <Footer />
         </AntdRegistry>
       </UserProvider>
-      <Toaster />
+      <Toaster /> */}
+      <ComingSoon/>
     </Provider>
   );
 };
