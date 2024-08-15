@@ -17,7 +17,7 @@ import ComingSoon from './ComingSoon';
 const ClientProvider = ({ children }) => {
   return (
     <Provider store={store}>
-      {/* <UserProvider>
+      <UserProvider>
         <AntdRegistry>
           <Navbar />
           <LoginModal />
@@ -27,8 +27,8 @@ const ClientProvider = ({ children }) => {
           <Footer />
         </AntdRegistry>
       </UserProvider>
-      <Toaster /> */}
-      <ComingSoon/>
+      <Toaster />
+      {/* <ComingSoon/> */}
     </Provider>
   );
 };

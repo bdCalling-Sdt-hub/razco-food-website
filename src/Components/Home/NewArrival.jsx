@@ -37,7 +37,7 @@ const NewArrival = () => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     prevArrow: <ArrowLeft />,
     nextArrow: <ArrowRight />,
     slidesToScroll: 1,
@@ -63,7 +63,7 @@ const NewArrival = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
@@ -136,7 +136,7 @@ const NewArrival = () => {
                 <Link key={index} href={`/productDetails/${product?._id}`}>
                 <div className=" mx-auto pl-3 ">
                   <div className="bg-gray-100 shadow-sm rounded  p-2 relative ">
-                  <div className="relative w-full h-[220px] overflow-hidden rounded" >
+                  <div className="relative w-full h-[150px] sm:h-[180px] md:h-[220px] overflow-hidden rounded" >
                       <Image 
                           src={`${ImageConfig}${product?.productImage[0]}`} 
                           alt="offer image"
@@ -174,9 +174,9 @@ const NewArrival = () => {
 
 
 
-                    <div className="px-5 pb-5">
+                    <div className="">
                       <div className="flex justify-between px-1 pt-3">
-                        <h3 className="text-[555656] font-medium text-xl tracking-tight ">
+                        <h3 className="text-[555656] font-medium text-[14px] sm:text-[16px] md:text-xl tracking-tight ">
                           {product?.productName}
                         </h3>
                         <p className="text-[#929394] text-sm "> {product?.store} pc</p>
@@ -194,7 +194,7 @@ const NewArrival = () => {
                         </p>
                         
 
-                        <p onClick={(e)=>handleCart(e, product?._id)} className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl px-4 py-2 text-center">
+                        <p onClick={(e)=>handleCart(e, product?._id)} className="text-[#7CC84E] bg-white  font-semibold rounded-lg text-2xl p-1 md:px-4 py-1 md:py-2 text-center">
                           <MdOutlineAddShoppingCart />
                         </p>
                       </div>
