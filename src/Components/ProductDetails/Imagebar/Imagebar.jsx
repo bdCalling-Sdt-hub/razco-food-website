@@ -40,13 +40,18 @@ const Imagebar = ({imageList}) => {
           imageList?.map((image, index)=>{
             return(
               <SwiperSlide key={index}>
-              <Image
-                alt="Slide 2"
-                width={800}
-                height={400}
-                style={{ height: "400px", backgroundColor: "#DADADA" }}
-                src={`${ImageConfig}${image}`}
-              />
+
+              {
+                                        image
+                                        &&
+                                        <Image 
+                                            src={  image?.startsWith("https") ?  image: `${ImageConfig}${image}`} 
+                                            alt="Slide 2"
+                                            width={800}
+                                            height={400}
+                                            style={{ height: "400px", backgroundColor: "#DADADA" }}
+                                        />
+              }
             </SwiperSlide>
             )
           })
@@ -77,7 +82,7 @@ const Imagebar = ({imageList}) => {
                   height: "130px",
                   backgroundColor: "#DADADA",
                 }}
-                src={`${ImageConfig}${image}`}
+                src={  image?.startsWith("https") ?  image: `${ImageConfig}${image}`} 
               />
             </SwiperSlide>
             )

@@ -15,7 +15,6 @@ import { Empty } from "antd";
 const CartClient = () => {
     const dispatch = useDispatch()
     const { carts } = useSelector(state=> state.getCart);
-    console.log(carts)
     useEffect(()=>{
         dispatch(getCart())
     }, [dispatch]);
@@ -63,7 +62,7 @@ const CartClient = () => {
                                         product?.product?.productImage
                                         &&
                                         <Image 
-                                            src={`${ImageConfig}/${product?.product?.productImage[0]}`} 
+                                            src={  product?.product?.productImage[0]?.startsWith("https") ?  product?.product?.productImage[0]: `${ImageConfig}${product?.product?.productImage[0]}`} 
                                             alt="offer image"
                                             layout="fill"
                                             objectFit="cover"

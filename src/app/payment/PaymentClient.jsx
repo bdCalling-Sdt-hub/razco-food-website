@@ -9,7 +9,7 @@ import { makePaymentIntent } from "@/redux/apiSlice/Order/makePaymentIntentSlice
 import { useDispatch, useSelector } from "react-redux";
 
 const PaymentClient = () => {
-    const stripePromise = loadStripe('pk_test_51JwnGrLiLwVG3jO00U7B3YmokwdPnB6FKd1uresJgkbsL4f5xUfCmbFdBaGO42KvLmLfVzsgo1oIQToXABSTyypS00xQsEgKZ6');
+    const stripePromise = loadStripe('pk_test_51O7k8JEuwhYa3jTA8dapilI59hyJP9dADOXteQQVZymofTkIL9ilWjpn6MHoMwIajCOlU0zbz1I85emOAWKFcXBi00d1GVGfiF');
     const { intent } = useSelector(state => state.makePayment);
     const [cart, setCart] = useState(null);
     const [price, setPrice] = useState()

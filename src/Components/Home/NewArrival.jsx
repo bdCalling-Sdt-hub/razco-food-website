@@ -137,12 +137,16 @@ const NewArrival = () => {
                 <div className=" mx-auto pl-3 ">
                   <div className="bg-gray-100 shadow-sm rounded  p-2 relative ">
                   <div className="relative w-full h-[150px] sm:h-[180px] md:h-[220px] overflow-hidden rounded" >
-                      <Image 
-                          src={`${ImageConfig}${product?.productImage[0]}`} 
+                    {
+                        product?.productImage[0]
+                        &&
+                        <Image 
+                          src={  product?.productImage[0]?.startsWith("https") ?  product?.productImage[0]: `${ImageConfig}${product?.productImage[0]}`} 
                           alt="offer image"
                           layout="fill"
                           objectFit="cover"
-                      />
+                        />
+                      }
                     </div>
 
 

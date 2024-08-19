@@ -15,12 +15,12 @@ import { useRouter } from "next/navigation";
 
 const PaymentClient = () => {
     const [open, setOpen] = useState(false);
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const [pickUp, setPickUp] = useState(false);
-    const [address, setAddress] = useState({});
     const dispatch = useDispatch();
     const router = useRouter();
     const { carts } = useSelector(state=> state.getCart);
+
     useEffect(()=>{
         dispatch(getCart())
     }, [dispatch]);
@@ -30,19 +30,24 @@ const PaymentClient = () => {
         const result = currentItem?.quantity * price;
         return accumulator + result;
     }, 0);
+
+    const products = carts?.map(item => ({
+        product: item.product._id,
+        quantity: item.quantity
+    }));
     
     const handleSubmit=(values)=>{
 
 
-        const {delivaryDate, delivaryTime, paymentType} = values;
+        const {deliveryDate, deliveryTime, paymentType} = values;
         const data ={
-            deliveryDate: moment(delivaryDate).format('L'), 
-            delivaryTime: moment(delivaryTime).format('LT'),
+            deliveryDate: moment(deliveryDate).format('L'), 
+            deliveryTime: moment(deliveryTime).format('LT'),
             paymentMethod: paymentType[0], 
             callForPickup: pickUp,
-            address: address,
+            address: user?.address,
             cart: localStorage.getItem("cartId"),
-            orderId: "order2782",
+            products: products,
             totalItem: carts?.length,
             price: total,
             deliveryFee: 5,
@@ -52,7 +57,6 @@ const PaymentClient = () => {
 
         if(values?.paymentType[0] === "cashOnDelivery"){
             dispatch(makeOrder(data)).then((response)=>{
-                console.log(response)
             })
         }else{
             localStorage.setItem("cartData", JSON.stringify(data))
@@ -88,13 +92,13 @@ const PaymentClient = () => {
 
                     <p className="text-[#929394] text-[16px] poppins leading-6 font-normal "> Name: {user?.name} </p>
                     <p className="text-[#929394] text-[16px] poppins leading-6 font-normal "> Contuct No: {user?.phone}</p>
-                    <p className="text-[#929394] text-[16px] poppins leading-6 font-normal ">{user?.address}</p>
+                    <p className="text-[#929394] text-[16px] poppins leading-6 font-normal ">Address: {user?.address ? user?.address : "Not Given"}</p>
                     
                     <br />
 
                     <div  className="flex items-center justify-between gap-6">
                         <Form.Item
-                            name="delivaryDate"
+                            name="deliveryDate"
                             style={{width: "100%"}}
                             label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Delivary Date</p>}
                             rules={[
@@ -108,7 +112,7 @@ const PaymentClient = () => {
                         </Form.Item>
 
                         <Form.Item
-                            name="delivaryTime"
+                            name="deliveryTime"
                             style={{width: "100%"}}
                             label={<p className="text-[#6A6D7C] poppins text-[16px] leading-[27px] font-normal ">Delivary Time</p>}
                             rules={[
@@ -176,7 +180,7 @@ const PaymentClient = () => {
                 </div>
 
             </Form>
-            <EditAddressModal setAddress={setAddress} open={open} setOpen={setOpen} />
+            <EditAddressModal open={open} setOpen={setOpen} />
         </div>
     );
 };

@@ -20,7 +20,6 @@ export const getContactUs = createAsyncThunk(
                     authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
-            console.log(response?.data)
             return response?.data;
         }catch(error){
             const message = error?.response?.data?.message;

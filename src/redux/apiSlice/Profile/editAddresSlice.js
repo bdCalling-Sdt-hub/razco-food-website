@@ -9,18 +9,18 @@ const initialState = {
 };
 
 
-export const makeWish = createAsyncThunk(
-    'makeWish',
+export const editAddress = createAsyncThunk(
+    'editAddress',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/wishlist`, {product: value}, {
+            const response = await baseURL.patch(`/user/edit-address`, {...value}, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }
             });
-
             return response?.data;
+
         }catch(error){
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
@@ -31,20 +31,20 @@ export const makeWish = createAsyncThunk(
 
 
 
-export const makeWishSlice = createSlice({
-    name: 'makeWish',
+export const editAddressSlice = createSlice({
+    name: 'editAddress',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(makeWish.pending, (state)=> {
+        builder.addCase(editAddress.pending, (state)=> {
             state.loading= true;
         }),
-        builder.addCase(makeWish.fulfilled, (state, action)=> {
+        builder.addCase(editAddress.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
         }),
-        builder.addCase(makeWish.rejected, (state)=> {
+        builder.addCase(editAddress.rejected, (state)=> {
             state.error= true;
             state.success= false;
             state.loading= false;
@@ -52,4 +52,4 @@ export const makeWishSlice = createSlice({
     }
 })
 
-export default makeWishSlice.reducer
+export default editAddressSlice.reducer

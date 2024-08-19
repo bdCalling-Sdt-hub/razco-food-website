@@ -31,9 +31,11 @@ const Login = ({onToggle}) => {
             window.location.reload()
           }
         })
-      }else{
-        toast.error(response?.payload?.message)
       }
+      if(response.type === "login/rejected"){
+        toast.error(response?.payload)
+      }
+
     })
   }
 

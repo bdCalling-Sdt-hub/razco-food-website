@@ -39,7 +39,6 @@ const CheckoutForm = ({ intent, cart }) => {
     const elements = useElements();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const target = e.target;
         if (!stripe || !elements || !intent) {
             return;
         }
@@ -59,12 +58,9 @@ const CheckoutForm = ({ intent, cart }) => {
         }
 
         if (payload.error) {
-            console.log('[error]', payload.error);
             setErrorMessage(payload.error.message || null);
             setPaymentMethod(null);
         } else {
-            
-            console.log('[PaymentMethod]', payload);
             setErrorMessage(null);
             dispatch(makeOrder(data)).then((response)=>{
                 if(response?.type === "makeOrder/fulfilled" ){

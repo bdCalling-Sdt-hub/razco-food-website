@@ -171,12 +171,16 @@ const ShopClient = () => {
                         <Link href={`/productDetails/${product?._id}`} key={index}>
                             <div className="bg-gray-100 shadow-sm rounded  w-full p-2 relative ">
                                 <div className="relative w-full h-[220px] overflow-hidden rounded" >
-                                    <Image 
-                                        src={`${ImageConfig}${product?.productImage[0]}`} 
-                                        alt="offer image"
-                                        layout="fill"
-                                        objectFit="cover"
-                                    />
+                                    {
+                                        product?.productImage[0]
+                                        &&
+                                        <Image 
+                                            src={  product?.productImage[0]?.startsWith("https") ?  product?.productImage[0]: `${ImageConfig}${product?.productImage[0]}`} 
+                                            alt="offer image"
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                    }
                                 </div>
 
                                 <div

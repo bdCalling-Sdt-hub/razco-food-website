@@ -53,7 +53,6 @@ const OfferClient = () => {
           dispatch(makeWish(id)).then((response)=>{
             if(response?.type === "makeWish/fulfilled"){
               dispatch(getProductList({})).then((res)=>{
-                console.log(res)
               })
               toast.success(response?.payload?.message)
             }
@@ -70,7 +69,6 @@ const OfferClient = () => {
           dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
             if(response?.type === "makeCart/fulfilled"){
               dispatch(getProductList({})).then((res)=>{
-                console.log(res)
               })
               toast.success(response?.payload?.message)
             }

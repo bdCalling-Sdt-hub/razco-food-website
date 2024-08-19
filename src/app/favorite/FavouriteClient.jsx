@@ -16,7 +16,6 @@ import { Empty } from "antd";
 const FavouriteClient = () => {
     const dispatch = useDispatch()
     const { wish } = useSelector(state=> state.getWish);
-    console.log(wish)
 
     useEffect(()=>{
         dispatch(getWish())
@@ -54,12 +53,16 @@ const FavouriteClient = () => {
                             <Link href="/productDetails" key={index}>
                                 <div className="bg-gray-100 shadow-sm rounded  w-full pb-3 relative ">
                                     <div className="relative w-full h-[220px] overflow-hidden rounded" >
-                                        <Image 
-                                            src={`${ImageConfig}/${item?.product?.productImage[0]}`} 
-                                            alt="offer image"
-                                            layout="fill"
-                                            objectFit="cover"
-                                        />
+                                        {
+                                            item?.product?.productImage[0]
+                                            &&
+                                            <Image 
+                                                src={  item?.product?.productImage[0]?.startsWith("https") ?  item?.product?.productImage[0]: `${ImageConfig}${item?.product?.productImage[0]}`} 
+                                                alt="offer image"
+                                                layout="fill"
+                                                objectFit="cover"
+                                            />
+                                        }
                                     </div>
         
                                     <div

@@ -39,11 +39,9 @@ export const getProductList = createAsyncThunk(
                 config.headers['Authorization'] = `Bearer ${token}`;
             }
             const response = await baseURL.get(`/product?${params.toString()}`, config);
-            console.log(response)
 
             return response?.data;
         }catch(error){
-            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }

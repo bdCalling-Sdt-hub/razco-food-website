@@ -17,7 +17,6 @@ export const getSearchProductList = createAsyncThunk(
             const response = await baseURL.get(`/product?search=${search}`);
             return response?.data?.data;
         }catch(error){
-            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }

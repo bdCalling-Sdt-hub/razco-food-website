@@ -35,6 +35,7 @@ const Categories = ({id}) => {
                             layout="fill"
                             objectFit="cover"
                         />
+                        
                       </div>
                     <h4 className="poppins text-center text-lg  mt-2 ">{product?.subcategoryName}</h4>
                   </div>

@@ -93,7 +93,6 @@ const BestDeals = () => {
       dispatch(makeWish(id)).then((response)=>{
         if(response?.type === "makeWish/fulfilled"){
           dispatch(getProductList({})).then((res)=>{
-            console.log(res)
           })
           toast.success(response?.payload?.message)
         }
@@ -111,7 +110,6 @@ const BestDeals = () => {
       dispatch(makeCart({product: id, quantity: 1})).then((response)=>{
         if(response?.type === "makeCart/fulfilled"){
           dispatch(getProductList({})).then((res)=>{
-            console.log(res)
           })
           toast.success(response?.payload?.message)
         }
@@ -140,12 +138,16 @@ const BestDeals = () => {
                   <div className=" mx-auto pl-3 ">
                     <div className="bg-gray-100 shadow-sm rounded  p-2 relative ">
                     <div className="relative w-full h-[150px] sm:h-[180px] md:h-[220px] overflow-hidden rounded" >
+                      {
+                        product?.productImage[0]
+                        &&
                         <Image 
-                            src={`${ImageConfig}${product?.productImage[0]}`} 
-                            alt="offer image"
-                            layout="fill"
-                            objectFit="cover"
+                          src={  product?.productImage[0]?.startsWith("https") ?  product?.productImage[0]: `${ImageConfig}${product?.productImage[0]}`} 
+                          alt="offer image"
+                          layout="fill"
+                          objectFit="cover"
                         />
+                      }
                       </div>
 
 

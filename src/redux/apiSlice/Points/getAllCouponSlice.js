@@ -20,10 +20,8 @@ export const getAllCoupon = createAsyncThunk(
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            console.log(response)
             return response?.data?.data;
         }catch(error){
-            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }

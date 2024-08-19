@@ -4,9 +4,11 @@ import Image from "next/image";
 import { ImageConfig } from "@/Config";
 
 const Summary = ({ carts, total, id }) => {
+
   if(id){
     localStorage.setItem("cartId" , id)
   }
+  
   return (
     <div className=" bg-[#F8F8FC] p-4 ">
       <h4 className=" text-[#555656]  text-lg  font-semibold"> Summary </h4>
@@ -17,12 +19,18 @@ const Summary = ({ carts, total, id }) => {
           className=" flex items-center  justify-between px-4 border-b-[1px] py-2"
         >
           <div className="relative  w-16 h-16 overflow-hidden rounded">
-            <Image
-              src={`${ImageConfig}${product?.product?.productImage[0]}`}
-              alt="offer image"
-              layout="fill"
-              objectFit="cover"
-            />
+            
+
+              {
+                                        product?.product?.productImage[0]
+                                        &&
+                                        <Image 
+                                            src={  product?.product?.productImage[0]?.startsWith("https") ?  product?.product?.productImage[0]: `${ImageConfig}${product?.product?.productImage[0]}`} 
+                                            alt="offer image"
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                    }
           </div>
 
           <div>
