@@ -87,18 +87,19 @@ const Navbar = () => {
       {/* 1st navbar  */}
       <div className="container py-2 poppins">
           <Link href={`/`} className=" md:hidden flex items-center justify-center mb-6">
-              <Image src={title} style={{height: 60}} width={160} alt="Photo" />
+              <Image src={title} style={{height: 60}} width={120} alt="Photo" />
             </Link>
-          <div className="flex items-center gap-8 lg:gap-0  justify-between w-full mb-2 md:mb-2">
+
+          <div className="flex items-center gap-8 lg:gap-16  justify-between w-full mb-2 md:mb-2">
             <Link href={`/`} className="hidden md:block">
-              <Image src={title} width={160} height={80} alt="Photo" />
+              <Image src={title} width={120} height={80} alt="Photo" />
             </Link>
-            <div className="relative w-[600px]">
+            <div className="relative flex-1">
               <Input
                 onChange={(e)=>setkeyword(e.target.value)}
                 value={keyword}
                 style={{
-                  width: 600,
+                  width: "100%",
                   height: 42,
                   border: "1px solid #C3C4C6",
                   outline: "none",
@@ -129,13 +130,14 @@ const Navbar = () => {
               {
                 user?._id 
                 ?
-                <button onClick={handleLogOut} className=" bg-secondary text-white w-[133px] py-2 rounded ">Logout</button>
+                <button onClick={handleLogOut} className=" bg-secondary text-white w-[110px] py-2 rounded ">Logout</button>
                 :
-                <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[133px] py-2 rounded ">Sign In</button>
+                <button onClick={loginModal.onOpen} className=" bg-[#7CC84E] text-white w-[110px] py-2 rounded ">Sign In</button>
               }
               
             </div>
           </div>
+
         </div>
 
       {/* 2nd navbar  */}

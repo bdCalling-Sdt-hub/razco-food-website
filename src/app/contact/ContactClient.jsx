@@ -26,8 +26,7 @@ const ContactClient = () => {
                     Call To Us
                     </span>
                 </div>
-                <p className=" text-lg text-[#575757] py-4"> Phone: +9999999999 </p>
-                <p className=" text-lg text-[#575757] pb-4">Phone: +9999999999 </p>
+                <p className=" text-lg text-[#575757] py-4"> Phone: +559-562-5900 </p>
                 </div>
 
                 <div className=" ">
@@ -40,10 +39,7 @@ const ContactClient = () => {
                 </div>
                 <p className=" text-lg text-[#575757] py-4">
                     {" "}
-                    Emails: xxxxxxx@gmail.com{" "}
-                </p>
-                <p className=" text-lg text-[#575757] pb-4">
-                    Emails: xxxxxxx@gmail.com{" "}
+                    Emails: coustmercare@razcofoods.net
                 </p>
                 </div>
 

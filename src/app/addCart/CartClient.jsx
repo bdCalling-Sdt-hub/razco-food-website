@@ -15,6 +15,7 @@ import { Empty } from "antd";
 const CartClient = () => {
     const dispatch = useDispatch()
     const { carts } = useSelector(state=> state.getCart);
+    console.log(carts)
     useEffect(()=>{
         dispatch(getCart())
     }, [dispatch]);
@@ -58,12 +59,16 @@ const CartClient = () => {
                                 className=" flex items-center gap-10 p-3 bg-[#F8F8FC] mb-4 rounded"
                             >
                                 <div className="relative w-24 h-20 overflow-hidden rounded" >
-                                    <Image 
-                                        src={`${ImageConfig}/${product?.product?.productImage[0]}`} 
-                                        alt="offer image"
-                                        layout="fill"
-                                        objectFit="cover"
-                                    />
+                                    {
+                                        product?.product?.productImage
+                                        &&
+                                        <Image 
+                                            src={`${ImageConfig}/${product?.product?.productImage[0]}`} 
+                                            alt="offer image"
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                    }
                                 </div>
 
                                 <div className="w-full flex items-center justify-between">
@@ -113,7 +118,7 @@ const CartClient = () => {
 
             
             <div className="relative w-full h-[50vh]"  style={{display: carts?.length === 0 ? "block" : "none"}}>
-                <div className="w-fit absolute top-[40%] left-[40%]">
+                <div className="w-fit absolute left-[50%] top-1/2 transform -translate-x-[50%] -translate-y-[50%]">
                     <Empty/>
                 </div>
             </div>

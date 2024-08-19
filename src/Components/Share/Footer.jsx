@@ -98,8 +98,8 @@ const Footer = () => {
               <h6 className="mb-4  font-semibold uppercase md:mb-12">
                 HELP && SUPPORT
               </h6>
-              <p className="mb-4 flex items-center font-normal text-[16px] leading-[30px] poppins">
-                <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
+              <p className="mb-4 flex font-normal text-[16px] leading-[30px] poppins">
+                <span className="me-3 mt-1 [&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -109,7 +109,7 @@ const Footer = () => {
                     <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
                   </svg>
                 </span>
-                New York, NY 10012, US
+                765 N HARVARD AVE lindsay ca 93247
               </p>
               <p className="mb-4 flex items-center font-normal text-[16px] leading-[30px] poppins">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
@@ -122,7 +122,7 @@ const Footer = () => {
                     <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
                   </svg>
                 </span>
-                info@example.com
+                coustmercare@razcofoods.net
               </p>
               <p className="mb-4 flex items-center font-normal text-[16px] leading-[30px] poppins">
                 <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
@@ -138,23 +138,7 @@ const Footer = () => {
                     />
                   </svg>
                 </span>
-                + 01 234 567 88
-              </p>
-              <p className="flex items-center font-normal text-[16px] leading-[30px] poppins">
-                <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.875 1.5C6.839 1.5 6 2.34 6 3.375v2.99c-.426.053-.851.11-1.274.174-1.454.218-2.476 1.483-2.476 2.917v6.294a3 3 0 003 3h.27l-.155 1.705A1.875 1.875 0 007.232 22.5h9.536a1.875 1.875 0 001.867-2.045l-.155-1.705h.27a3 3 0 003-3V9.456c0-1.434-1.022-2.7-2.476-2.917A48.716 48.716 0 0018 6.366V3.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM16.5 6.205v-2.83A.375.375 0 0016.125 3h-8.25a.375.375 0 00-.375.375v2.83a49.353 49.353 0 019 0zm-.217 8.265c.178.018.317.16.333.337l.526 5.784a.375.375 0 01-.374.409H7.232a.375.375 0 01-.374-.409l.526-5.784a.373.373 0 01.333-.337 41.741 41.741 0 018.566 0zm.967-3.97a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H18a.75.75 0 01-.75-.75V10.5zM15 9.75a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V10.5a.75.75 0 00-.75-.75H15z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-                + 01 234 567 89
+                +559-562-5900
               </p>
           </div>
 
@@ -163,7 +147,7 @@ const Footer = () => {
 
       <div className="bg-black ">
         <div className=" py-3 container text-white flex flex-col md:flex-row gap:10 md:gap-0 justify-between items-center">
-          <p className="text-[14px] md:text-[16px] font-normal leading-[30px] poppins">©2024 Spaktech. Agency | All Right Reserved</p>
+          <p className="text-[14px] md:text-[16px] font-normal leading-[30px] poppins">©2024 Razco | All Right Reserved</p>
           <p className="flex items-center  gap-4  text-xl mt-3 md:mt-0">
               <FacebookOutlined />
               <InstagramOutlined />
