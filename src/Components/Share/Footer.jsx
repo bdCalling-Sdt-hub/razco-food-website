@@ -15,10 +15,9 @@ const Footer = () => {
           <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 ">
               <Image src={footerTitle} height={8} width={150} alt="Photo" />
               <p className=" pt-3 text-balance font-normal text-[18px] leading-[34px] poppins">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal.
+                At Razco Super Shop, we pride ourselves on delivering exceptional service and quality 
+                products to our customers. Shop with us for a seamless and satisfying experience 
+                every time!
               </p>
           </div>
 
@@ -63,6 +62,7 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
+
               {/* <!-- https://play.google.com/intl/en_us/badges/ -->  */}
               <div className="flex mt-3 w-48 h-14 bg-black text-white rounded-lg items-center justify-center">
                 <div className="">
@@ -85,6 +85,7 @@ const Footer = () => {
                     />
                   </svg>
                 </div>
+                
                 <div>
                   <div className="text-xs">GET IT ON</div>
                   <div className="text-xl font-semibold font-sans -mt-1">
@@ -92,6 +93,8 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
+
+
             </div>
 
           <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
