@@ -7,6 +7,7 @@ import {
   TwitterOutlined,
   WhatsAppOutlined,
 } from "@ant-design/icons";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -150,12 +151,22 @@ const Footer = () => {
 
       <div className="bg-black ">
         <div className=" py-3 container text-white flex flex-col md:flex-row gap:10 md:gap-0 justify-between items-center">
-          <p className="text-[14px] md:text-[16px] font-normal leading-[30px] poppins">©2024 Razco | All Right Reserved</p>
+          <p className="text-[14px] md:text-[16px] font-normal leading-[30px] poppins">©2024 Razco Foods | All Right Reserved</p>
           <p className="flex items-center  gap-4  text-xl mt-3 md:mt-0">
+              <a href="https://www.facebook.com/" target="_blank">
               <FacebookOutlined />
+              </a>
+              <a href={"https://www.instagram.com"} target="_blank"> 
               <InstagramOutlined />
+              </a>
+
+              <a href={"https://www.web.whatsapp.com"} target="_blank">
               <WhatsAppOutlined />
-              <TwitterOutlined />
+              </a>
+
+              <a href={"https://www.twitter.com"} target="_blank">
+                <TwitterOutlined />
+              </a>
             </p>
           </div>
         </div>
