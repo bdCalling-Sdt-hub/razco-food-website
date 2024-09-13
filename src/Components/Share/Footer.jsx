@@ -35,8 +35,11 @@ const Footer = () => {
               <p className="mb-4 font-normal text-[16px] leading-[22px] poppins">
                 <a href="/privacy">Privacy Policy</a>
               </p>
-              <p className="font-normal text-[16px] leading-[22px] poppins">
+              <p className="mb-4 font-normal text-[16px] leading-[22px] poppins">
                 <a href="/terms">Terms & Condition</a>
+              </p>
+              <p className="font-normal text-[16px] leading-[22px] poppins">
+                <a href="/career">Career</a>
               </p>
           </div>
 

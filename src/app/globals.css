@@ -135,3 +135,7 @@
 :disabled{
   background: 	#fbd9d3;
 }
+
+/* .ant-form-item .ant-form-item-label >label{
+  display: block !important;
+} */
