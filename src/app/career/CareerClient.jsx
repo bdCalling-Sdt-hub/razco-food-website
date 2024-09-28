@@ -1,18 +1,30 @@
 "use client";
-import CustomInput from '@/Components/Share/CustomInput';
-import { DatePicker, Form, Input, Radio } from 'antd';
 import React from 'react';
+// import CustomInput from '@/Components/Share/CustomInput';
+import { DatePicker, Form, Input, Radio } from 'antd';
+import {  career } from "@/redux/apiSlice/careerSlice";
+import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
+
 
 const CareerClient = () => {
-    const handleSubmit =(values)=>{
-        console.log(values);
+    const dispatch = useDispatch();
+    const [form] = Form.useForm();
 
+    const handleSubmit =(values)=>{
+        dispatch(career(values)).then((response)=>{
+            if(response.type === "career/fulfilled"){
+                toast.success(response?.payload?.data?.message);
+                form.resetFields()
+            }
+        })
     }
     return (
         <div className='container'>
             <h1 className='border-b-[1px] text-2xl font-medium my-10 border-[#d9d9d9] pb-3'>Applicant Information</h1>
 
-            <Form onFinish={handleSubmit}>
+            <Form form={form} onFinish={handleSubmit}>
+
                 {/* name */}
                 <Form.Item
                     label="Name"
@@ -38,7 +50,7 @@ const CareerClient = () => {
                     wrapperCol={{ style: { width: '70%' } }}
                 >
                     <Form.Item
-                        name={["address", "street_address"]}
+                        name={["address", "street"]}
                         rules={[{ required: true, message: 'Please input your Street Address!' }]}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'baseline' } }}
                         wrapperCol={{ style: { width: '70%' } }}
@@ -82,7 +94,7 @@ const CareerClient = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name={["address", "zip_code"]}
+                        name={["address", "zip"]}
                         rules={[{ required: true, message: 'Please input your zip code!' }]}
                     >
                         <Input 
@@ -166,7 +178,9 @@ const CareerClient = () => {
                 {/* date availability */}
                 <Form.Item
                     label="Date Availability"
-                    name={"date_availability"}
+                    name={"dateAvailAbility"}
+                    valuePropName='dateAvailAbility'
+                    getValueFromEvent={(value) => value.format("YYYY-MM-DD")}
                     rules={[
                         {
                             required: true,
@@ -177,6 +191,7 @@ const CareerClient = () => {
                     wrapperCol={{ style: { width: '70%'} }}
                 >
                     <DatePicker
+                        format="YYYY-MM-DD"
                         style={{
                             width: "100%",
                             border: "1px solid #d9d9d9",
@@ -189,7 +204,7 @@ const CareerClient = () => {
                 {/* salary */}
                 <Form.Item
                     label="Desired Salary"
-                    name={"salary"}
+                    name={"expectedSalary"}
                     rules={[
                         {
                             required: true,
@@ -212,26 +227,26 @@ const CareerClient = () => {
                 {/* citizen */}
                 <Form.Item
                     label="Are You a United States Citizen"
-                    name={"position"}
+                    name={"isUsCitizen"}
                     rules={[
                         {
                             required: true,
-                            message: "Please Enter your Position"
+                            message: "Please Pick "
                         }
                     ]}
                     labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     wrapperCol={{ style: { width: '70%'} }}
                 >
                     <Radio.Group>
-                        <Radio value={"yes"}>Yes</Radio>
-                        <Radio value={"no"}>No</Radio>
+                        <Radio value={"true"}>Yes</Radio>
+                        <Radio value={"false"}>No</Radio>
                     </Radio.Group>
                 </Form.Item>
                 
                 {/* worked for this company */}
                 <Form.Item
                     label="Have you ever worked for this company"
-                    name={"workedYet"}
+                    name={"haveYouWorkBefore"}
                     rules={[
                         {
                             required: true,
@@ -242,14 +257,14 @@ const CareerClient = () => {
                     wrapperCol={{ style: { width: '70%'} }}
                 >
                     <Radio.Group>
-                        <Radio value={"yes"}>Yes</Radio>
-                        <Radio value={"no"}>No</Radio>
+                        <Radio value={"true"}>Yes</Radio>
+                        <Radio value={"false"}>No</Radio>
                     </Radio.Group>
                 </Form.Item> 
 
                 <Form.Item
                     label="Are you over the age of 18"
-                    name={"ageRequirement"}
+                    name={"isAdult"}
                     rules={[
                         {
                             required: true,
@@ -260,14 +275,14 @@ const CareerClient = () => {
                     wrapperCol={{ style: { width: '70%'} }}
                 >
                     <Radio.Group>
-                        <Radio value={"yes"}>Yes</Radio>
-                        <Radio value={"no"}>No</Radio>
+                        <Radio value={"true"}>Yes</Radio>
+                        <Radio value={"false"}>No</Radio>
                     </Radio.Group>
                 </Form.Item>
 
                 <Form.Item
                     label="May we perform  a background check on you"
-                    name={"check_background"}
+                    name={"isPerformCheck"}
                     rules={[
                         {
                             required: true,
@@ -278,18 +293,18 @@ const CareerClient = () => {
                     wrapperCol={{ style: { width: '70%'} }}
                 >
                     <Radio.Group>
-                        <Radio value={"yes"}>Yes</Radio>
-                        <Radio value={"no"}>No</Radio>
+                        <Radio value={"true"}>Yes</Radio>
+                        <Radio value={"false"}>No</Radio>
                     </Radio.Group>
                 </Form.Item>
                 
                 {/* availability */}
                 <Form.Item
                     label={<p>Availability</p>}
-                    name={"availability"}
                     labelCol={{ span: 24, style: { width: "100%", display: 'inline-block' } }}
                     wrapperCol={{ span: 24 }}
                     style={{margin: 0}}
+                    name={"availability"}
                 >
                     <p className='border-b-[1px] border-[#d9d9d9] pb-3 mb-6'>List approximate times available next to each day (e.g., Monday, 3pm to 10pm)</p>
                     <Form.Item
@@ -414,7 +429,7 @@ const CareerClient = () => {
                     <div className='w-full h-[1px] bg-[#d9d9d9] mb-6' />
                     <Form.Item
                         label={<p>Hight School</p>}
-                        name={['education', "high_school", 'school_name']}
+                        name={['education', "highSchool", 'name']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -432,75 +447,23 @@ const CareerClient = () => {
                         label="Address"
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'baseline' } }}
                         wrapperCol={{ style: { width: '70%'} }}
+                        name={['education', 'highSchool', "address"]}
+
                     >
-                        <div className="grid grid-cols-12 gap-x-6">
-                            <Form.Item
-                                name={['education', 'high_school', "address", 'street_address']}
-                                className='col-span-12'
-                                rules={[{ required: true, message: 'Please input your Street Address!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter Street Address"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['education', 'high_school', "address",'city']}
-                                
-                                className='col-span-6'
-                                rules={[{ required: true, message: 'Please input your city!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter City"}
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['education', 'high_school', "address", 'state']}
-                                rules={[{ required: true, message: 'Please input your state!' }]}
-                                className='col-span-6'
-                            >
-                                <Input
-                                    placeholder={"Enter State"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['education', 'high_school', "address", 'zip_code']}
-                                rules={[{ required: true, message: 'Please input your zip code!' }]}
-                                className='col-span-12'
-                            >
-                                <Input
-                                    placeholder={"Enter Zip Code"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                        </div>
+                        <Input
+                            placeholder={"Enter Address"} 
+                            style={{
+                                width: "100%",
+                                border: "1px solid #d9d9d9",
+                                outline: "none",
+                                boxShadow: "none"
+                            }}
+                        />
                     </Form.Item>
 
                     <Form.Item
                         label={<p>From</p>}
-                        name={['education', 'high_school', "from"]}
+                        name={['education', 'highSchool', "form"]}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -515,7 +478,7 @@ const CareerClient = () => {
                         
                     <Form.Item
                         label={<p>To</p>}
-                        name={['education', "high_school", 'to']}
+                        name={['education', "highSchool", 'to']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -530,7 +493,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label="Did you graduate?"
-                        name={["education", "high_school",  "graduate"]}
+                        name={["education", "highSchool",  "isGraduate"]}
                         rules={[
                             {
                                 required: true,
@@ -541,14 +504,14 @@ const CareerClient = () => {
                         wrapperCol={{ style: { width: '70%'} }}
                     >
                         <Radio.Group>
-                            <Radio value={"yes"}>Yes</Radio>
-                            <Radio value={"no"}>No</Radio>
+                            <Radio value={"true"}>Yes</Radio>
+                            <Radio value={"false"}>No</Radio>
                         </Radio.Group>
                     </Form.Item>
                         
                     <Form.Item
                         label={<p>Degree</p>}
-                        name={['education', "high_school", 'degree']}
+                        name={['education', "highSchool", 'degree']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -565,8 +528,8 @@ const CareerClient = () => {
                     <div className='w-full h-[1px] bg-[#d9d9d9] mb-6' />
                     
                     <Form.Item
-                        label={<p>Hight School</p>}
-                        name={['education', "college", 'college_name']}
+                        label={<p>College</p>}
+                        name={['education', "college", 'name']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -579,80 +542,27 @@ const CareerClient = () => {
                         />
                     </Form.Item>
                         
-                        {/* address */}
                     <Form.Item 
                         label="Address"
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'baseline' } }}
                         wrapperCol={{ style: { width: '70%'} }}
+                        name={['education', 'college', "address"]}
+
                     >
-                        <div className="grid grid-cols-12 gap-x-6">
-                            <Form.Item
-                                name={['education', 'college', "address", 'street_address']}
-                                className='col-span-12'
-                                rules={[{ required: true, message: 'Please input your Street Address!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter Street Address"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['education', 'college', "address",'city']}
-                                
-                                className='col-span-6'
-                                rules={[{ required: true, message: 'Please input your city!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter City"}
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['education', 'college', "address", 'state']}
-                                rules={[{ required: true, message: 'Please input your state!' }]}
-                                className='col-span-6'
-                            >
-                                <Input
-                                    placeholder={"Enter State"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['education', 'college', "address", 'zip_code']}
-                                rules={[{ required: true, message: 'Please input your zip code!' }]}
-                                className='col-span-12'
-                            >
-                                <Input
-                                    placeholder={"Enter Zip Code"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                        </div>
+                        <Input
+                            placeholder={"Enter Address"} 
+                            style={{
+                                width: "100%",
+                                border: "1px solid #d9d9d9",
+                                outline: "none",
+                                boxShadow: "none"
+                            }}
+                        />
                     </Form.Item>
 
                     <Form.Item
                         label={<p>From</p>}
-                        name={['education', 'college', "from"]}
+                        name={['education', 'college', "form"]}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -682,7 +592,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label="Did you graduate?"
-                        name={["education", "college", "graduate"]}
+                        name={["education", "college", "isGraduate"]}
                         rules={[
                             {
                                 required: true,
@@ -693,8 +603,8 @@ const CareerClient = () => {
                         wrapperCol={{ style: { width: '70%'} }}
                     >
                         <Radio.Group>
-                            <Radio value={"yes"}>Yes</Radio>
-                            <Radio value={"no"}>No</Radio>
+                            <Radio value={"true"}>Yes</Radio>
+                            <Radio value={"false"}>No</Radio>
                         </Radio.Group>
                     </Form.Item>
                         
@@ -787,77 +697,25 @@ const CareerClient = () => {
                         label="Address"
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'baseline' } }}
                         wrapperCol={{ style: { width: '70%'} }}
-                        name={"address"}
+                        name={['reference', "address"]}
+
                     >
-                        <div className="grid grid-cols-12 gap-x-6">
-                            <Form.Item
-                                name={['reference', 'address', 'street_address']}
-                                className='col-span-12'
-                                rules={[{ required: true, message: 'Please input your Street Address!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter Street Address"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['reference', 'address', 'city']}
-                                className='col-span-6'
-                                rules={[{ required: true, message: 'Please input your city!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter City"}
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['reference', 'address', 'state']}
-                                rules={[{ required: true, message: 'Please input your state!' }]}
-                                className='col-span-6'
-                            >
-                                <Input
-                                    placeholder={"Enter State"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['reference', 'address', 'zip_code']}
-                                rules={[{ required: true, message: 'Please input your zip code!' }]}
-                                className='col-span-12'
-                            >
-                                <Input
-                                    placeholder={"Enter Zip Code"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                        </div>
+                        <Input
+                            placeholder={"Enter Address"} 
+                            style={{
+                                width: "100%",
+                                border: "1px solid #d9d9d9",
+                                outline: "none",
+                                boxShadow: "none"
+                            }}
+                        />
                     </Form.Item>
                 </Form.Item>
                 
                 {/* employment */}
                 <Form.Item
                     label={<p>Employment History</p>}
-                    name={"employment"}
+                    name={"employmentHistory"}
                     style={{margin: 0}}
                     labelCol={{span: 24}}
                 >
@@ -866,7 +724,7 @@ const CareerClient = () => {
                     </h1>
                     <Form.Item
                         label={<p>Present/Last Employment</p>}
-                        name={['employment', 'present/last_employment']}
+                        name={['employmentHistory', 'last']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         
@@ -882,7 +740,7 @@ const CareerClient = () => {
                     
                     <Form.Item
                         label={<p>Phone</p>}
-                        name={['employment', 'Phone']}
+                        name={['employmentHistory', 'phone']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -896,79 +754,26 @@ const CareerClient = () => {
                     </Form.Item>
 
                     <Form.Item 
-                        label="Address" 
-                        rules={[{ required: true, message: 'Please input your city!' }]}
+                        label="Address"
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'baseline' } }}
                         wrapperCol={{ style: { width: '70%'} }}
-                    >
-                        <div className="grid grid-cols-12 gap-x-6">
-                            <Form.Item
-                                name={['employment', 'address', 'street_address']}
-                                className='col-span-12'
-                                rules={[{ required: true, message: 'Please input your Street Address!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter Street Address"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['employment', 'address', 'city']}
-                                className='col-span-6'
-                                rules={[{ required: true, message: 'Please input your city!' }]}
-                            >
-                                <Input
-                                    placeholder={"Enter City"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['employment', 'address', 'state']}
-                                rules={[{ required: true, message: 'Please input your state!' }]}
-                                className='col-span-6'
-                            >
-                                <Input
-                                    placeholder={"Enter State"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name={['employment', 'address', 'zip_code']}
-                                rules={[{ required: true, message: 'Please input your zip code!' }]}
-                                className='col-span-12'
-                            >
-                                <Input
-                                    placeholder={"Enter Zip Code"} 
-                                    style={{
-                                        width: "100%",
-                                        border: "1px solid #d9d9d9",
-                                        outline: "none",
-                                        boxShadow: "none"
-                                    }}
-                                />
-                            </Form.Item>
-                        </div>
+                        name={['employmentHistory', "address"]}
 
+                    >
+                        <Input
+                            placeholder={"Enter Address"} 
+                            style={{
+                                width: "100%",
+                                border: "1px solid #d9d9d9",
+                                outline: "none",
+                                boxShadow: "none"
+                            }}
+                        />
                     </Form.Item>
 
                     <Form.Item
                         label={<p>Supervisor</p>}
-                        name={['employment', 'supervisor']}
+                        name={['employmentHistory', 'supervisor']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -983,7 +788,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>Job Title</p>}
-                        name={['employment', 'job_title']}
+                        name={['employmentHistory', 'jobTitle']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -998,10 +803,11 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>Salary</p>}
-                        name={['employment', 'salary']}
+                        name={['employmentHistory', 'salary']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
+                            type='number'
                             style={{
                                 width: "50%",
                                 border: "1px solid #d9d9d9",
@@ -1013,7 +819,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>Responsibilities</p>}
-                        name={['employment', 'responsibilities']}
+                        name={['employmentHistory', 'responsibilities']}
                         labelCol={{ style: { width: '30%', display: 'flex' } }}
                     >
                         <Input.TextArea
@@ -1031,7 +837,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>Start Date</p>}
-                        name={['employment', 'start_date']}
+                        name={['employmentHistory', 'startDate']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <DatePicker
@@ -1048,7 +854,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>End Date</p>}
-                        name={['employment', 'end_date']}
+                        name={['employmentHistory', 'endDate']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <DatePicker
@@ -1065,7 +871,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>Reason For Leaving</p>}
-                        name={['employment', 'reason_for_leaving']}
+                        name={['employmentHistory', 'reasonForLeaving']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         
@@ -1083,7 +889,7 @@ const CareerClient = () => {
                 {/* military service */}
                 <Form.Item
                     label={<p>Military Service</p>}
-                    name={"military_service"}
+                    name={"militaryService"}
                     labelCol={{ span: 24, style: { width: "100%", display: 'inline-block' } }}
                     wrapperCol={{ span: 24 }}
                     style={{margin: 0}}
@@ -1091,7 +897,7 @@ const CareerClient = () => {
                     <div className='w-full h-[1px] bg-[#d9d9d9] mb-6'/>
                     <Form.Item
                         label={<p>Branch</p>}
-                        name={['military_service', 'branch']}
+                        name={['militaryService', 'branch']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -1106,7 +912,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>From</p>}
-                        name={['military_service', 'From']}
+                        name={['militaryService', 'from']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                     >
                         <Input
@@ -1121,7 +927,7 @@ const CareerClient = () => {
 
                     <Form.Item
                         label={<p>To</p>}
-                        name={['military_service', 'to']}
+                        name={['militaryService', 'to']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                         wrapperCol={{ style: { width: '20%'} }}
                     >
@@ -1137,7 +943,7 @@ const CareerClient = () => {
                     
                     <Form.Item
                         label={<p>Rank At Discharge</p>}
-                        name={['military_service', 'rank']}
+                        name={['militaryService', 'rankDischarge']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                         wrapperCol={{ style: { width: '20%'} }}
                     >
@@ -1153,7 +959,7 @@ const CareerClient = () => {
                     
                     <Form.Item
                         label={<p>Type of Discharge</p>}
-                        name={['military_service', 'type_of_discharge']}
+                        name={['militaryService', 'typeOfDischarge']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                         wrapperCol={{ style: { width: '20%'} }}
                     >
@@ -1169,7 +975,7 @@ const CareerClient = () => {
                     
                     <Form.Item
                         label={<p>If other than honorable, explain</p>}
-                        name={['military_service', 'explain']}
+                        name={['militaryService', 'honorable']}
                         labelCol={{ style: { width: '30%', display: 'flex', alignItems: 'center' } }}
                         wrapperCol={{ style: { width: '20%'} }}
                     >
