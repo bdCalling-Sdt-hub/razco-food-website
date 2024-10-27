@@ -38,6 +38,7 @@ import claimCouponSlice from './apiSlice/Coupon/claimCouponSlice';
 import getMyCouponSlice from './apiSlice/Coupon/getMyCouponSlice';
 import getSearchProductListSlice from './apiSlice/Product/getSearchProductSlice';
 import careerSlice from './apiSlice/careerSlice';
+import getWeeklyDealSlice from './apiSlice/getWeeklyOfferSlice';
 
 export const store = configureStore({
     reducer:{
@@ -101,6 +102,9 @@ export const store = configureStore({
 
         // 
         makePayment: makePaymentIntentSlice,
-        career: careerSlice
+        career: careerSlice,
+
+        //offer
+        getDeal: getWeeklyDealSlice,
     }
 })

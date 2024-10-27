@@ -15,8 +15,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // const DynamicLogin = dynamic(()=> import("@/Modal/LoginModal"),{ssr: false,loading: ()=> <p>Loading...</p>})
-  // const RegisterModal = dynamic(()=> import("@/Modal/RegisterModal"),{ssr: false,loading: ()=> <p>Loading...</p>})
 
   return (
     <html lang="en">

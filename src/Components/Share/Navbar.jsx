@@ -41,6 +41,10 @@ const item = [
     label: "Offer",
     path: "/offer"
   },
+  {
+    label: "Weekly Deal",
+    path: "/deal"
+  },
 ]
 
 const Navbar = () => {
